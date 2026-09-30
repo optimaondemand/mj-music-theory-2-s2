@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>M/J Music Theory 2 - Lesson 29.01</title>
+<style>
+    body { margin: 0; padding: 0; font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f4f6fa; }
+    .canvas-frame { max-width: 1100px; margin: 0 auto; background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+    /* ===== WIDGET CSS (green/purple skin) ===== */
+    .optima-widget { background: linear-gradient(135deg, #EFEAF6 0%, #F7F4FB 100%); border: 1px solid #D9CEEC; border-left: 5px solid #6B4C9A; border-radius: 8px; padding: 18px 22px; margin: 18px 0; }
+    .widget-kicker { font-size: 15px; color: #6B4C9A; margin-bottom: 10px; letter-spacing: 0.4px; }
+    .widget-question { font-size: 17px; color: #0E1C42; margin-bottom: 14px; line-height: 1.55; }
+    .widget-row { background: #FFFFFF; border: 1px solid #D9CEEC; border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; }
+    .widget-row-prompt { font-size: 16px; color: #0E1C42; margin-bottom: 8px; line-height: 1.5; font-style: italic; }
+    .widget-options { display: flex; flex-wrap: wrap; gap: 8px; }
+    .widget-options button { background: #FFFFFF; border: 1.5px solid #D9CEEC; border-radius: 8px; padding: 8px 14px; font-size: 16px; color: #0E1C42; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+    .widget-options button:hover { background: #F4F0FA; border-color: #8A6FBF; }
+    .widget-options button.selected { background: #0E1C42; color: #FFFFFF; border-color: #0E1C42; }
+    .widget-options button.correct { background: #D8F0DD; border-color: #2A9D5C; color: #1A6B3D; }
+    .widget-options button.incorrect { background: #FDECEC; border-color: #C0392B; color: #8A1F16; }
+    .widget-feedback { background: #FFFFFF; border-left: 3px solid #6B4C9A; padding: 10px 14px; font-size: 16px; color: #1a2340; line-height: 1.55; margin: 10px 0; display: none; border-radius: 4px; }
+    .widget-feedback.show { display: block; }
+    .row-feedback { padding: 8px 12px; margin-top: 8px; font-size: 16px; border-radius: 4px; line-height: 1.5; }
+    .row-feedback.correct { background: #D8F0DD; border-left: 3px solid #2A9D5C; color: #1A6B3D; }
+    .row-feedback.incorrect { background: #FDECEC; border-left: 3px solid #C0392B; color: #8A1F16; }
+    .widget-reset { background: transparent; border: 1px solid #6B4C9A; color: #6B4C9A; border-radius: 6px; padding: 6px 12px; font-size: 15px; cursor: pointer; font-family: inherit; margin-top: 6px; }
+    .widget-reset:hover { background: #F0EAF7; }
+    .ow-flip { background: #FFFFFF; border: 1px solid #D9CEEC; border-radius: 8px; padding: 18px 20px; cursor: pointer; text-align: center; }
+    .ow-flip .ow-flip-back { display: none; color: #1a2340; }
+    .ow-flip.flipped .ow-flip-front { display: none; }
+    .ow-flip.flipped .ow-flip-back { display: block; }
+    .flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 640px) { .flip-grid { grid-template-columns: 1fr; } }
+    .note-chip { display:inline-block; min-width:22px; text-align:center; background:#1A6B3C; color:#fff; border-radius:5px; padding:2px 7px; font-size:16px; margin:0 2px; }
+</style>
+</head>
+<body>
+<div class="canvas-frame">
+
+<!-- ===== HEADER ===== -->
+<div style="background: #0E1C42; border-bottom: 5px solid #55C8E8; padding: 22px 34px;">
+    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
+        <div style="width: 52px; height: 52px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><img src="https://raw.githubusercontent.com/optimaondemand/optima-assets/eeb0b335630058906d52f478028361d352253a93/images/Optima%20Final%20Circle%20-%20Owl%20Only.png" alt="Optima Academy" style="width: 50px; height: 40px; object-fit: contain;" /></div>
+        <div>
+            <div style="font-size: 28px; color: #ffffff; line-height: 1.2;">Optima Academy Online</div>
+            <div style="font-size: 12px; color: #55c8e8;">An Education Experience Company</div>
+        </div>
+    </div>
+    <div style="font-size: 36px; color: #ffffff; margin-bottom: 6px;">M/J MUSIC THEORY 2</div>
+</div>
+
+<!-- ===== METADATA STRIP ===== -->
+<div style="background: #FFFFFF; border-bottom: 2px solid #D0D9E8; display: flex; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Quarter / Module</div>
+        <div style="font-size: 17px; color: #0e1c42;">Q4 &middot; Module 29</div>
+        <div style="font-size: 12px; color: #666;">Chromatic Harmony</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Lesson</div>
+        <div style="font-size: 17px; color: #0e1c42;">Lesson 29.01</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Topic</div>
+        <div style="font-size: 17px; color: #0e1c42; font-style: italic;">Topic: Neapolitans &amp; Aug. Sixths</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Time</div>
+        <div style="font-size: 17px; color: #0e1c42;">About 40 min</div>
+    </div>
+</div>
+
+<!-- ===== BODY WRAPPER ===== -->
+<div style="padding: 24px 34px;">
+
+<!-- ═══ OPTIMA READ-ALOUD PLAYER ═══ -->
+<div id="optima-read-aloud">
+<style>
+    #optima-read-aloud { background: linear-gradient(135deg, #E8F6FB 0%, #F4F9FC 100%); border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 8px; padding: 14px 18px; margin: 0 0 20px 0; }
+    #optima-read-aloud .ora-kicker { font-size: 11px; color: #1B6A94; letter-spacing: 0.4px; margin-bottom: 10px; }
+    #optima-read-aloud .ora-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    #optima-read-aloud .ora-controls button { border-radius: 8px; padding: 8px 16px; font-size: 14px; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    #ora-play { background: #0E1C42; color: #FFFFFF; border: 1.5px solid #0E1C42; }
+    #ora-play:hover:enabled { background: #1B2D5E; }
+    #ora-play:disabled { background: #D0D9E8; border-color: #D0D9E8; color: #6b7a99; cursor: default; }
+    #ora-stop { background: #FFFFFF; color: #0E1C42; border: 1.5px solid #D0D9E8; }
+    #ora-stop:hover:enabled { background: #F4F6FA; border-color: #55C8E8; }
+    #ora-stop:disabled { color: #999; border-color: #E4E9F2; cursor: default; }
+    #optima-read-aloud .ora-speed { font-size: 12px; color: #6b7a99; display: flex; align-items: center; gap: 6px; }
+    #ora-rate { font-family: inherit; font-size: 13px; color: #0E1C42; border: 1.5px solid #D0D9E8; border-radius: 6px; padding: 5px 8px; background: #FFFFFF; }
+    #ora-status { font-size: 12px; color: #666; }
+    .ora-highlight { background: #FDF3E3 !important; box-shadow: inset 4px 0 0 #C7922C; border-radius: 4px; transition: background 0.2s; }
+</style>
+    <div class="ora-kicker">&#128266; READ ALOUD &mdash; LISTEN TO THIS PAGE</div>
+    <div class="ora-controls">
+        <button id="ora-play" type="button" aria-label="Listen to this page">&#9654;&#65039; Listen</button>
+        <button id="ora-stop" type="button" aria-label="Stop reading" disabled>&#9632; Stop</button>
+        <label class="ora-speed">Speed
+            <select id="ora-rate" aria-label="Reading speed">
+                <option value="0.8">Slower</option>
+                <option value="1" selected>Normal</option>
+                <option value="1.25">Faster</option>
+            </select>
+        </label>
+        <span id="ora-status" role="status" aria-live="polite"></span>
+    </div>
+<script>
+(function () {
+    "use strict";
+    var playBtn  = document.getElementById("ora-play");
+    var stopBtn  = document.getElementById("ora-stop");
+    var rateSel  = document.getElementById("ora-rate");
+    var statusEl = document.getElementById("ora-status");
+
+    if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
+        playBtn.disabled = true;
+        rateSel.disabled = true;
+        statusEl.textContent = "Read-aloud is not supported in this browser.";
+        return;
+    }
+
+    var LABEL_PLAY   = "▶️ Listen";
+    var LABEL_PAUSE  = "⏸️ Pause";
+    var LABEL_RESUME = "▶️ Resume";
+    var BLOCK_SEL = "p, li, h1, h2, h3, h4, h5, h6, blockquote, td, th, dt, dd, figcaption, div";
+    var SKIP_SEL  = "#optima-read-aloud, [data-ra-skip], button, script, style, select, noscript, iframe";
+
+    var queue = [];        // [{ el, text }] — one entry per sentence
+    var idx = 0;
+    var playing = false, paused = false, stopping = false;
+    var currentBlock = null;
+    var currentUtterance = null;  // held to dodge a Chrome garbage-collection bug
+
+    var voices = [];
+    function loadVoices() { voices = window.speechSynthesis.getVoices(); }
+    loadVoices();
+    if ("onvoiceschanged" in window.speechSynthesis) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+    function pickVoice() {
+        if (!voices.length) loadVoices();
+        var en = voices.filter(function (v) { return /^en/i.test(v.lang); });
+        return en.filter(function (v) { return /natural/i.test(v.name); })[0]
+            || en.filter(function (v) { return /google us english/i.test(v.name); })[0]
+            || en.filter(function (v) { return v.default; })[0]
+            || en[0] || null;
+    }
+
+    function isVisible(el) {
+        return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+    }
+
+    // Walk text nodes, attach each to its nearest block ancestor, split into sentences.
+    function collectQueue() {
+        var root = document.querySelector("[data-readaloud-root]")
+                || document.querySelector(".canvas-frame")
+                || document.body;
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        var items = [];   // [{ el, text }] — one entry per block, in reading order
+        var node;
+        while ((node = walker.nextNode())) {
+            if (!/\S/.test(node.textContent)) continue;
+            var el = node.parentElement;
+            if (!el || el.closest(SKIP_SEL)) continue;
+            if (!isVisible(el)) continue;
+            var block = el.closest(BLOCK_SEL) || root;
+            var last = items[items.length - 1];
+            if (last && last.el === block) last.text += " " + node.textContent;
+            else items.push({ el: block, text: node.textContent });
+        }
+        var q = [];
+        items.forEach(function (item) {
+            var clean = item.text.replace(/\s+/g, " ").trim();
+            if (!clean) return;
+            var sentences = clean.match(/[^.!?]+[.!?]+[”"')\]]*\s*|[^.!?]+$/g) || [clean];
+            sentences.forEach(function (s) {
+                s = s.trim();
+                if (s) q.push({ el: item.el, text: s });
+            });
+        });
+        return q;
+    }
+
+    function highlight(el) {
+        if (el === currentBlock) return;
+        clearHighlight();
+        currentBlock = el;
+        if (el && el !== document.body) {
+            el.classList.add("ora-highlight");
+            try { el.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (e) {}
+        }
+    }
+    function clearHighlight() {
+        if (currentBlock) currentBlock.classList.remove("ora-highlight");
+        currentBlock = null;
+    }
+
+    function speakNext() {
+        if (idx >= queue.length) { finish("Finished reading this page."); return; }
+        var item = queue[idx];
+        highlight(item.el);
+        var u = new SpeechSynthesisUtterance(item.text);
+        u.rate = parseFloat(rateSel.value) || 1;
+        var v = pickVoice();
+        if (v) u.voice = v;
+        u.onend = function () {
+            if (stopping) return;
+            idx++;
+            speakNext();
+        };
+        u.onerror = function (e) {
+            if (stopping || e.error === "canceled" || e.error === "interrupted") return;
+            idx++;
+            speakNext();
+        };
+        currentUtterance = u;
+        window.speechSynthesis.speak(u);
+        statusEl.textContent = "Reading… " + (idx + 1) + " / " + queue.length;
+    }
+
+    function finish(message) {
+        playing = false;
+        paused = false;
+        clearHighlight();
+        playBtn.textContent = LABEL_PLAY;
+        stopBtn.disabled = true;
+        statusEl.textContent = message || "";
+        currentUtterance = null;
+    }
+
+    playBtn.addEventListener("click", function () {
+        if (playing && !paused) {
+            window.speechSynthesis.pause();
+            paused = true;
+            playBtn.textContent = LABEL_RESUME;
+            statusEl.textContent = "Paused";
+            return;
+        }
+        if (playing && paused) {
+            window.speechSynthesis.resume();
+            paused = false;
+            playBtn.textContent = LABEL_PAUSE;
+            statusEl.textContent = "Reading… " + (idx + 1) + " / " + queue.length;
+            return;
+        }
+        queue = collectQueue();
+        if (!queue.length) { statusEl.textContent = "Nothing to read on this page."; return; }
+        idx = 0;
+        stopping = false;
+        playing = true;
+        paused = false;
+        window.speechSynthesis.cancel();
+        playBtn.textContent = LABEL_PAUSE;
+        stopBtn.disabled = false;
+        speakNext();
+    });
+
+    stopBtn.addEventListener("click", function () {
+        stopping = true;
+        window.speechSynthesis.cancel();
+        finish("");
+    });
+
+    // Changing speed mid-read restarts the current sentence at the new rate.
+    rateSel.addEventListener("change", function () {
+        if (!playing || paused) return;
+        stopping = true;
+        window.speechSynthesis.cancel();
+        setTimeout(function () { stopping = false; speakNext(); }, 60);
+    });
+
+    window.addEventListener("pagehide", function () { window.speechSynthesis.cancel(); });
+})();
+</script>
+</div>
+<!-- ═══ END OPTIMA READ-ALOUD PLAYER ═══ -->
+
+    <!-- Title strip -->
+    <div style="background: #EEF1F8; border-left: 5px solid #0E1C42; border-radius: 7px; padding: 18px 22px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #0e1c42; margin-bottom: 6px;">LESSON 29.01</div>
+        <div style="font-size: 22px; color: #0e1c42; margin-bottom: 4px;">Chromatic Harmony: Neapolitans and Augmented Sixths</div>
+        <div style="font-size: 16px; color: #666;">Lesson</div>
+    </div>
+
+    <!-- Objectives -->
+    <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#127919; BY THE END OF THIS LESSON YOU WILL BE ABLE TO&hellip;</div>
+        <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+            <div style="min-width: 26px; height: 26px; border-radius: 50%; background: #2A9D5C; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.65;">Identify and build the Neapolitan chord (&#9837;II or N6).</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+            <div style="min-width: 26px; height: 26px; border-radius: 50%; background: #2A9D5C; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.65;">Build Italian, French, and German augmented sixth chords.</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div style="min-width: 26px; height: 26px; border-radius: 50%; background: #2A9D5C; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</div>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.65;">Resolve each chromatic chord correctly to V.</div>
+        </div>
+    </div>
+
+    <!-- Key Vocabulary -->
+    <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#128218; KEY VOCABULARY</div>
+        <div style="display: grid; gap: 10px;">
+            <div style="background: #F4F6FA; border-left: 4px solid #6B4C9A; border-radius: 5px; padding: 12px 16px;">
+                <div style="font-size: 16px; color: #6B4C9A; font-weight: bold; margin-bottom: 4px;">Neapolitan Chord</div>
+                <div style="font-size: 17px; color: #1a2340; line-height: 1.6;">A major triad built on the lowered second scale degree (&#9837;II); typically appears in first inversion (N6) in minor keys as a predominant chord. (OMT p. 490)</div>
+            </div>
+            <div style="background: #F4F6FA; border-left: 4px solid #6B4C9A; border-radius: 5px; padding: 12px 16px;">
+                <div style="font-size: 16px; color: #6B4C9A; font-weight: bold; margin-bottom: 4px;">Augmented Sixth Chord</div>
+                <div style="font-size: 17px; color: #1a2340; line-height: 1.6;">A chromatic chord containing an augmented 6th interval between the bass and a chromatic upper voice; the augmented 6th resolves outward by half step to the octave (dominant pitch). (OMT p. 496)</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+                <div style="background: #F4F6FA; border-left: 4px solid #2A9D5C; border-radius: 5px; padding: 10px 14px;">
+                    <div style="font-size: 16px; color: #1A6B3C; font-weight: bold; margin-bottom: 3px;">Italian (It+6)</div>
+                    <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">&#9837;6&ndash;1&ndash;&#9839;4 above the bass. Three notes. Thin, open sound.</div>
+                </div>
+                <div style="background: #F4F6FA; border-left: 4px solid #2A9D5C; border-radius: 5px; padding: 10px 14px;">
+                    <div style="font-size: 16px; color: #1A6B3C; font-weight: bold; margin-bottom: 3px;">French (Fr+6)</div>
+                    <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">&#9837;6&ndash;1&ndash;2&ndash;&#9839;4. Four notes. Adds scale degree 2. Whole-tone color.</div>
+                </div>
+                <div style="background: #F4F6FA; border-left: 4px solid #2A9D5C; border-radius: 5px; padding: 10px 14px;">
+                    <div style="font-size: 16px; color: #1A6B3C; font-weight: bold; margin-bottom: 3px;">German (Ger+6)</div>
+                    <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">&#9837;6&ndash;1&ndash;&#9837;3&ndash;&#9839;4. Four notes. Rich; enharmonic to a dominant 7th.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== PART 1: THE NEAPOLITAN CHORD ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#127926; PART 1 &middot; THE NEAPOLITAN CHORD</div>
+
+        <!-- VISUAL 1: Neapolitan chord built and resolved in A minor -->
+        <div style="background: #FCFCFD; border: 1px solid #E2E7F0; border-radius: 8px; padding: 20px 16px; text-align: center; margin-bottom: 18px; overflow-x: auto;">
+          <svg viewBox="0 0 720 290" width="100%" style="min-width: 480px; max-width: 720px;" role="img" aria-label="Three-step diagram: Step 1 shows scale degree 2 (B) lowered to B-flat; Step 2 shows a major triad built on B-flat in first inversion (N6) in A minor; Step 3 shows resolution to V (E major).">
+
+            <!-- Step labels across top -->
+            <rect x="10" y="8" width="200" height="30" rx="5" fill="#EEF1F8" />
+            <text x="110" y="28" font-size="13" fill="#0E1C42" text-anchor="middle" font-weight="bold">Step 1: Lower Scale Degree 2</text>
+
+            <rect x="260" y="8" width="200" height="30" rx="5" fill="#EFEAF6" />
+            <text x="360" y="28" font-size="13" fill="#6B4C9A" text-anchor="middle" font-weight="bold">Step 2: Build N6 (First Inversion)</text>
+
+            <rect x="510" y="8" width="200" height="30" rx="5" fill="#E7F4EC" />
+            <text x="610" y="28" font-size="13" fill="#1A6B3C" text-anchor="middle" font-weight="bold">Step 3: Resolve to V</text>
+
+            <!-- Dividers -->
+            <line x1="245" y1="8" x2="245" y2="285" stroke="#D0D9E8" stroke-width="1.5" stroke-dasharray="5,4" />
+            <line x1="498" y1="8" x2="498" y2="285" stroke="#D0D9E8" stroke-width="1.5" stroke-dasharray="5,4" />
+
+            <!-- ---- STEP 1: B natural shown, then arrow down to B-flat ---- -->
+            <!-- Staff lines (simplified) for A minor context -->
+            <g transform="translate(20, 55)">
+              <!-- Scale degree labels -->
+              <text x="50" y="16" font-size="12" fill="#666" text-anchor="middle">Scale deg.</text>
+              <text x="50" y="32" font-size="12" fill="#666" text-anchor="middle">2 (B)</text>
+              <!-- B natural note circle -->
+              <circle cx="50" cy="70" r="16" fill="#0E1C42" />
+              <text x="50" y="76" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">B</text>
+              <!-- Arrow down -->
+              <line x1="50" y1="90" x2="50" y2="118" stroke="#C0392B" stroke-width="2.5" marker-end="url(#arrowRed)" />
+              <!-- B-flat note circle (lowered) -->
+              <circle cx="50" cy="140" r="16" fill="#C0392B" />
+              <text x="50" y="146" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">B&#9837;</text>
+              <!-- Label -->
+              <text x="85" y="105" font-size="12" fill="#C0392B" text-anchor="start">flatten</text>
+              <text x="85" y="120" font-size="12" fill="#C0392B" text-anchor="start">by half step</text>
+              <!-- &#9837;2 label -->
+              <rect x="20" y="160" width="60" height="22" rx="4" fill="#C0392B" />
+              <text x="50" y="175" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">&#9837;2 = B&#9837;</text>
+            </g>
+
+            <!-- ---- STEP 2: N6 chord stack in first inversion ---- -->
+            <g transform="translate(268, 45)">
+              <text x="90" y="20" font-size="12" fill="#6B4C9A" text-anchor="middle" font-weight="bold">N6 in A minor</text>
+              <text x="90" y="36" font-size="11" fill="#666" text-anchor="middle">(first inversion, bass = D)</text>
+
+              <!-- Chord stack: bass D at bottom, then F, then B-flat -->
+              <!-- B-flat (top) -->
+              <rect x="50" y="52" width="80" height="32" rx="5" fill="#6B4C9A" />
+              <text x="90" y="68" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">B&#9837;</text>
+              <text x="142" y="68" font-size="11" fill="#6B4C9A" text-anchor="start">&#9837;2 (root)</text>
+
+              <!-- F (middle) -->
+              <rect x="50" y="88" width="80" height="32" rx="5" fill="#8A6FBF" />
+              <text x="90" y="104" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">F</text>
+              <text x="142" y="104" font-size="11" fill="#6B4C9A" text-anchor="start">5th</text>
+
+              <!-- D (bass, first inversion) -->
+              <rect x="50" y="124" width="80" height="32" rx="5" fill="#4A3070" />
+              <text x="90" y="140" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">D</text>
+              <text x="142" y="140" font-size="11" fill="#C0392B" text-anchor="start">bass = &#9837;2</text>
+
+              <!-- N6 label -->
+              <rect x="50" y="165" width="80" height="24" rx="5" fill="#6B4C9A" />
+              <text x="90" y="181" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">N6</text>
+
+              <text x="90" y="208" font-size="11" fill="#666" text-anchor="middle">B&#9837; major triad</text>
+              <text x="90" y="222" font-size="11" fill="#666" text-anchor="middle">in first inversion</text>
+            </g>
+
+            <!-- Arrow from N6 to V -->
+            <text x="487" y="138" font-size="22" fill="#1A6B3C" text-anchor="middle">&#8594;</text>
+
+            <!-- ---- STEP 3: Resolution to V (E major) ---- -->
+            <g transform="translate(516, 45)">
+              <text x="90" y="20" font-size="12" fill="#1A6B3C" text-anchor="middle" font-weight="bold">V in A minor</text>
+              <text x="90" y="36" font-size="11" fill="#666" text-anchor="middle">(E major triad)</text>
+
+              <!-- B (top) -->
+              <rect x="50" y="52" width="80" height="32" rx="5" fill="#2A9D5C" />
+              <text x="90" y="68" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">B</text>
+              <text x="142" y="68" font-size="11" fill="#1A6B3C" text-anchor="start">5th</text>
+
+              <!-- G# (middle) -->
+              <rect x="50" y="88" width="80" height="32" rx="5" fill="#2A9D5C" />
+              <text x="90" y="104" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">G&#9839;</text>
+              <text x="142" y="104" font-size="11" fill="#1A6B3C" text-anchor="start">3rd</text>
+
+              <!-- E (bass) -->
+              <rect x="50" y="124" width="80" height="32" rx="5" fill="#1A6B3C" />
+              <text x="90" y="140" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">E</text>
+              <text x="142" y="140" font-size="11" fill="#1A6B3C" text-anchor="start">root = 5</text>
+
+              <!-- V label -->
+              <rect x="50" y="165" width="80" height="24" rx="5" fill="#1A6B3C" />
+              <text x="90" y="181" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">V</text>
+
+              <text x="90" y="208" font-size="11" fill="#666" text-anchor="middle">E major triad</text>
+              <text x="90" y="222" font-size="11" fill="#666" text-anchor="middle">(the dominant)</text>
+            </g>
+
+            <!-- Arrows showing bass motion -->
+            <text x="242" y="250" font-size="11" fill="#C0392B" text-anchor="middle">D (bass of N6)</text>
+            <text x="242" y="265" font-size="11" fill="#C0392B" text-anchor="middle">moves to E (V)</text>
+            <line x1="325" y1="254" x2="380" y2="254" stroke="#C0392B" stroke-width="1.5" stroke-dasharray="4,3" />
+            <text x="430" y="250" font-size="11" fill="#1A6B3C" text-anchor="middle">or via cadential</text>
+            <text x="430" y="265" font-size="11" fill="#1A6B3C" text-anchor="middle">I6/4 first</text>
+
+            <!-- Arrow marker -->
+            <defs>
+              <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                <path d="M0,0 L0,8 L8,4 z" fill="#C0392B" />
+              </marker>
+            </defs>
+          </svg>
+        </div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">The <strong>Neapolitan chord</strong> (&#9837;II) is a chromatic predominant: it intensifies the approach to the dominant from the flat side rather than from within the key. In A minor, the diatonic second scale degree is B. Flatten it to B&#9837;, build a major triad on it (B&#9837;&ndash;D&ndash;F), and put that triad in <strong>first inversion</strong> so that D is in the bass. That is the N6. It then resolves to V (E major), often directly or through a cadential I6/4. The &#9837;2 in the bass moves down by step to the leading tone (G&#9839;) or up to scale degree 5 (E).</p>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;"><strong>How to build N6 in any minor key:</strong> (1) Find scale degree 2. (2) Lower it by a half step to get &#9837;2. (3) Build a major triad on &#9837;2. (4) Put the triad in first inversion (&#9837;2 is the bass note). You now have an N6.</p>
+
+        <div style="background: #EFEAF6; border-left: 5px solid #6B4C9A; border-radius: 6px; padding: 14px 20px; margin: 10px 0 0;">
+            <div style="font-size: 15px; color: #6B4C9A; margin-bottom: 8px;">&#128161; KEY POINT</div>
+            <div style="font-size: 17px; color: #0E1C42; line-height: 1.6;">The N6 label = first inversion. The N stands for Neapolitan, which is a chromatic supertonic major triad that approaches the dominant from a half step above.</div>
+        </div>
+    </div>
+
+    <!-- ===================== PART 2: AUGMENTED SIXTH CHORDS ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#127928; PART 2 &middot; AUGMENTED SIXTH CHORDS</div>
+
+        <!-- VISUAL 2: All three augmented sixth chord types side by side -->
+        <div style="background: #FCFCFD; border: 1px solid #E2E7F0; border-radius: 8px; padding: 20px 16px; text-align: center; margin-bottom: 18px; overflow-x: auto;">
+          <svg viewBox="0 0 740 340" width="100%" style="min-width: 500px; max-width: 740px;" role="img" aria-label="Three augmented sixth chord types in A minor: Italian (F-A-D#), French (F-A-B-D#), and German (F-A-C-D#). Each shows the augmented sixth interval from F (flat-6) to D-sharp (raised-4), with red arrows showing outward resolution to E (scale degree 5).">
+
+            <!-- Title -->
+            <text x="370" y="22" font-size="14" fill="#0E1C42" text-anchor="middle" font-weight="bold">Augmented Sixth Chords in A minor, Outward Resolution to Scale Degree 5 (E)</text>
+
+            <!-- Arrow/bracket defs -->
+            <defs>
+              <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                <path d="M0,0 L0,8 L8,4 z" fill="#2A9D5C" />
+              </marker>
+              <marker id="arrowRed2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                <path d="M0,0 L0,8 L8,4 z" fill="#C0392B" />
+              </marker>
+              <marker id="arrowRed2Up" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse">
+                <path d="M0,0 L0,8 L8,4 z" fill="#C0392B" />
+              </marker>
+            </defs>
+
+            <!-- Shared label: Aug. 6th interval -->
+            <text x="370" y="44" font-size="12" fill="#C0392B" text-anchor="middle">All three: &#9837;6 (F) in the bass &rarr; &#9839;4 (D&#9839;) in an upper voice = Augmented 6th interval. Both resolve outward by half step to E (scale degree 5).</text>
+
+            <!-- ====== ITALIAN ====== -->
+            <g transform="translate(20, 60)">
+              <rect x="0" y="0" width="210" height="30" rx="5" fill="#0E1C42" />
+              <text x="105" y="20" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">Italian Augmented Sixth (It+6)</text>
+
+              <!-- Chord stack: D# top, A middle, F bass -->
+              <!-- D# (top = #4) -->
+              <rect x="50" y="40" width="80" height="32" rx="5" fill="#6B4C9A" />
+              <text x="90" y="61" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">D&#9839;</text>
+              <text x="140" y="57" font-size="11" fill="#C0392B" text-anchor="start">&#9839;4</text>
+
+              <!-- A (middle = 1) -->
+              <rect x="50" y="76" width="80" height="32" rx="5" fill="#8A6FBF" />
+              <text x="90" y="97" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">A</text>
+              <text x="140" y="93" font-size="11" fill="#6B4C9A" text-anchor="start">1</text>
+
+              <!-- F (bass = b6) -->
+              <rect x="50" y="112" width="80" height="32" rx="5" fill="#4A3070" />
+              <text x="90" y="133" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">F</text>
+              <text x="140" y="129" font-size="11" fill="#C0392B" text-anchor="start">&#9837;6 (bass)</text>
+
+              <!-- Aug 6th bracket -->
+              <line x1="44" y1="44" x2="44" y2="142" stroke="#C0392B" stroke-width="2" />
+              <line x1="44" y1="44" x2="52" y2="44" stroke="#C0392B" stroke-width="2" />
+              <line x1="44" y1="142" x2="52" y2="142" stroke="#C0392B" stroke-width="2" />
+              <text x="38" y="98" font-size="10" fill="#C0392B" text-anchor="middle" transform="rotate(-90,38,98)">Aug. 6th</text>
+
+              <!-- Resolution arrows -->
+              <!-- D# up to E -->
+              <line x1="90" y1="40" x2="90" y2="20" stroke="#C0392B" stroke-width="2" marker-end="url(#arrowRed2Up)" />
+              <text x="106" y="18" font-size="10" fill="#C0392B">+&#189; to E</text>
+              <!-- F down to E -->
+              <line x1="90" y1="148" x2="90" y2="168" stroke="#C0392B" stroke-width="2" marker-end="url(#arrowRed2)" />
+              <text x="106" y="178" font-size="10" fill="#C0392B">-&#189; to E</text>
+
+              <!-- Resolution target -->
+              <rect x="50" y="180" width="80" height="28" rx="5" fill="#2A9D5C" />
+              <text x="90" y="198" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">E (scale deg. 5)</text>
+
+              <!-- Notes -->
+              <text x="105" y="230" font-size="11" fill="#666" text-anchor="middle">3 notes: &#9837;6, 1, &#9839;4</text>
+              <text x="105" y="244" font-size="11" fill="#666" text-anchor="middle">F &ndash; A &ndash; D&#9839;</text>
+              <rect x="25" y="252" width="160" height="20" rx="4" fill="#EEF1F8" />
+              <text x="105" y="265" font-size="11" fill="#0E1C42" text-anchor="middle">Thin, open sound</text>
+            </g>
+
+            <!-- ====== FRENCH ====== -->
+            <g transform="translate(263, 60)">
+              <rect x="0" y="0" width="210" height="30" rx="5" fill="#0E1C42" />
+              <text x="105" y="20" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">French Augmented Sixth (Fr+6)</text>
+
+              <!-- D# (top = #4) -->
+              <rect x="50" y="40" width="80" height="32" rx="5" fill="#6B4C9A" />
+              <text x="90" y="61" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">D&#9839;</text>
+              <text x="140" y="57" font-size="11" fill="#C0392B" text-anchor="start">&#9839;4</text>
+
+              <!-- B (upper inner = 2) -->
+              <rect x="50" y="76" width="80" height="32" rx="5" fill="#8A6FBF" />
+              <text x="90" y="97" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">B</text>
+              <text x="140" y="93" font-size="11" fill="#6B4C9A" text-anchor="start">2 (added)</text>
+
+              <!-- A (lower inner = 1) -->
+              <rect x="50" y="112" width="80" height="32" rx="5" fill="#8A6FBF" />
+              <text x="90" y="133" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">A</text>
+              <text x="140" y="129" font-size="11" fill="#6B4C9A" text-anchor="start">1</text>
+
+              <!-- F (bass = b6) -->
+              <rect x="50" y="148" width="80" height="32" rx="5" fill="#4A3070" />
+              <text x="90" y="169" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">F</text>
+              <text x="140" y="165" font-size="11" fill="#C0392B" text-anchor="start">&#9837;6 (bass)</text>
+
+              <!-- Aug 6th bracket -->
+              <line x1="44" y1="44" x2="44" y2="178" stroke="#C0392B" stroke-width="2" />
+              <line x1="44" y1="44" x2="52" y2="44" stroke="#C0392B" stroke-width="2" />
+              <line x1="44" y1="178" x2="52" y2="178" stroke="#C0392B" stroke-width="2" />
+              <text x="38" y="114" font-size="10" fill="#C0392B" text-anchor="middle" transform="rotate(-90,38,114)">Aug. 6th</text>
+
+              <!-- Resolution arrows -->
+              <line x1="90" y1="40" x2="90" y2="20" stroke="#C0392B" stroke-width="2" marker-end="url(#arrowRed2Up)" />
+              <text x="106" y="18" font-size="10" fill="#C0392B">+&#189; to E</text>
+              <line x1="90" y1="184" x2="90" y2="204" stroke="#C0392B" stroke-width="2" marker-end="url(#arrowRed2)" />
+              <text x="106" y="214" font-size="10" fill="#C0392B">-&#189; to E</text>
+
+              <!-- Resolution target -->
+              <rect x="50" y="216" width="80" height="28" rx="5" fill="#2A9D5C" />
+              <text x="90" y="234" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">E (scale deg. 5)</text>
+
+              <text x="105" y="262" font-size="11" fill="#666" text-anchor="middle">4 notes: &#9837;6, 1, 2, &#9839;4</text>
+              <text x="105" y="276" font-size="11" fill="#666" text-anchor="middle">F &ndash; A &ndash; B &ndash; D&#9839;</text>
+              <rect x="25" y="284" width="160" height="20" rx="4" fill="#EEF1F8" />
+              <text x="105" y="297" font-size="11" fill="#0E1C42" text-anchor="middle">Whole-tone color</text>
+            </g>
+
+            <!-- ====== GERMAN ====== -->
+            <g transform="translate(508, 60)">
+              <rect x="0" y="0" width="210" height="30" rx="5" fill="#0E1C42" />
+              <text x="105" y="20" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">German Augmented Sixth (Ger+6)</text>
+
+              <!-- D# (top = #4) -->
+              <rect x="50" y="40" width="80" height="32" rx="5" fill="#6B4C9A" />
+              <text x="90" y="61" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">D&#9839;</text>
+              <text x="140" y="57" font-size="11" fill="#C0392B" text-anchor="start">&#9839;4</text>
+
+              <!-- C (upper inner = b3) -->
+              <rect x="50" y="76" width="80" height="32" rx="5" fill="#8A6FBF" />
+              <text x="90" y="97" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">C</text>
+              <text x="140" y="93" font-size="11" fill="#6B4C9A" text-anchor="start">&#9837;3 (added)</text>
+
+              <!-- A (lower inner = 1) -->
+              <rect x="50" y="112" width="80" height="32" rx="5" fill="#8A6FBF" />
+              <text x="90" y="133" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">A</text>
+              <text x="140" y="129" font-size="11" fill="#6B4C9A" text-anchor="start">1</text>
+
+              <!-- F (bass = b6) -->
+              <rect x="50" y="148" width="80" height="32" rx="5" fill="#4A3070" />
+              <text x="90" y="169" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">F</text>
+              <text x="140" y="165" font-size="11" fill="#C0392B" text-anchor="start">&#9837;6 (bass)</text>
+
+              <!-- Aug 6th bracket -->
+              <line x1="44" y1="44" x2="44" y2="178" stroke="#C0392B" stroke-width="2" />
+              <line x1="44" y1="44" x2="52" y2="44" stroke="#C0392B" stroke-width="2" />
+              <line x1="44" y1="178" x2="52" y2="178" stroke="#C0392B" stroke-width="2" />
+              <text x="38" y="114" font-size="10" fill="#C0392B" text-anchor="middle" transform="rotate(-90,38,114)">Aug. 6th</text>
+
+              <!-- Resolution arrows -->
+              <line x1="90" y1="40" x2="90" y2="20" stroke="#C0392B" stroke-width="2" marker-end="url(#arrowRed2Up)" />
+              <text x="106" y="18" font-size="10" fill="#C0392B">+&#189; to E</text>
+              <line x1="90" y1="184" x2="90" y2="204" stroke="#C0392B" stroke-width="2" marker-end="url(#arrowRed2)" />
+              <text x="106" y="214" font-size="10" fill="#C0392B">-&#189; to E</text>
+
+              <!-- Resolution target -->
+              <rect x="50" y="216" width="80" height="28" rx="5" fill="#2A9D5C" />
+              <text x="90" y="234" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">E (scale deg. 5)</text>
+
+              <text x="105" y="262" font-size="11" fill="#666" text-anchor="middle">4 notes: &#9837;6, 1, &#9837;3, &#9839;4</text>
+              <text x="105" y="276" font-size="11" fill="#666" text-anchor="middle">F &ndash; A &ndash; C &ndash; D&#9839;</text>
+              <rect x="25" y="284" width="160" height="20" rx="4" fill="#EEF1F8" />
+              <text x="105" y="297" font-size="11" fill="#0E1C42" text-anchor="middle">Rich; enharmonic to F7</text>
+            </g>
+
+          </svg>
+        </div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">All three augmented sixth chords share the same outer interval: <strong>&#9837;6 in the bass</strong> and <strong>&#9839;4 in an upper voice</strong>, spanning an augmented sixth. That interval resolves <strong>outward</strong>: &#9837;6 steps DOWN by half step to 5 (the dominant pitch), and &#9839;4 steps UP by half step to 5. Both chromatic voices converge on the same pitch: the dominant. The three types differ only in their inner notes.</p>
+
+        <!-- Comparison table -->
+        <div style="overflow-x: auto; margin-bottom: 16px;">
+          <div style="min-width: 480px; border: 1px solid #D0D9E8; border-radius: 8px; overflow: hidden;">
+            <!-- Header -->
+            <div style="display: grid; grid-template-columns: 1fr 1.4fr 1.2fr 1.4fr; background: #0E1C42;">
+              <div style="padding: 10px 14px; font-size: 15px; color: #55C8E8; font-weight: bold; border-right: 1px solid #1a3060;">Name</div>
+              <div style="padding: 10px 14px; font-size: 15px; color: #55C8E8; font-weight: bold; border-right: 1px solid #1a3060;">Notes (A minor)</div>
+              <div style="padding: 10px 14px; font-size: 15px; color: #55C8E8; font-weight: bold; border-right: 1px solid #1a3060;">Inner note(s)</div>
+              <div style="padding: 10px 14px; font-size: 15px; color: #55C8E8; font-weight: bold;">Sound quality</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1.4fr 1.2fr 1.4fr; background: #FAFBFD; border-top: 1px solid #D0D9E8;">
+              <div style="padding: 10px 14px; font-size: 16px; color: #6B4C9A; font-weight: bold; border-right: 1px solid #D0D9E8;">It+6</div>
+              <div style="padding: 10px 14px; font-size: 16px; color: #1a2340; border-right: 1px solid #D0D9E8; font-variant-numeric: tabular-nums;">F &ndash; A &ndash; D&#9839;</div>
+              <div style="padding: 10px 14px; font-size: 16px; color: #666; border-right: 1px solid #D0D9E8;">none (3 notes)</div>
+              <div style="padding: 10px 14px; font-size: 16px; color: #1a2340;">thin, open</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1.4fr 1.2fr 1.4fr; background: #F4F6FA; border-top: 1px solid #D0D9E8;">
+              <div style="padding: 10px 14px; font-size: 16px; color: #6B4C9A; font-weight: bold; border-right: 1px solid #D0D9E8;">Fr+6</div>
+              <div style="padding: 10px 14px; font-size: 16px; color: #1a2340; border-right: 1px solid #D0D9E8; font-variant-numeric: tabular-nums;">F &ndash; A &ndash; B &ndash; D&#9839;</div>
+              <div style="padding: 10px 14px; font-size: 16px; color: #666; border-right: 1px solid #D0D9E8;">B (scale degree 2)</div>
+              <div style="padding: 10px 14px; font-size: 16px; color: #1a2340;">whole-tone color</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1.4fr 1.2fr 1.4fr; background: #FAFBFD; border-top: 1px solid #D0D9E8;">
+              <div style="padding: 10px 14px; font-size: 16px; color: #6B4C9A; font-weight: bold; border-right: 1px solid #D0D9E8;">Ger+6</div>
+              <div style="padding: 10px 14px; font-size: 16px; color: #1a2340; border-right: 1px solid #D0D9E8; font-variant-numeric: tabular-nums;">F &ndash; A &ndash; C &ndash; D&#9839;</div>
+              <div style="padding: 10px 14px; font-size: 16px; color: #666; border-right: 1px solid #D0D9E8;">C (&#9837;3)</div>
+              <div style="padding: 10px 14px; font-size: 16px; color: #1a2340;">rich; enharmonic to F7</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: #EFEAF6; border-left: 5px solid #6B4C9A; border-radius: 6px; padding: 14px 20px; margin: 10px 0 0;">
+            <div style="font-size: 15px; color: #6B4C9A; margin-bottom: 8px;">&#128161; KEY POINT</div>
+            <div style="font-size: 17px; color: #0E1C42; line-height: 1.6;">The Ger+6 = F&ndash;A&ndash;C&ndash;D&#9839; in A minor. Respell D&#9839; as E&#9837; and you get F&ndash;A&ndash;C&ndash;E&#9837; = an F dominant seventh chord. Composers use this enharmonic equivalence to pivot to distant keys.</div>
+        </div>
+    </div>
+
+    <!-- ===================== WIDGET 1: OW-REFLECT ===================== -->
+    <div class="optima-widget ow-reflect">
+        <div class="widget-kicker">&#9889; THINK IT THROUGH</div>
+        <div class="widget-question">Which of these augmented-sixth chords is enharmonically equivalent to a dominant seventh chord?</div>
+        <div class="widget-options">
+            <button data-response="The Italian has only 3 notes and no equivalent seventh-chord match. Try again.">Italian (It+6)</button>
+            <button data-response="Correct. The Ger+6 in A minor is F&#8209;A&#8209;C&#8209;D&#9839;. Respell D&#9839; as E&#9837; and you get F&#8209;A&#8209;C&#8209;E&#9837;, an F dominant seventh chord. This equivalence lets composers pivot to unexpected keys.">German (Ger+6)</button>
+            <button data-response="The French has a whole-tone color but its notes do not spell a dominant seventh chord enharmonically. The German does.">French (Fr+6)</button>
+        </div>
+        <div class="widget-feedback"></div>
+        <button class="widget-reset">Reset</button>
+    </div>
+
+    <!-- ===================== WIDGET 2: OW-SELECT ===================== -->
+    <div class="optima-widget ow-select">
+        <div class="widget-kicker">&#9889; CHECK IT &middot; CHROMATIC HARMONY</div>
+        <div class="widget-question">Four questions. Think before you tap.</div>
+
+        <div class="widget-row" data-correct="2" data-fb="Correct. The Neapolitan is a major triad on &#9837;2 (B&#9837; in A minor), placed in first inversion (N6) so the bass is D (&#9837;2)." data-hint="Remember: Neapolitan = &#9837;II. Flatten the second scale degree, build a major triad, invert it.">
+            <div class="widget-row-prompt">1. The Neapolitan chord (N6) in A minor is built on:</div>
+            <div class="widget-options">
+                <button data-choice="0">Scale degree 2 (B), a minor triad</button>
+                <button data-choice="1">Scale degree 4 (D), a major triad</button>
+                <button data-choice="2">Lowered scale degree 2 (B&#9837;), a major triad in first inversion</button>
+                <button data-choice="3">Scale degree 6 (F), a major triad</button>
+            </div>
+        </div>
+
+        <div class="widget-row" data-correct="0" data-fb="Right. The &#9837;6 moves DOWN by half step to 5, and the &#9839;4 moves UP by half step to 5. Both converge on the dominant." data-hint="The interval EXPANDS outward. Both chromatic voices move by half step toward the same pitch.">
+            <div class="widget-row-prompt">2. In an augmented sixth chord, the outer interval (&#9837;6 to &#9839;4) resolves:</div>
+            <div class="widget-options">
+                <button data-choice="0">Outward by half step to the dominant pitch (scale degree 5)</button>
+                <button data-choice="1">Inward by half step to scale degree 3</button>
+                <button data-choice="2">Both voices move down to scale degree 4</button>
+                <button data-choice="3">The top voice moves up by a whole step</button>
+            </div>
+        </div>
+
+        <div class="widget-row" data-correct="1" data-fb="Correct. The French augmented sixth adds scale degree 2 to the Italian, giving it a whole-tone color." data-hint="It+6 has 3 notes; Fr+6 and Ger+6 have 4 notes. The one with scale degree 2 has a whole-tone sound.">
+            <div class="widget-row-prompt">3. Which augmented sixth chord has four notes including scale degree 2?</div>
+            <div class="widget-options">
+                <button data-choice="0">Italian (It+6)</button>
+                <button data-choice="1">French (Fr+6)</button>
+                <button data-choice="2">German (Ger+6)</button>
+                <button data-choice="3">All three have scale degree 2</button>
+            </div>
+        </div>
+
+        <div class="widget-row" data-correct="3" data-fb="Correct. Ger+6 in A minor = F&#8209;A&#8209;C&#8209;D&#9839;. Respell D&#9839; as E&#9837; and you have F&#8209;A&#8209;C&#8209;E&#9837; = F dominant seventh." data-hint="The Ger+6 has 4 notes: &#9837;6&#8209;1&#8209;&#9837;3&#8209;&#9839;4. In A minor that is F&#8209;A&#8209;C&#8209;D&#9839;. Respell the top note as a flat and you get a dominant seventh on what root?">
+            <div class="widget-row-prompt">4. The Ger+6 in A minor is enharmonically equivalent to:</div>
+            <div class="widget-options">
+                <button data-choice="0">An A minor triad</button>
+                <button data-choice="1">A B&#9837; dominant seventh chord</button>
+                <button data-choice="2">A D minor triad</button>
+                <button data-choice="3">An F dominant seventh chord</button>
+            </div>
+        </div>
+
+        <button class="widget-reset">Reset</button>
+    </div>
+
+    <!-- AI AWARENESS CALLOUT -->
+    <div style="background: #FFFFFF; border-top: 3px solid #C7922C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #C7922C; margin-bottom: 12px;">&#129302; WORTH KNOWING &middot; AI AND CHROMATIC HARMONY</div>
+        <div style="font-size: 17px; color: #1a2340; line-height: 1.65;">AI harmonic-analysis tools can mislabel rarer chromatic chords like the Neapolitan or the augmented sixths, sometimes reading them as more ordinary diatonic chords. The resolution rules covered in this lesson, N6 to V, augmented sixth outward to the dominant pitch, are exactly what let a student check a label like that, whether it came from their own work or from a tool. Knowing how these chords resolve is what makes the label trustworthy, not the label itself.</div>
+    </div>
+
+    <!-- WHAT YOU'LL DO NEXT -->
+    <div style="background: #FFFFFF; border-top: 3px solid #6B4C9A; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #6B4C9A; margin-bottom: 16px;">&#10145;&#65039; WHAT YOU'LL DO NEXT</div>
+        <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px;">
+            <div style="min-width: 34px; height: 34px; border-radius: 50%; background: #6B4C9A; color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+            <div>
+                <div style="font-size: 18px; color: #0e1c42; margin-bottom: 4px;"><strong>Chromatic Chord Construction (Canvas assignment)</strong></div>
+                <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">Build N6, It+6, Fr+6, and Ger+6 in D minor and G minor. Notate on staff paper or in MuseScore and submit as a PDF or image.</div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 14px;">
+            <div style="min-width: 34px; height: 34px; border-radius: 50%; background: #6B4C9A; color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+            <div>
+                <div style="font-size: 18px; color: #0e1c42; margin-bottom: 4px;"><strong>Module 29 Canvas Quiz</strong></div>
+                <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">Auto-graded quiz on chromatic chord identification and resolution. Multiple attempts allowed.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wrap-up -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 12px;">&#128170; THE ONE THING TO REMEMBER</div>
+        <p style="font-size: 18px; color: #1a2340; line-height: 1.65; margin: 0;">The Neapolitan (N6) is a major triad on &#9837;2 in first inversion, resolving to V as a chromatic predominant. The three augmented sixth chords (It+6, Fr+6, Ger+6) share the outer interval of &#9837;6 to &#9839;4, which resolves outward by half step to the dominant pitch. The Ger+6 is enharmonically a dominant seventh chord, making it a pivot for chromatic modulation.</p>
+    </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div style="background: #0E1C42; border-top: 3px solid #55C8E8; padding: 18px 34px; text-align: center;">
+    <div style="font-size: 18px; color: #ffffff; margin-bottom: 6px;"><span style="color: #55c8e8;">Optima Academy Online</span> &middot; M/J MUSIC THEORY 2 &middot; Quarter 4 &middot; Student Lesson Page</div>
+    <div style="font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 4px;">Lesson 29.01 &middot; Chromatic Harmony: Augmented Sixths and Neapolitans</div>
+    <div style="font-size: 12px; color: rgba(255,255,255,0.4);">&copy; Optima Academy Online &middot; An Education Experience Company</div>
+</div>
+
+</div>
+
+<!-- ===== WIDGET RUNTIME ===== -->
+<script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var reset = e.target.closest('.widget-reset');
+    if (reset) {
+      var w = reset.closest('.optima-widget');
+      w.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected', 'correct', 'incorrect'); });
+      w.querySelectorAll('.widget-feedback').forEach(function (f) { f.classList.remove('show'); f.textContent = ''; });
+      w.querySelectorAll('.row-feedback').forEach(function (f) { f.remove(); });
+      w.querySelectorAll('.ow-flip.flipped').forEach(function (c) { c.classList.remove('flipped'); });
+      return;
+    }
+    var rBtn = e.target.closest('.ow-reflect .widget-options button');
+    if (rBtn) {
+      var rw = rBtn.closest('.optima-widget');
+      rw.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected'); });
+      rBtn.classList.add('selected');
+      var fb = rw.querySelector('.widget-feedback');
+      fb.textContent = rBtn.dataset.response || '';
+      fb.classList.add('show');
+      return;
+    }
+    var sBtn = e.target.closest('.ow-select .widget-row .widget-options button');
+    if (sBtn) {
+      var row = sBtn.closest('.widget-row');
+      var correct = row.dataset.correct;
+      row.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected', 'correct', 'incorrect'); });
+      var right = sBtn.dataset.choice === correct;
+      sBtn.classList.add(right ? 'correct' : 'incorrect');
+      var text = right ? (sBtn.dataset.fb || row.dataset.fb || 'Right.') : (sBtn.dataset.fb || row.dataset.hint || 'Not quite. Try again.');
+      var rf = row.querySelector('.row-feedback') || row.appendChild(document.createElement('div'));
+      rf.className = 'row-feedback ' + (right ? 'correct' : 'incorrect');
+      rf.textContent = text;
+      return;
+    }
+    var flip = e.target.closest('.ow-flip');
+    if (flip) { flip.classList.toggle('flipped'); return; }
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>M/J Music Theory 2 - Lesson 28.01</title>
+<style>
+    body { margin: 0; padding: 0; font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f4f6fa; }
+    .canvas-frame { max-width: 1100px; margin: 0 auto; background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+    /* ===== WIDGET CSS (green/purple skin) ===== */
+    .optima-widget { background: linear-gradient(135deg, #EFEAF6 0%, #F7F4FB 100%); border: 1px solid #D9CEEC; border-left: 5px solid #6B4C9A; border-radius: 8px; padding: 18px 22px; margin: 18px 0; }
+    .widget-kicker { font-size: 15px; color: #6B4C9A; margin-bottom: 10px; letter-spacing: 0.4px; }
+    .widget-question { font-size: 17px; color: #0E1C42; margin-bottom: 14px; line-height: 1.55; }
+    .widget-row { background: #FFFFFF; border: 1px solid #D9CEEC; border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; }
+    .widget-row-prompt { font-size: 16px; color: #0E1C42; margin-bottom: 8px; line-height: 1.5; font-style: italic; }
+    .widget-options { display: flex; flex-wrap: wrap; gap: 8px; }
+    .widget-options button { background: #FFFFFF; border: 1.5px solid #D9CEEC; border-radius: 8px; padding: 8px 14px; font-size: 16px; color: #0E1C42; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+    .widget-options button:hover { background: #F4F0FA; border-color: #8A6FBF; }
+    .widget-options button.selected { background: #0E1C42; color: #FFFFFF; border-color: #0E1C42; }
+    .widget-options button.correct { background: #D8F0DD; border-color: #2A9D5C; color: #1A6B3D; }
+    .widget-options button.incorrect { background: #FDECEC; border-color: #C0392B; color: #8A1F16; }
+    .widget-feedback { background: #FFFFFF; border-left: 3px solid #6B4C9A; padding: 10px 14px; font-size: 16px; color: #1a2340; line-height: 1.55; margin: 10px 0; display: none; border-radius: 4px; }
+    .widget-feedback.show { display: block; }
+    .row-feedback { padding: 8px 12px; margin-top: 8px; font-size: 16px; border-radius: 4px; line-height: 1.5; }
+    .row-feedback.correct { background: #D8F0DD; border-left: 3px solid #2A9D5C; color: #1A6B3D; }
+    .row-feedback.incorrect { background: #FDECEC; border-left: 3px solid #C0392B; color: #8A1F16; }
+    .widget-reset { background: transparent; border: 1px solid #6B4C9A; color: #6B4C9A; border-radius: 6px; padding: 6px 12px; font-size: 15px; cursor: pointer; font-family: inherit; margin-top: 6px; }
+    .widget-reset:hover { background: #F0EAF7; }
+    .ow-flip { background: #FFFFFF; border: 1px solid #D9CEEC; border-radius: 8px; padding: 18px 20px; cursor: pointer; text-align: center; }
+    .ow-flip .ow-flip-back { display: none; color: #1a2340; }
+    .ow-flip.flipped .ow-flip-front { display: none; }
+    .ow-flip.flipped .ow-flip-back { display: block; }
+    .flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 640px) { .flip-grid { grid-template-columns: 1fr; } }
+    .note-chip { display:inline-block; min-width:22px; text-align:center; background:#1A6B3C; color:#fff; border-radius:5px; padding:2px 7px; font-size:16px; margin:0 2px; }
+</style>
+</head>
+<body>
+<div class="canvas-frame">
+
+<!-- ===== HEADER ===== -->
+<div style="background: #0E1C42; border-bottom: 5px solid #55C8E8; padding: 22px 34px;">
+    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
+        <div style="width: 52px; height: 52px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><img src="https://raw.githubusercontent.com/optimaondemand/optima-assets/eeb0b335630058906d52f478028361d352253a93/images/Optima%20Final%20Circle%20-%20Owl%20Only.png" alt="Optima Academy" style="width: 50px; height: 40px; object-fit: contain;" /></div>
+        <div>
+            <div style="font-size: 28px; color: #ffffff; line-height: 1.2;">Optima Academy Online</div>
+            <div style="font-size: 12px; color: #55c8e8;">An Education Experience Company</div>
+        </div>
+    </div>
+    <div style="font-size: 36px; color: #ffffff; margin-bottom: 6px;">M/J MUSIC THEORY 2</div>
+</div>
+
+<!-- ===== METADATA STRIP ===== -->
+<div style="background: #FFFFFF; border-bottom: 2px solid #D0D9E8; display: flex; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Quarter / Module</div>
+        <div style="font-size: 17px; color: #0e1c42;">Q4 &middot; Module 28</div>
+        <div style="font-size: 12px; color: #666;">Extended Counterpoint and Fugue</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Lesson</div>
+        <div style="font-size: 17px; color: #0e1c42;">Lesson 28.01</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Topic</div>
+        <div style="font-size: 17px; color: #0e1c42; font-style: italic;">Fugue Structure</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Time</div>
+        <div style="font-size: 17px; color: #0e1c42;">About 40 min</div>
+    </div>
+</div>
+
+<!-- ===== BODY WRAPPER ===== -->
+<div style="padding: 24px 34px;">
+
+<!-- ═══ OPTIMA READ-ALOUD PLAYER ═══ -->
+<div id="optima-read-aloud">
+<style>
+    #optima-read-aloud { background: linear-gradient(135deg, #E8F6FB 0%, #F4F9FC 100%); border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 8px; padding: 14px 18px; margin: 0 0 20px 0; }
+    #optima-read-aloud .ora-kicker { font-size: 11px; color: #1B6A94; letter-spacing: 0.4px; margin-bottom: 10px; }
+    #optima-read-aloud .ora-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    #optima-read-aloud .ora-controls button { border-radius: 8px; padding: 8px 16px; font-size: 14px; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    #ora-play { background: #0E1C42; color: #FFFFFF; border: 1.5px solid #0E1C42; }
+    #ora-play:hover:enabled { background: #1B2D5E; }
+    #ora-play:disabled { background: #D0D9E8; border-color: #D0D9E8; color: #6b7a99; cursor: default; }
+    #ora-stop { background: #FFFFFF; color: #0E1C42; border: 1.5px solid #D0D9E8; }
+    #ora-stop:hover:enabled { background: #F4F6FA; border-color: #55C8E8; }
+    #ora-stop:disabled { color: #999; border-color: #E4E9F2; cursor: default; }
+    #optima-read-aloud .ora-speed { font-size: 12px; color: #6b7a99; display: flex; align-items: center; gap: 6px; }
+    #ora-rate { font-family: inherit; font-size: 13px; color: #0E1C42; border: 1.5px solid #D0D9E8; border-radius: 6px; padding: 5px 8px; background: #FFFFFF; }
+    #ora-status { font-size: 12px; color: #666; }
+    .ora-highlight { background: #FDF3E3 !important; box-shadow: inset 4px 0 0 #C7922C; border-radius: 4px; transition: background 0.2s; }
+</style>
+    <div class="ora-kicker">&#128266; READ ALOUD &mdash; LISTEN TO THIS PAGE</div>
+    <div class="ora-controls">
+        <button id="ora-play" type="button" aria-label="Listen to this page">&#9654;&#65039; Listen</button>
+        <button id="ora-stop" type="button" aria-label="Stop reading" disabled>&#9632; Stop</button>
+        <label class="ora-speed">Speed
+            <select id="ora-rate" aria-label="Reading speed">
+                <option value="0.8">Slower</option>
+                <option value="1" selected>Normal</option>
+                <option value="1.25">Faster</option>
+            </select>
+        </label>
+        <span id="ora-status" role="status" aria-live="polite"></span>
+    </div>
+<script>
+(function () {
+    "use strict";
+    var playBtn  = document.getElementById("ora-play");
+    var stopBtn  = document.getElementById("ora-stop");
+    var rateSel  = document.getElementById("ora-rate");
+    var statusEl = document.getElementById("ora-status");
+
+    if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
+        playBtn.disabled = true;
+        rateSel.disabled = true;
+        statusEl.textContent = "Read-aloud is not supported in this browser.";
+        return;
+    }
+
+    var LABEL_PLAY   = "▶️ Listen";
+    var LABEL_PAUSE  = "⏸️ Pause";
+    var LABEL_RESUME = "▶️ Resume";
+    var BLOCK_SEL = "p, li, h1, h2, h3, h4, h5, h6, blockquote, td, th, dt, dd, figcaption, div";
+    var SKIP_SEL  = "#optima-read-aloud, [data-ra-skip], button, script, style, select, noscript, iframe";
+
+    var queue = [];        // [{ el, text }] — one entry per sentence
+    var idx = 0;
+    var playing = false, paused = false, stopping = false;
+    var currentBlock = null;
+    var currentUtterance = null;  // held to dodge a Chrome garbage-collection bug
+
+    var voices = [];
+    function loadVoices() { voices = window.speechSynthesis.getVoices(); }
+    loadVoices();
+    if ("onvoiceschanged" in window.speechSynthesis) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+    function pickVoice() {
+        if (!voices.length) loadVoices();
+        var en = voices.filter(function (v) { return /^en/i.test(v.lang); });
+        return en.filter(function (v) { return /natural/i.test(v.name); })[0]
+            || en.filter(function (v) { return /google us english/i.test(v.name); })[0]
+            || en.filter(function (v) { return v.default; })[0]
+            || en[0] || null;
+    }
+
+    function isVisible(el) {
+        return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+    }
+
+    // Walk text nodes, attach each to its nearest block ancestor, split into sentences.
+    function collectQueue() {
+        var root = document.querySelector("[data-readaloud-root]")
+                || document.querySelector(".canvas-frame")
+                || document.body;
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        var items = [];   // [{ el, text }] — one entry per block, in reading order
+        var node;
+        while ((node = walker.nextNode())) {
+            if (!/\S/.test(node.textContent)) continue;
+            var el = node.parentElement;
+            if (!el || el.closest(SKIP_SEL)) continue;
+            if (!isVisible(el)) continue;
+            var block = el.closest(BLOCK_SEL) || root;
+            var last = items[items.length - 1];
+            if (last && last.el === block) last.text += " " + node.textContent;
+            else items.push({ el: block, text: node.textContent });
+        }
+        var q = [];
+        items.forEach(function (item) {
+            var clean = item.text.replace(/\s+/g, " ").trim();
+            if (!clean) return;
+            var sentences = clean.match(/[^.!?]+[.!?]+[”"')\]]*\s*|[^.!?]+$/g) || [clean];
+            sentences.forEach(function (s) {
+                s = s.trim();
+                if (s) q.push({ el: item.el, text: s });
+            });
+        });
+        return q;
+    }
+
+    function highlight(el) {
+        if (el === currentBlock) return;
+        clearHighlight();
+        currentBlock = el;
+        if (el && el !== document.body) {
+            el.classList.add("ora-highlight");
+            try { el.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (e) {}
+        }
+    }
+    function clearHighlight() {
+        if (currentBlock) currentBlock.classList.remove("ora-highlight");
+        currentBlock = null;
+    }
+
+    function speakNext() {
+        if (idx >= queue.length) { finish("Finished reading this page."); return; }
+        var item = queue[idx];
+        highlight(item.el);
+        var u = new SpeechSynthesisUtterance(item.text);
+        u.rate = parseFloat(rateSel.value) || 1;
+        var v = pickVoice();
+        if (v) u.voice = v;
+        u.onend = function () {
+            if (stopping) return;
+            idx++;
+            speakNext();
+        };
+        u.onerror = function (e) {
+            if (stopping || e.error === "canceled" || e.error === "interrupted") return;
+            idx++;
+            speakNext();
+        };
+        currentUtterance = u;
+        window.speechSynthesis.speak(u);
+        statusEl.textContent = "Reading… " + (idx + 1) + " / " + queue.length;
+    }
+
+    function finish(message) {
+        playing = false;
+        paused = false;
+        clearHighlight();
+        playBtn.textContent = LABEL_PLAY;
+        stopBtn.disabled = true;
+        statusEl.textContent = message || "";
+        currentUtterance = null;
+    }
+
+    playBtn.addEventListener("click", function () {
+        if (playing && !paused) {
+            window.speechSynthesis.pause();
+            paused = true;
+            playBtn.textContent = LABEL_RESUME;
+            statusEl.textContent = "Paused";
+            return;
+        }
+        if (playing && paused) {
+            window.speechSynthesis.resume();
+            paused = false;
+            playBtn.textContent = LABEL_PAUSE;
+            statusEl.textContent = "Reading… " + (idx + 1) + " / " + queue.length;
+            return;
+        }
+        queue = collectQueue();
+        if (!queue.length) { statusEl.textContent = "Nothing to read on this page."; return; }
+        idx = 0;
+        stopping = false;
+        playing = true;
+        paused = false;
+        window.speechSynthesis.cancel();
+        playBtn.textContent = LABEL_PAUSE;
+        stopBtn.disabled = false;
+        speakNext();
+    });
+
+    stopBtn.addEventListener("click", function () {
+        stopping = true;
+        window.speechSynthesis.cancel();
+        finish("");
+    });
+
+    // Changing speed mid-read restarts the current sentence at the new rate.
+    rateSel.addEventListener("change", function () {
+        if (!playing || paused) return;
+        stopping = true;
+        window.speechSynthesis.cancel();
+        setTimeout(function () { stopping = false; speakNext(); }, 60);
+    });
+
+    window.addEventListener("pagehide", function () { window.speechSynthesis.cancel(); });
+})();
+</script>
+</div>
+<!-- ═══ END OPTIMA READ-ALOUD PLAYER ═══ -->
+
+    <!-- title strip -->
+    <div style="background: #EEF1F8; border-left: 5px solid #0E1C42; border-radius: 7px; padding: 18px 22px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #0e1c42; margin-bottom: 6px;">LESSON 28.01</div>
+        <div style="font-size: 22px; color: #0e1c42; margin-bottom: 4px;">Extended Counterpoint and Fugue</div>
+        <div style="font-size: 16px; color: #666;">Lesson</div>
+    </div>
+
+    <!-- Today's Focus -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 12px;">&#127925; TODAY'S FOCUS</div>
+        <div style="font-size: 20px; color: #0e1c42; font-style: italic; margin-bottom: 10px;">When the same melody appears in different voices, different keys, even upside down and slowed way down, how does a fugue keep it all sounding like one unified piece?</div>
+        <div style="font-size: 18px; color: #1a2340; line-height: 1.65;">A fugue takes a single melody called the subject and puts it through one of the most rigorous forms in all of music. Every voice enters with that subject in turn during the exposition. Then episodes carry fragments of it between key areas. Stretto crowds the entries on top of each other near the end. Throughout, augmentation and inversion transform the subject while keeping its identity intact. This lesson maps the whole structure so you can follow a fugue from first note to last.</div>
+    </div>
+
+    <!-- Objectives -->
+    <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#127919; BY THE END OF THIS LESSON YOU WILL BE ABLE TO&hellip;</div>
+        <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+            <div style="min-width: 26px; height: 26px; border-radius: 50%; background: #2A9D5C; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.65;"><strong>I will be able to</strong> write a short imitative counterpoint using a given subject.</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+            <div style="min-width: 26px; height: 26px; border-radius: 50%; background: #2A9D5C; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.65;"><strong>I will be able to</strong> identify the subject and answer in a public domain fugal excerpt.</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div style="min-width: 26px; height: 26px; border-radius: 50%; background: #2A9D5C; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</div>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.65;"><strong>I will be able to</strong> describe the structural sections of a complete fugue: exposition, episodes, stretto, and coda.</div>
+        </div>
+    </div>
+
+    <!-- Materials -->
+    <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#128203; WHAT YOU NEED FOR THIS LESSON</div>
+        <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; border-left: 3px solid #BFE3CC; padding-left: 14px;"><span style="color: #1A6B3C; font-size: 18px; flex-shrink: 0;">&#9654;</span>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.6;">Open Music Theory v2 at viva.pressbooks.pub/openmusictheory: read <em>High Baroque Fugal Exposition</em> (p. 255-259).</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; border-left: 3px solid #BFE3CC; padding-left: 14px;"><span style="color: #1A6B3C; font-size: 18px; flex-shrink: 0;">&#9654;</span>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.6;">Your Music Theory notebook and staff paper (or MuseScore) for the imitative counterpoint exercise.</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 10px; border-left: 3px solid #BFE3CC; padding-left: 14px;"><span style="color: #1A6B3C; font-size: 18px; flex-shrink: 0;">&#9654;</span>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.6;">Headphones. You will listen to Bach's Little Fugue in G minor and follow along with the score. Both are freely available online.</div>
+        </div>
+    </div>
+
+    <!-- ===================== PART 1: FUGAL EXPOSITION ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#127926; PART 1 &middot; THE FUGAL EXPOSITION</div>
+
+        <!-- VISUAL 1: Fugue structure timeline -->
+        <div style="background:#FCFCFD; border:1px solid #E2E7F0; border-radius:8px; padding:20px 16px; text-align:center; margin: 6px 0 20px; overflow-x:auto;">
+          <svg viewBox="0 0 740 320" width="100%" style="min-width:480px; max-width:740px;" role="img" aria-label="Fugue structure timeline showing Exposition, Episode 1, Middle Entries, Episode 2, Stretto, and Coda sections in order. The Exposition shows three staggered voice entries: Voice 1 with the Subject in tonic, Voice 2 with the Answer in dominant and Countersubject in Voice 1, Voice 3 entering last.">
+
+            <!-- Section labels row -->
+            <text x="370" y="18" font-size="13" fill="#0E1C42" text-anchor="middle" font-weight="bold">Complete Fugue Structure</text>
+
+            <!-- Section blocks: Exposition -->
+            <rect x="10" y="28" width="210" height="34" rx="6" fill="#0E1C42" />
+            <text x="115" y="49" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">EXPOSITION</text>
+            <text x="115" y="63" font-size="10" fill="#55C8E8" text-anchor="middle">All voices enter with Subject/Answer</text>
+
+            <!-- Episode 1 -->
+            <rect x="226" y="28" width="96" height="34" rx="6" fill="#6B4C9A" />
+            <text x="274" y="47" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">EPISODE 1</text>
+            <text x="274" y="61" font-size="10" fill="#D9CEEC" text-anchor="middle">Fragments, sequence</text>
+
+            <!-- Middle Entries -->
+            <rect x="328" y="28" width="110" height="34" rx="6" fill="#2A9D5C" />
+            <text x="383" y="47" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">MIDDLE ENTRIES</text>
+            <text x="383" y="61" font-size="10" fill="#BFE3CC" text-anchor="middle">Subject returns, new key</text>
+
+            <!-- Episode 2 -->
+            <rect x="444" y="28" width="96" height="34" rx="6" fill="#6B4C9A" />
+            <text x="492" y="47" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">EPISODE 2</text>
+            <text x="492" y="61" font-size="10" fill="#D9CEEC" text-anchor="middle">Modulates back</text>
+
+            <!-- Stretto -->
+            <rect x="546" y="28" width="84" height="34" rx="6" fill="#C9A84C" />
+            <text x="588" y="47" font-size="12" fill="#0E1C42" text-anchor="middle" font-weight="bold">STRETTO</text>
+            <text x="588" y="61" font-size="10" fill="#0E1C42" text-anchor="middle">Overlapping entries</text>
+
+            <!-- Coda -->
+            <rect x="636" y="28" width="90" height="34" rx="6" fill="#0E1C42" />
+            <text x="681" y="47" font-size="12" fill="#55C8E8" text-anchor="middle" font-weight="bold">CODA</text>
+            <text x="681" y="61" font-size="10" fill="#aaa" text-anchor="middle">Close in home key</text>
+
+            <!-- EXPOSITION DETAIL: staggered voice entries -->
+            <text x="115" y="90" font-size="12" fill="#0E1C42" text-anchor="middle" font-weight="bold">Inside the Exposition</text>
+
+            <!-- Voice 1 bar: full width, starts first -->
+            <rect x="10" y="100" width="205" height="28" rx="4" fill="#0E1C42" />
+            <text x="63" y="118" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">Subject (Tonic)</text>
+            <text x="158" y="118" font-size="11" fill="#55C8E8" text-anchor="middle">Countersubject</text>
+            <text x="10" y="142" font-size="11" fill="#1A6B3C" text-anchor="start">Voice 1</text>
+
+            <!-- Voice 2 bar: enters later -->
+            <rect x="10" y="152" width="100" height="28" rx="4" fill="#E7F4EC" stroke="#D0D9E8" />
+            <text x="60" y="170" font-size="11" fill="#666" text-anchor="middle" font-style="italic">silent</text>
+            <rect x="115" y="152" width="100" height="28" rx="4" fill="#2A9D5C" />
+            <text x="165" y="170" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">Answer (Dominant)</text>
+            <text x="10" y="194" font-size="11" fill="#2A9D5C" text-anchor="start">Voice 2</text>
+
+            <!-- Voice 3 bar: enters last -->
+            <rect x="10" y="204" width="170" height="28" rx="4" fill="#E7F4EC" stroke="#D0D9E8" />
+            <text x="90" y="222" font-size="11" fill="#666" text-anchor="middle" font-style="italic">silent</text>
+            <rect x="185" y="204" width="30" height="28" rx="4" fill="#1A6B3C" />
+            <text x="200" y="222" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">S</text>
+            <text x="10" y="246" font-size="11" fill="#1A6B3C" text-anchor="start">Voice 3 (enters with Subject)</text>
+
+            <!-- Annotations -->
+            <line x1="10" y1="260" x2="730" y2="260" stroke="#D0D9E8" stroke-width="1" />
+            <rect x="10" y="268" width="165" height="44" rx="5" fill="#EEF1F8" />
+            <text x="93" y="283" font-size="11" fill="#0E1C42" text-anchor="middle" font-weight="bold">Subject</text>
+            <text x="93" y="297" font-size="11" fill="#0E1C42" text-anchor="middle">Tonic key (home)</text>
+            <text x="93" y="311" font-size="10" fill="#666" text-anchor="middle">Voice 1 alone</text>
+
+            <rect x="182" y="268" width="148" height="44" rx="5" fill="#E7F4EC" />
+            <text x="256" y="283" font-size="11" fill="#1A6B3C" text-anchor="middle" font-weight="bold">Answer</text>
+            <text x="256" y="297" font-size="11" fill="#1A6B3C" text-anchor="middle">Dominant key (V)</text>
+            <text x="256" y="311" font-size="10" fill="#666" text-anchor="middle">Voice 2 + Countersubject</text>
+
+            <rect x="338" y="268" width="130" height="44" rx="5" fill="#EFEAF6" />
+            <text x="403" y="283" font-size="11" fill="#6B4C9A" text-anchor="middle" font-weight="bold">Episode</text>
+            <text x="403" y="297" font-size="11" fill="#6B4C9A" text-anchor="middle">Subject fragments</text>
+            <text x="403" y="311" font-size="10" fill="#666" text-anchor="middle">Modulates between keys</text>
+
+            <rect x="476" y="268" width="130" height="44" rx="5" fill="#FDF8EC" />
+            <text x="541" y="283" font-size="11" fill="#A07830" text-anchor="middle" font-weight="bold">Stretto</text>
+            <text x="541" y="297" font-size="11" fill="#A07830" text-anchor="middle">Overlapping entries</text>
+            <text x="541" y="311" font-size="10" fill="#666" text-anchor="middle">Near end, creates climax</text>
+
+            <rect x="614" y="268" width="116" height="44" rx="5" fill="#EEF1F8" />
+            <text x="672" y="283" font-size="11" fill="#0E1C42" text-anchor="middle" font-weight="bold">Coda</text>
+            <text x="672" y="297" font-size="11" fill="#0E1C42" text-anchor="middle">Home key confirmed</text>
+            <text x="672" y="311" font-size="10" fill="#666" text-anchor="middle">Closes the fugue</text>
+
+          </svg>
+        </div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">A fugue opens with an <strong>exposition</strong>. Each voice enters one at a time with the same melody. The first voice states the <strong>subject</strong> in the home key (tonic). When the second voice enters with the subject, it does so a fifth higher, in the dominant key. That transposed version is called the <strong>answer</strong>. While the second voice sings the answer, the first voice continues with a new accompanying melody called the <strong>countersubject</strong>. Additional voices follow, alternating between subject (tonic) and answer (dominant), until all voices have entered.</p>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">The canonical example of every fugue technique in this lesson is Bach's <a href="https://imslp.org/wiki/The_Well-Tempered_Clavier%2C_Book_1_(Bach%2C_Johann_Sebastian)" target="_blank" style="color: #6B4C9A; font-weight: bold;">Well-Tempered Clavier</a> (public domain, free on IMSLP). Book I alone contains 24 fugues covering every major and minor key. Follow a score while you listen and you will hear everything in this lesson in action.</p>
+
+        <div style="background: #EEF1F8; border-left: 5px solid #0E1C42; border-radius: 6px; padding: 14px 20px; margin: 4px 0 0;">
+            <div style="font-size: 15px; color: #0E1C42; margin-bottom: 8px;">&#128161; TONAL VS. REAL ANSWER</div>
+            <div style="font-size: 17px; color: #0E1C42; line-height: 1.6;">A <strong>real answer</strong> is an exact transposition of the subject up a perfect fifth. A <strong>tonal answer</strong> adjusts one or more intervals so the music stays grounded in the home key rather than implying a new key center. Most fugue subjects that begin on scale degree 5 use a tonal answer. The adjustment is subtle, but it keeps the tonal architecture stable during the exposition.</div>
+        </div>
+    </div>
+
+    <!-- ===================== PART 2: EPISODE, STRETTO, TRANSFORMATIONS ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#127928; PART 2 &middot; EPISODE, STRETTO, AND SUBJECT TRANSFORMATIONS</div>
+
+        <!-- VISUAL 2: Stretto diagram -->
+        <div style="background:#FCFCFD; border:1px solid #E2E7F0; border-radius:8px; padding:20px 16px; text-align:center; margin: 6px 0 20px; overflow-x:auto;">
+          <svg viewBox="0 0 680 220" width="100%" style="min-width:400px; max-width:680px;" role="img" aria-label="Stretto diagram showing Voice 1 and Voice 2 subject bars overlapping. Voice 2 begins its Subject entry before Voice 1 has finished, creating an overlap in the middle.">
+
+            <text x="340" y="20" font-size="14" fill="#0E1C42" text-anchor="middle" font-weight="bold">Stretto: Overlapping Subject Entries</text>
+            <text x="340" y="38" font-size="12" fill="#666" text-anchor="middle">Each voice enters with the Subject before the previous voice has finished it.</text>
+
+            <!-- Voice 1 bar -->
+            <text x="60" y="72" font-size="12" fill="#0E1C42" text-anchor="middle">Voice 1</text>
+            <rect x="110" y="58" width="300" height="36" rx="6" fill="#0E1C42" />
+            <text x="260" y="80" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">Subject</text>
+
+            <!-- Voice 2 bar: starts before Voice 1 ends -->
+            <text x="60" y="122" font-size="12" fill="#2A9D5C" text-anchor="middle">Voice 2</text>
+            <rect x="230" y="108" width="300" height="36" rx="6" fill="#2A9D5C" />
+            <text x="380" y="130" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">Subject</text>
+
+            <!-- Overlap shading -->
+            <rect x="230" y="58" width="180" height="86" rx="4" fill="#C9A84C" opacity="0.28" />
+            <text x="320" y="155" font-size="12" fill="#A07830" text-anchor="middle" font-weight="bold">OVERLAP</text>
+            <text x="320" y="170" font-size="11" fill="#666" text-anchor="middle">Voice 2 enters here while Voice 1 is still playing</text>
+
+            <!-- Arrows showing entry points -->
+            <line x1="110" y1="50" x2="110" y2="58" stroke="#0E1C42" stroke-width="1.5" />
+            <text x="110" y="46" font-size="11" fill="#0E1C42" text-anchor="middle">V1 starts</text>
+            <line x1="230" y1="100" x2="230" y2="108" stroke="#2A9D5C" stroke-width="1.5" />
+            <text x="230" y="96" font-size="11" fill="#2A9D5C" text-anchor="middle">V2 starts (early)</text>
+
+            <!-- Gold box result annotation -->
+            <rect x="110" y="190" width="460" height="26" rx="5" fill="#FDF8EC" stroke="#C9A84C" />
+            <text x="340" y="207" font-size="12" fill="#A07830" text-anchor="middle" font-weight="bold">Result: intensification and climax, the subject crowds in on itself, driving toward the close</text>
+          </svg>
+        </div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">After the exposition, fugues typically alternate between <strong>episodes</strong> and <strong>middle entries</strong>. An episode does not state the full subject. Instead, it takes fragments of the subject and sequences them, passing them between voices and moving through different key areas. Episodes release tension between subject entries and create forward momentum.</p>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;"><strong>Stretto</strong> (OMT p. 259) appears near the end of many fugues. Voices enter with the subject so quickly that each new entry begins before the previous one has finished. The effect is crowding, excitement, and a sense that the music is rushing toward a conclusion. Stretto is one of the most recognizable signs that a fugue is approaching its close.</p>
+
+        <div style="background: #EFEAF6; border-left: 5px solid #6B4C9A; border-radius: 6px; padding: 14px 20px; margin: 4px 0 14px;">
+            <div style="font-size: 15px; color: #6B4C9A; margin-bottom: 8px;">&#9889; SUBJECT TRANSFORMATIONS</div>
+            <div style="font-size: 17px; color: #0E1C42; line-height: 1.6; margin-bottom: 8px;"><strong>Augmentation:</strong> All note values are doubled. A quarter note becomes a half note, a half note becomes a whole note. The subject slows down and sounds grander, more monumental.</div>
+            <div style="font-size: 17px; color: #0E1C42; line-height: 1.6;"><strong>Inversion:</strong> Every interval is reversed in direction. A rising third becomes a falling third; a falling fourth becomes a rising fourth. The subject moves in the opposite direction at every step, yet its rhythmic identity makes it recognizable. These transformations add variety while keeping motivic unity intact throughout a long work.</div>
+        </div>
+    </div>
+
+    <!-- ===================== PART 3: VOCABULARY FLIP CARDS ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #6B4C9A; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #6B4C9A; margin-bottom: 14px;">&#128279; PART 3 &middot; VOCABULARY CHECK</div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">Write each term in your notebook with its definition. Then tap each card to check your definition against the one here.</p>
+
+        <div class="flip-grid">
+          <!-- Card 1: Fugal Exposition -->
+          <div class="optima-widget" style="margin:0;">
+            <div class="ow-flip" tabindex="0">
+              <div class="ow-flip-front" style="font-size:17px;color:#0E1C42;font-weight:bold;">Fugal Exposition<br><span style="font-size:16px;color:#666;font-weight:normal;">(tap to reveal)</span></div>
+              <div class="ow-flip-back" style="font-size:16px;line-height:1.6;text-align:left;">The opening section of a fugue. The subject is stated in each voice in succession, alternating between tonic (subject) and dominant (answer) keys. Every voice enters one by one until all have stated the subject.</div>
+            </div>
+            <button class="widget-reset">Reset</button>
+          </div>
+
+          <!-- Card 2: Episode -->
+          <div class="optima-widget" style="margin:0;">
+            <div class="ow-flip" tabindex="0">
+              <div class="ow-flip-front" style="font-size:17px;color:#0E1C42;font-weight:bold;">Episode<br><span style="font-size:16px;color:#666;font-weight:normal;">(tap to reveal)</span></div>
+              <div class="ow-flip-back" style="font-size:16px;line-height:1.6;text-align:left;">A passage between fugal entries that does not state the full subject. Episodes use fragmented subject material in sequence and modulate between key areas, releasing tension between entries.</div>
+            </div>
+            <button class="widget-reset">Reset</button>
+          </div>
+
+          <!-- Card 3: Stretto -->
+          <div class="optima-widget" style="margin:0;">
+            <div class="ow-flip" tabindex="0">
+              <div class="ow-flip-front" style="font-size:17px;color:#0E1C42;font-weight:bold;">Stretto<br><span style="font-size:16px;color:#666;font-weight:normal;">(tap to reveal)</span></div>
+              <div class="ow-flip-back" style="font-size:16px;line-height:1.6;text-align:left;">A contrapuntal technique in which subject entries overlap: a new voice enters with the subject before the previous voice has finished it. Creates intensification and climax, typically used near the end of a fugue (OMT p. 259).</div>
+            </div>
+            <button class="widget-reset">Reset</button>
+          </div>
+
+          <!-- Card 4: Augmentation -->
+          <div class="optima-widget" style="margin:0;">
+            <div class="ow-flip" tabindex="0">
+              <div class="ow-flip-front" style="font-size:17px;color:#0E1C42;font-weight:bold;">Augmentation<br><span style="font-size:16px;color:#666;font-weight:normal;">(tap to reveal)</span></div>
+              <div class="ow-flip-back" style="font-size:16px;line-height:1.6;text-align:left;">Presenting the subject with all note values doubled. A quarter note becomes a half note; a half note becomes a whole note. Augmentation slows the subject and increases its grandeur.</div>
+            </div>
+            <button class="widget-reset">Reset</button>
+          </div>
+        </div>
+
+        <!-- Card 5: Inversion (full width) -->
+        <div class="optima-widget" style="margin-top:12px;">
+          <div class="ow-flip" tabindex="0">
+            <div class="ow-flip-front" style="font-size:17px;color:#0E1C42;font-weight:bold;">Inversion<br><span style="font-size:16px;color:#666;font-weight:normal;">(tap to reveal)</span></div>
+            <div class="ow-flip-back" style="font-size:16px;line-height:1.6;text-align:left;">Presenting the subject with all intervals reversed in direction: rising intervals become falling, and falling intervals become rising. The subject moves in the opposite direction at every step, yet its rhythmic character keeps it identifiable.</div>
+          </div>
+          <button class="widget-reset">Reset</button>
+        </div>
+    </div>
+
+    <!-- ===================== PART 4: COMPREHENSION CHECK ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #6B4C9A; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #6B4C9A; margin-bottom: 14px;">&#9889; PART 4 &middot; CHECK YOUR UNDERSTANDING</div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">Write your answer in your notebook before you tap a choice.</p>
+
+        <div class="optima-widget ow-select">
+          <div class="widget-kicker">&#9889; CHECK IT &middot; FUGUE STRUCTURE</div>
+          <div class="widget-question">Four questions on fugue structure. Think before you tap.</div>
+
+          <!-- Q1 -->
+          <div class="widget-row" data-correct="1" data-fb="Right. The exposition presents the subject in each voice in turn, alternating between tonic (subject) and dominant (answer)." data-hint="Think about how many voices enter and where they enter -- tonic vs. dominant.">
+            <div class="widget-row-prompt">1. What characterizes the fugal exposition?</div>
+            <div class="widget-options">
+              <button data-choice="0">A single voice repeats the subject four times.</button>
+              <button data-choice="1">The subject is stated in each voice in succession, alternating tonic and dominant keys.</button>
+              <button data-choice="2">All voices enter simultaneously.</button>
+              <button data-choice="3">The subject appears only once at the very start.</button>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="widget-row" data-correct="2" data-fb="Correct. A tonal answer adjusts one or more intervals so the music stays grounded in the home key rather than shifting to a new key center." data-hint="Compare tonal vs. real answer -- one adjusts intervals, one transposes exactly.">
+            <div class="widget-row-prompt">2. What is a tonal answer?</div>
+            <div class="widget-options">
+              <button data-choice="0">An exact transposition of the subject up a fifth.</button>
+              <button data-choice="1">The subject played backward.</button>
+              <button data-choice="2">A modified transposition that adjusts intervals to stay within the home key.</button>
+              <button data-choice="3">The subject played in augmentation.</button>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="widget-row" data-correct="3" data-fb="Right. Stretto -- overlapping subject entries -- is typically reserved for late in the fugue, where the crowding creates a sense of climax and excitement." data-hint="When in the fugue does tension peak? That is where stretto appears.">
+            <div class="widget-row-prompt">3. Where does stretto typically appear in a fugue?</div>
+            <div class="widget-options">
+              <button data-choice="0">Only in the exposition.</button>
+              <button data-choice="1">In the first episode.</button>
+              <button data-choice="2">At the very opening before the exposition.</button>
+              <button data-choice="3">Near the end, creating climax through overlapping entries.</button>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="widget-row" data-correct="0" data-fb="Correct. Augmentation doubles every note value (a quarter note becomes a half note, etc.), making the subject slower and more grand." data-hint="Aug- comes from the Latin augere, to increase. Which transformation increases note values?">
+            <div class="widget-row-prompt">4. Which subject transformation doubles all note values?</div>
+            <div class="widget-options">
+              <button data-choice="0">Augmentation</button>
+              <button data-choice="1">Inversion</button>
+              <button data-choice="2">Diminution</button>
+              <button data-choice="3">Retrograde</button>
+            </div>
+          </div>
+
+          <button class="widget-reset">Reset</button>
+        </div>
+    </div>
+
+    <!-- AI AWARENESS CALLOUT -->
+    <div style="background: #FFFFFF; border-top: 3px solid #C7922C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #C7922C; margin-bottom: 12px;">&#129302; WORTH KNOWING &middot; AI AND FUGUE ANALYSIS</div>
+        <div style="font-size: 17px; color: #1a2340; line-height: 1.65;">Some AI music tools can generate a fugue-like texture in moments, complete with entries that imitate each other. Producing that sound is not the same as being able to trace a real fugue's subject, answer, and episodes by ear and on the page, which is the skill this lesson builds. A generated imitation will not teach a student to hear that structure the way working through a real score, like Bach's Well-Tempered Clavier, does.</div>
+    </div>
+
+    <!-- WHAT YOU'LL DO NEXT -->
+    <div style="background: #FFFFFF; border-top: 3px solid #6B4C9A; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #6B4C9A; margin-bottom: 16px;">&#10145;&#65039; WHAT YOU'LL DO NEXT</div>
+        <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px;">
+            <div style="min-width: 34px; height: 34px; border-radius: 50%; background: #6B4C9A; color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+            <div>
+                <div style="font-size: 18px; color: #0e1c42; margin-bottom: 4px;"><strong>Fugal Analysis: Listen and Label</strong></div>
+                <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">Listen to Bach's Little Fugue in G minor (search YouTube for a public-domain recording). Identify the subject in the first four voice entries and note whether each one is in tonic (g minor) or dominant (d minor). Write your answers in your notebook.</div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 14px;">
+            <div style="min-width: 34px; height: 34px; border-radius: 50%; background: #6B4C9A; color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+            <div>
+                <div style="font-size: 18px; color: #0e1c42; margin-bottom: 4px;"><strong>Module 28 Canvas quiz and imitative counterpoint worksheet</strong></div>
+                <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">Complete the auto-graded Fugue Structure Check quiz and the Fugal Analysis Practice assignment in Canvas.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wrap-up -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 12px;">&#128170; THE ONE THING TO REMEMBER</div>
+        <p style="font-size: 18px; color: #1a2340; line-height: 1.65; margin: 0;">A fugue opens with an exposition (subject in tonic, answer in dominant, countersubject against the answer), continues with episodes that fragment the subject in sequence, intensifies through stretto (overlapping entries), and often transforms the subject through augmentation or inversion. The subject's identity persists through all transformations. That is the miracle of fugal writing.</p>
+    </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div style="background: #0E1C42; border-top: 3px solid #55C8E8; padding: 18px 34px; text-align: center;">
+    <div style="font-size: 18px; color: #ffffff; margin-bottom: 6px;"><span style="color: #55c8e8;">Optima Academy Online</span> &middot; M/J MUSIC THEORY 2 &middot; Quarter 4 &middot; Student Lesson Page</div>
+    <div style="font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 4px;">Lesson 28.01 &middot; Extended Counterpoint and Fugue</div>
+    <div style="font-size: 12px; color: rgba(255,255,255,0.4);">&copy; Optima Academy Online &middot; An Education Experience Company</div>
+</div>
+
+</div>
+
+<!-- ===== WIDGET RUNTIME ===== -->
+<script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var reset = e.target.closest('.widget-reset');
+    if (reset) {
+      var w = reset.closest('.optima-widget');
+      w.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected', 'correct', 'incorrect'); });
+      w.querySelectorAll('.widget-feedback').forEach(function (f) { f.classList.remove('show'); f.textContent = ''; });
+      w.querySelectorAll('.row-feedback').forEach(function (f) { f.remove(); });
+      w.querySelectorAll('.ow-flip.flipped').forEach(function (c) { c.classList.remove('flipped'); });
+      return;
+    }
+    var rBtn = e.target.closest('.ow-reflect .widget-options button');
+    if (rBtn) {
+      var rw = rBtn.closest('.optima-widget');
+      rw.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected'); });
+      rBtn.classList.add('selected');
+      var fb = rw.querySelector('.widget-feedback');
+      fb.textContent = rBtn.dataset.response || '';
+      fb.classList.add('show');
+      return;
+    }
+    var sBtn = e.target.closest('.ow-select .widget-row .widget-options button');
+    if (sBtn) {
+      var row = sBtn.closest('.widget-row');
+      var correct = row.dataset.correct;
+      row.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected', 'correct', 'incorrect'); });
+      var right = sBtn.dataset.choice === correct;
+      sBtn.classList.add(right ? 'correct' : 'incorrect');
+      var text = right ? (sBtn.dataset.fb || row.dataset.fb || 'Right.') : (sBtn.dataset.fb || row.dataset.hint || 'Not quite. Try again.');
+      var rf = row.querySelector('.row-feedback') || row.appendChild(document.createElement('div'));
+      rf.className = 'row-feedback ' + (right ? 'correct' : 'incorrect');
+      rf.textContent = text;
+      return;
+    }
+    var flip = e.target.closest('.ow-flip');
+    if (flip) { flip.classList.toggle('flipped'); return; }
+  });
+})();
+</script>
+
+</body>
+</html>

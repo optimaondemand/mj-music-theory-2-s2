@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 23.01, 20th-Century Movements and Pitch Collections | M/J Music Theory 2</title>
+<style>
+/* === RESET & BASE === */
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; padding: 0; font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f4f6fa; }
+.canvas-frame { max-width: 1100px; margin: 0 auto; background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+/* === WIDGETS (verbatim from spec) === */
+.optima-widget { background: linear-gradient(135deg, #EFEAF6 0%, #F7F4FB 100%); border: 1px solid #D9CEEC; border-left: 5px solid #6B4C9A; border-radius: 8px; padding: 18px 22px; margin: 18px 0; }
+.widget-kicker { font-size: 15px; color: #6B4C9A; margin-bottom: 10px; letter-spacing: 0.4px; }
+.widget-question { font-size: 17px; color: #0E1C42; margin-bottom: 14px; line-height: 1.55; }
+.widget-row { background: #FFFFFF; border: 1px solid #D9CEEC; border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; }
+.widget-row-prompt { font-size: 16px; color: #0E1C42; margin-bottom: 8px; line-height: 1.5; font-style: italic; }
+.widget-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.widget-options button { background: #FFFFFF; border: 1.5px solid #D9CEEC; border-radius: 8px; padding: 8px 14px; font-size: 16px; color: #0E1C42; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+.widget-options button:hover { background: #F4F0FA; border-color: #8A6FBF; }
+.widget-options button.selected { background: #0E1C42; color: #FFFFFF; border-color: #0E1C42; }
+.widget-options button.correct { background: #D8F0DD; border-color: #2A9D5C; color: #1A6B3D; }
+.widget-options button.incorrect { background: #FDECEC; border-color: #C0392B; color: #8A1F16; }
+.widget-feedback { background: #FFFFFF; border-left: 3px solid #6B4C9A; padding: 10px 14px; font-size: 16px; color: #1a2340; line-height: 1.55; margin: 10px 0; display: none; border-radius: 4px; }
+.widget-feedback.show { display: block; }
+.row-feedback { padding: 8px 12px; margin-top: 8px; font-size: 16px; border-radius: 4px; line-height: 1.5; }
+.row-feedback.correct { background: #D8F0DD; border-left: 3px solid #2A9D5C; color: #1A6B3D; }
+.row-feedback.incorrect { background: #FDECEC; border-left: 3px solid #C0392B; color: #8A1F16; }
+.widget-reset { background: transparent; border: 1px solid #6B4C9A; color: #6B4C9A; border-radius: 6px; padding: 6px 12px; font-size: 15px; cursor: pointer; font-family: inherit; margin-top: 6px; }
+.widget-reset:hover { background: #F0EAF7; }
+.ow-flip { background: #FFFFFF; border: 1px solid #D9CEEC; border-radius: 8px; padding: 18px 20px; cursor: pointer; text-align: center; }
+.ow-flip .ow-flip-back { display: none; color: #1a2340; }
+.ow-flip.flipped .ow-flip-front { display: none; }
+.ow-flip.flipped .ow-flip-back { display: block; }
+.flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .flip-grid { grid-template-columns: 1fr; } }
+.note-chip { display:inline-block; min-width:22px; text-align:center; background:#1A6B3C; color:#fff; border-radius:5px; padding:2px 7px; font-size:16px; margin:0 2px; }
+
+/* === TITLE STRIP === */
+.title-strip { padding: 20px 34px 18px; border-bottom: 1px solid #e8eaf0; }
+.title-kicker { font-size: 15px; font-weight: 600; color: #6B4C9A; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 6px; }
+.title-main { font-size: 26px; font-weight: 700; color: #0E1C42; line-height: 1.25; margin-bottom: 4px; }
+.title-type { font-size: 15px; color: #6B7A99; font-weight: 400; }
+
+/* === METADATA STRIP === */
+.meta-strip { display: flex; flex-wrap: wrap; background: #F4F6FA; border-bottom: 1px solid #e0e3ea; }
+.meta-cell { flex: 1; min-width: 140px; padding: 12px 20px; border-right: 1px solid #e0e3ea; }
+.meta-cell:last-child { border-right: none; }
+.meta-label { font-size: 15px; font-weight: 700; color: #8896B0; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 3px; }
+.meta-value { font-size: 16px; font-weight: 600; color: #0E1C42; line-height: 1.3; }
+.meta-sub { font-size: 15px; color: #6B7A99; margin-top: 2px; }
+
+/* === SECTION COMMON === */
+.section { padding: 32px 34px; }
+.section + .section { border-top: 1px solid #eaedf3; }
+
+/* === GREEN TEACHING SECTIONS === */
+.section-green { border-top: 4px solid #1A6B3C; background: #F6FAF7; }
+.section-green .section-heading { color: #1A6B3C; }
+
+/* === PURPLE ACTIVITY SECTIONS === */
+.section-purple { border-top: 4px solid #6B4C9A; background: #FAFAFA; }
+.section-purple .section-heading { color: #6B4C9A; }
+
+/* === SECTION HEADINGS === */
+.section-eyebrow { font-size: 15px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #8896B0; margin-bottom: 6px; }
+.section-heading { font-size: 20px; font-weight: 700; color: #0E1C42; margin-bottom: 16px; line-height: 1.3; }
+
+/* === OBJECTIVES === */
+.objectives-list { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.obj-item { display: flex; align-items: flex-start; gap: 14px; }
+.obj-num { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: #1A6B3C; color: #fff; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.obj-text { font-size: 16px; color: #1a2340; line-height: 1.55; padding-top: 4px; }
+
+/* === MATERIALS LIST === */
+.materials-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.materials-list li { font-size: 16px; color: #1a2340; line-height: 1.5; padding-left: 20px; position: relative; }
+.materials-list li::before { content: "\25B6"; position: absolute; left: 0; color: #1A6B3C; font-size: 15px; top: 4px; }
+
+/* === BODY TEXT === */
+.body-text { font-size: 16px; color: #1a2340; line-height: 1.65; margin: 0 0 14px; }
+.body-text:last-child { margin-bottom: 0; }
+
+/* === CALLOUT === */
+.callout { background: #E8F5EE; border-left: 4px solid #1A6B3C; border-radius: 0 6px 6px 0; padding: 14px 18px; margin: 18px 0; font-size: 16px; color: #1a2340; line-height: 1.6; }
+.callout-purple { background: #EEE8F7; border-left: 4px solid #6B4C9A; border-radius: 0 6px 6px 0; padding: 14px 18px; margin: 18px 0; font-size: 16px; color: #1a2340; line-height: 1.6; }
+.callout strong { color: #0E1C42; }
+
+/* === LINKS === */
+a { color: #0E5C9A; text-decoration: underline; }
+a:hover { color: #0E1C42; }
+
+/* === ANALYSIS STEPS === */
+.steps-list { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.steps-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; color: #1a2340; line-height: 1.55; }
+.step-num { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: #1A6B3C; color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+
+/* === NEXT UP LIST === */
+.next-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.next-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; color: #1a2340; line-height: 1.5; }
+.next-icon { flex-shrink: 0; width: 28px; height: 28px; border-radius: 6px; background: #6B4C9A; color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+
+/* === ONE THING === */
+.one-thing { background: #1A6B3C; color: #fff; border-radius: 8px; padding: 22px 26px; margin-top: 8px; }
+.one-thing-label { font-size: 15px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 8px; }
+.one-thing-text { font-size: 16px; line-height: 1.65; color: #fff; }
+
+/* === SVG CONTAINERS === */
+.svg-wrap { overflow-x: auto; margin: 20px 0; }
+.svg-wrap svg { display: block; }
+
+/* === ESSENTIAL QUESTION === */
+.eq-box { background: #0E1C42; border-radius: 8px; padding: 18px 22px; margin: 0 0 18px; }
+.eq-label { font-size: 15px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #55C8E8; margin-bottom: 6px; }
+.eq-text { font-size: 17px; color: #ffffff; line-height: 1.55; font-style: italic; }
+
+/* === VOCAB GRID === */
+.vocab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+@media (max-width: 640px) { .vocab-grid { grid-template-columns: 1fr; } }
+.vocab-card { background: #fff; border: 1px solid #D1E8D9; border-radius: 6px; padding: 13px 16px; }
+.vocab-term { font-size: 15px; font-weight: 700; color: #1A6B3C; margin-bottom: 4px; letter-spacing: 0.2px; }
+.vocab-def { font-size: 15px; color: #1a2340; line-height: 1.5; }
+
+/* === SUBSECTION HEADING === */
+.sub-heading { font-size: 16px; font-weight: 700; color: #0E1C42; margin: 20px 0 8px; }
+</style>
+</head>
+<body>
+<div class="canvas-frame">
+
+  <!-- HEADER -->
+  <div style="background: #0E1C42; border-bottom: 5px solid #55C8E8; padding: 22px 34px;">
+    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
+      <div style="width: 52px; height: 52px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><img src="https://raw.githubusercontent.com/optimaondemand/optima-assets/eeb0b335630058906d52f478028361d352253a93/images/Optima%20Final%20Circle%20-%20Owl%20Only.png" alt="Optima Academy" style="width: 50px; height: 40px; object-fit: contain;" /></div>
+      <div>
+        <div style="font-size: 28px; color: #ffffff; line-height: 1.2;">Optima Academy Online</div>
+        <div style="font-size: 12px; color: #55c8e8;">An Education Experience Company</div>
+      </div>
+    </div>
+    <div style="font-size: 36px; color: #ffffff; margin-bottom: 6px;">M/J MUSIC THEORY 2</div>
+  </div>
+
+  <!-- METADATA STRIP -->
+  <div class="meta-strip">
+    <div class="meta-cell">
+      <div class="meta-label">Module</div>
+      <div class="meta-value">Q3 &middot; Module 23</div>
+      <div class="meta-sub">20th-Century Music and Extended Techniques</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Lesson</div>
+      <div class="meta-value">Lesson 23.01</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Topic</div>
+      <div class="meta-value">Movements and Pitch Collections</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Time</div>
+      <div class="meta-value">About 40 min</div>
+    </div>
+  </div>
+
+
+  <div style="padding: 20px 34px 0;">
+<!-- ═══ OPTIMA READ-ALOUD PLAYER ═══ -->
+<div id="optima-read-aloud">
+<style>
+    #optima-read-aloud { background: linear-gradient(135deg, #E8F6FB 0%, #F4F9FC 100%); border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 8px; padding: 14px 18px; margin: 0 0 20px 0; }
+    #optima-read-aloud .ora-kicker { font-size: 11px; color: #1B6A94; letter-spacing: 0.4px; margin-bottom: 10px; }
+    #optima-read-aloud .ora-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    #optima-read-aloud .ora-controls button { border-radius: 8px; padding: 8px 16px; font-size: 14px; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    #ora-play { background: #0E1C42; color: #FFFFFF; border: 1.5px solid #0E1C42; }
+    #ora-play:hover:enabled { background: #1B2D5E; }
+    #ora-play:disabled { background: #D0D9E8; border-color: #D0D9E8; color: #6b7a99; cursor: default; }
+    #ora-stop { background: #FFFFFF; color: #0E1C42; border: 1.5px solid #D0D9E8; }
+    #ora-stop:hover:enabled { background: #F4F6FA; border-color: #55C8E8; }
+    #ora-stop:disabled { color: #999; border-color: #E4E9F2; cursor: default; }
+    #optima-read-aloud .ora-speed { font-size: 12px; color: #6b7a99; display: flex; align-items: center; gap: 6px; }
+    #ora-rate { font-family: inherit; font-size: 13px; color: #0E1C42; border: 1.5px solid #D0D9E8; border-radius: 6px; padding: 5px 8px; background: #FFFFFF; }
+    #ora-status { font-size: 12px; color: #666; }
+    .ora-highlight { background: #FDF3E3 !important; box-shadow: inset 4px 0 0 #C7922C; border-radius: 4px; transition: background 0.2s; }
+</style>
+    <div class="ora-kicker">&#128266; READ ALOUD &mdash; LISTEN TO THIS PAGE</div>
+    <div class="ora-controls">
+        <button id="ora-play" type="button" aria-label="Listen to this page">&#9654;&#65039; Listen</button>
+        <button id="ora-stop" type="button" aria-label="Stop reading" disabled>&#9632; Stop</button>
+        <label class="ora-speed">Speed
+            <select id="ora-rate" aria-label="Reading speed">
+                <option value="0.8">Slower</option>
+                <option value="1" selected>Normal</option>
+                <option value="1.25">Faster</option>
+            </select>
+        </label>
+        <span id="ora-status" role="status" aria-live="polite"></span>
+    </div>
+<script>
+(function () {
+    "use strict";
+    var playBtn  = document.getElementById("ora-play");
+    var stopBtn  = document.getElementById("ora-stop");
+    var rateSel  = document.getElementById("ora-rate");
+    var statusEl = document.getElementById("ora-status");
+
+    if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
+        playBtn.disabled = true;
+        rateSel.disabled = true;
+        statusEl.textContent = "Read-aloud is not supported in this browser.";
+        return;
+    }
+
+    var LABEL_PLAY   = "▶️ Listen";
+    var LABEL_PAUSE  = "⏸️ Pause";
+    var LABEL_RESUME = "▶️ Resume";
+    var BLOCK_SEL = "p, li, h1, h2, h3, h4, h5, h6, blockquote, td, th, dt, dd, figcaption, div";
+    var SKIP_SEL  = "#optima-read-aloud, [data-ra-skip], button, script, style, select, noscript, iframe";
+
+    var queue = [];        // [{ el, text }] — one entry per sentence
+    var idx = 0;
+    var playing = false, paused = false, stopping = false;
+    var currentBlock = null;
+    var currentUtterance = null;  // held to dodge a Chrome garbage-collection bug
+
+    var voices = [];
+    function loadVoices() { voices = window.speechSynthesis.getVoices(); }
+    loadVoices();
+    if ("onvoiceschanged" in window.speechSynthesis) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+    function pickVoice() {
+        if (!voices.length) loadVoices();
+        var en = voices.filter(function (v) { return /^en/i.test(v.lang); });
+        return en.filter(function (v) { return /natural/i.test(v.name); })[0]
+            || en.filter(function (v) { return /google us english/i.test(v.name); })[0]
+            || en.filter(function (v) { return v.default; })[0]
+            || en[0] || null;
+    }
+
+    function isVisible(el) {
+        return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+    }
+
+    // Walk text nodes, attach each to its nearest block ancestor, split into sentences.
+    function collectQueue() {
+        var root = document.querySelector("[data-readaloud-root]")
+                || document.querySelector(".canvas-frame")
+                || document.body;
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        var items = [];   // [{ el, text }] — one entry per block, in reading order
+        var node;
+        while ((node = walker.nextNode())) {
+            if (!/\S/.test(node.textContent)) continue;
+            var el = node.parentElement;
+            if (!el || el.closest(SKIP_SEL)) continue;
+            if (!isVisible(el)) continue;
+            var block = el.closest(BLOCK_SEL) || root;
+            var last = items[items.length - 1];
+            if (last && last.el === block) last.text += " " + node.textContent;
+            else items.push({ el: block, text: node.textContent });
+        }
+        var q = [];
+        items.forEach(function (item) {
+            var clean = item.text.replace(/\s+/g, " ").trim();
+            if (!clean) return;
+            var sentences = clean.match(/[^.!?]+[.!?]+[”"')\]]*\s*|[^.!?]+$/g) || [clean];
+            sentences.forEach(function (s) {
+                s = s.trim();
+                if (s) q.push({ el: item.el, text: s });
+            });
+        });
+        return q;
+    }
+
+    function highlight(el) {
+        if (el === currentBlock) return;
+        clearHighlight();
+        currentBlock = el;
+        if (el && el !== document.body) {
+            el.classList.add("ora-highlight");
+            try { el.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (e) {}
+        }
+    }
+    function clearHighlight() {
+        if (currentBlock) currentBlock.classList.remove("ora-highlight");
+        currentBlock = null;
+    }
+
+    function speakNext() {
+        if (idx >= queue.length) { finish("Finished reading this page."); return; }
+        var item = queue[idx];
+        highlight(item.el);
+        var u = new SpeechSynthesisUtterance(item.text);
+        u.rate = parseFloat(rateSel.value) || 1;
+        var v = pickVoice();
+        if (v) u.voice = v;
+        u.onend = function () {
+            if (stopping) return;
+            idx++;
+            speakNext();
+        };
+        u.onerror = function (e) {
+            if (stopping || e.error === "canceled" || e.error === "interrupted") return;
+            idx++;
+            speakNext();
+        };
+        currentUtterance = u;
+        window.speechSynthesis.speak(u);
+        statusEl.textContent = "Reading… " + (idx + 1) + " / " + queue.length;
+    }
+
+    function finish(message) {
+        playing = false;
+        paused = false;
+        clearHighlight();
+        playBtn.textContent = LABEL_PLAY;
+        stopBtn.disabled = true;
+        statusEl.textContent = message || "";
+        currentUtterance = null;
+    }
+
+    playBtn.addEventListener("click", function () {
+        if (playing && !paused) {
+            window.speechSynthesis.pause();
+            paused = true;
+            playBtn.textContent = LABEL_RESUME;
+            statusEl.textContent = "Paused";
+            return;
+        }
+        if (playing && paused) {
+            window.speechSynthesis.resume();
+            paused = false;
+            playBtn.textContent = LABEL_PAUSE;
+            statusEl.textContent = "Reading… " + (idx + 1) + " / " + queue.length;
+            return;
+        }
+        queue = collectQueue();
+        if (!queue.length) { statusEl.textContent = "Nothing to read on this page."; return; }
+        idx = 0;
+        stopping = false;
+        playing = true;
+        paused = false;
+        window.speechSynthesis.cancel();
+        playBtn.textContent = LABEL_PAUSE;
+        stopBtn.disabled = false;
+        speakNext();
+    });
+
+    stopBtn.addEventListener("click", function () {
+        stopping = true;
+        window.speechSynthesis.cancel();
+        finish("");
+    });
+
+    // Changing speed mid-read restarts the current sentence at the new rate.
+    rateSel.addEventListener("change", function () {
+        if (!playing || paused) return;
+        stopping = true;
+        window.speechSynthesis.cancel();
+        setTimeout(function () { stopping = false; speakNext(); }, 60);
+    });
+
+    window.addEventListener("pagehide", function () { window.speechSynthesis.cancel(); });
+})();
+</script>
+</div>
+<!-- ═══ END OPTIMA READ-ALOUD PLAYER ═══ -->
+  </div>
+
+  <!-- TITLE STRIP -->
+  <div class="title-strip">
+    <div class="title-kicker">LESSON 23.01</div>
+    <div class="title-main">20th-Century Movements and Pitch Collections</div>
+    <div class="title-type">Lesson</div>
+  </div>
+
+  <!-- TODAY'S FOCUS -->
+  <div class="section section-green">
+    <div class="section-eyebrow">Today&#8217;s Focus</div>
+    <div class="section-heading">Where are we going?</div>
+    <div class="eq-box">
+      <div class="eq-label">Essential Question</div>
+      <div class="eq-text">How did composers in the 20th century organize music once they left behind the traditional V&#8211;I pull?</div>
+    </div>
+    <p class="body-text">Tonal harmony ruled Western music for roughly three centuries: chords moved toward a home key, and the dominant-to-tonic cadence gave listeners a clear sense of direction and arrival. In the 20th century, composers began asking what music could sound like without that pull. Their answers produced several distinct movements, each with its own way of choosing and arranging pitches. By the end of this lesson, you will be able to identify those movements, name their key composers, and describe the pitch collections each one favored.</p>
+  </div>
+
+  <!-- OBJECTIVES -->
+  <div class="section section-green">
+    <div class="section-eyebrow">Learning Objectives</div>
+    <div class="section-heading">By the end of this lesson you will be able to:</div>
+    <ul class="objectives-list">
+      <li class="obj-item">
+        <div class="obj-num">1</div>
+        <div class="obj-text">Describe the major movements in 20th-century classical music: Impressionism, Neoclassicism, Expressionism, and Minimalism.</div>
+      </li>
+      <li class="obj-item">
+        <div class="obj-num">2</div>
+        <div class="obj-text">Identify the compositional approach (pitch collection, serial technique, or tonal) of a given 20th-century excerpt.</div>
+      </li>
+      <li class="obj-item">
+        <div class="obj-num">3</div>
+        <div class="obj-text">Name two 20th-century composers and describe their characteristic style.</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- MATERIALS -->
+  <div class="section section-green">
+    <div class="section-eyebrow">Materials</div>
+    <div class="section-heading">What to have ready</div>
+    <ul class="materials-list">
+      <li>Open Theory (OMT), pages 673&#8211;692 (Diatonic Modes, Collections, Analyzing with Modes/Scales/Collections)</li>
+      <li>Your notebook or a document open for written responses</li>
+      <li>Headphones or speakers for listening via IMSLP and YouTube links in the lesson</li>
+    </ul>
+  </div>
+
+  <!-- PART 1: MAP OF 20TH-CENTURY MOVEMENTS -->
+  <div class="section section-green">
+    <div class="section-eyebrow">Part 1</div>
+    <div class="section-heading">A Map of 20th-Century Movements</div>
+
+    <p class="body-text">No single technique replaced tonal harmony. Instead, several movements developed in overlapping waves across the century. The timeline below places each one roughly in time and identifies the composers and key characteristics that define it.</p>
+
+    <!-- TIMELINE SVG -->
+    <div class="svg-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" width="960" height="320" aria-label="Timeline of 20th-century musical movements" role="img">
+        <defs>
+          <linearGradient id="rail-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#0E1C42"/>
+            <stop offset="100%" stop-color="#55C8E8"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Year labels -->
+        <text x="50" y="18" font-family="Segoe UI,sans-serif" font-size="11" fill="#6B7A99">1890</text>
+        <text x="176" y="18" font-family="Segoe UI,sans-serif" font-size="11" fill="#6B7A99">1910</text>
+        <text x="302" y="18" font-family="Segoe UI,sans-serif" font-size="11" fill="#6B7A99">1930</text>
+        <text x="428" y="18" font-family="Segoe UI,sans-serif" font-size="11" fill="#6B7A99">1950</text>
+        <text x="554" y="18" font-family="Segoe UI,sans-serif" font-size="11" fill="#6B7A99">1970</text>
+        <text x="680" y="18" font-family="Segoe UI,sans-serif" font-size="11" fill="#6B7A99">1990</text>
+        <text x="806" y="18" font-family="Segoe UI,sans-serif" font-size="11" fill="#6B7A99">2010</text>
+
+        <!-- Rail -->
+        <rect x="50" y="28" width="880" height="6" rx="3" fill="url(#rail-grad)"/>
+
+        <!-- Tick marks -->
+        <line x1="50" y1="24" x2="50" y2="38" stroke="#8896B0" stroke-width="1"/>
+        <line x1="176" y1="24" x2="176" y2="38" stroke="#8896B0" stroke-width="1"/>
+        <line x1="302" y1="24" x2="302" y2="38" stroke="#8896B0" stroke-width="1"/>
+        <line x1="428" y1="24" x2="428" y2="38" stroke="#8896B0" stroke-width="1"/>
+        <line x1="554" y1="24" x2="554" y2="38" stroke="#8896B0" stroke-width="1"/>
+        <line x1="680" y1="24" x2="680" y2="38" stroke="#8896B0" stroke-width="1"/>
+        <line x1="806" y1="24" x2="806" y2="38" stroke="#8896B0" stroke-width="1"/>
+        <line x1="930" y1="24" x2="930" y2="38" stroke="#8896B0" stroke-width="1"/>
+
+        <!-- Scale: 1890=x50, 1 year = 6.33px -->
+        <!-- Impressionism: 1890s-1920s = x50 to x239 -->
+        <rect x="50" y="50" width="189" height="82" rx="6" fill="#1A6B3C" opacity="0.92"/>
+        <text x="145" y="70" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">Impressionism</text>
+        <text x="145" y="86" font-family="Segoe UI,sans-serif" font-size="11" fill="rgba(255,255,255,0.8)" text-anchor="middle">1890s &#8211; 1920s</text>
+        <text x="145" y="102" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.75)" text-anchor="middle">Debussy, Ravel</text>
+        <text x="145" y="118" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.75)" text-anchor="middle">Whole-tone &#183; Pentatonic &#183; Color</text>
+
+        <!-- Expressionism: 1900s-1930s = x113 to x302 -->
+        <rect x="113" y="148" width="189" height="82" rx="6" fill="#0E1C42" opacity="0.92"/>
+        <text x="207" y="168" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">Expressionism</text>
+        <text x="207" y="184" font-family="Segoe UI,sans-serif" font-size="11" fill="rgba(255,255,255,0.8)" text-anchor="middle">1900s &#8211; 1930s</text>
+        <text x="207" y="200" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.75)" text-anchor="middle">Schoenberg, Berg, Webern</text>
+        <text x="207" y="216" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.75)" text-anchor="middle">Atonal &#183; Dissonance &#183; Intense</text>
+
+        <!-- Neoclassicism: 1920s-1950s = x239 to x428 -->
+        <rect x="239" y="50" width="189" height="82" rx="6" fill="#3B7A57" opacity="0.92"/>
+        <text x="333" y="70" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">Neoclassicism</text>
+        <text x="333" y="86" font-family="Segoe UI,sans-serif" font-size="11" fill="rgba(255,255,255,0.8)" text-anchor="middle">1920s &#8211; 1950s</text>
+        <text x="333" y="102" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.75)" text-anchor="middle">Stravinsky, Prokofiev</text>
+        <text x="333" y="118" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.75)" text-anchor="middle">Classical forms &#183; Modern harmony</text>
+
+        <!-- Serialism: 1920s-1970s = x239 to x554 -->
+        <rect x="239" y="148" width="315" height="82" rx="6" fill="#4A3570" opacity="0.92"/>
+        <text x="397" y="168" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">Serialism</text>
+        <text x="397" y="184" font-family="Segoe UI,sans-serif" font-size="11" fill="rgba(255,255,255,0.8)" text-anchor="middle">1920s &#8211; 1970s</text>
+        <text x="397" y="200" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.75)" text-anchor="middle">Schoenberg, Webern, Boulez</text>
+        <text x="397" y="216" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.75)" text-anchor="middle">12-tone rows &#183; Total pitch equality</text>
+
+        <!-- Minimalism: 1960s-present = x491 to x930 -->
+        <rect x="491" y="50" width="439" height="82" rx="6" fill="#1A7A8A" opacity="0.92"/>
+        <text x="711" y="70" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">Minimalism</text>
+        <text x="711" y="86" font-family="Segoe UI,sans-serif" font-size="11" fill="rgba(255,255,255,0.8)" text-anchor="middle">1960s &#8211; present</text>
+        <text x="711" y="102" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.75)" text-anchor="middle">Reich, Glass, Adams</text>
+        <text x="711" y="118" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.75)" text-anchor="middle">Repetition &#183; Gradual change &#183; Steady pulse</text>
+
+        <!-- "Present" arrow indicator -->
+        <polygon points="924,55 930,59 924,63" fill="rgba(255,255,255,0.6)"/>
+        <text x="912" y="148" font-family="Segoe UI,sans-serif" font-size="10" fill="#6B7A99" text-anchor="middle">ongoing</text>
+
+        <!-- Legend connector lines (subtle) -->
+        <line x1="239" y1="91" x2="239" y2="97" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
+        <line x1="428" y1="91" x2="428" y2="97" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
+
+        <!-- "Earlier movements overlap" note -->
+        <text x="480" y="245" font-family="Segoe UI,sans-serif" font-size="10" fill="#8896B0" text-anchor="middle" font-style="italic">Movements overlapped and coexisted; dates indicate approximate peak activity.</text>
+      </svg>
+    </div>
+
+    <p class="body-text">Notice that these movements overlapped. Serialism grew out of Expressionism; Neoclassicism was partly a reaction against Expressionist chaos; Minimalism arrived as a direct critique of the complexity that Serialism had produced. Knowing where each movement falls in time helps you understand why composers made the choices they did.</p>
+
+    <!-- KEY VOCABULARY -->
+    <div class="sub-heading">Key Vocabulary</div>
+    <div class="vocab-grid">
+      <div class="vocab-card">
+        <div class="vocab-term">Impressionism</div>
+        <div class="vocab-def">Late 19th to early 20th century style emphasizing tone color, ambiguous harmony, whole-tone and pentatonic scales, and avoidance of strong cadences. Key composers: Debussy, Ravel.</div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-term">Expressionism</div>
+        <div class="vocab-def">Early 20th century style using extreme chromaticism, atonal harmony, fragmented forms, and intense emotional expression. Key composers: Schoenberg, Berg, Webern.</div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-term">Neoclassicism</div>
+        <div class="vocab-def">1920s to 1940s style returning to Classical-era forms and clarity while using modern harmonic language (modal, polytonal). Key composers: Stravinsky, Prokofiev.</div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-term">Minimalism</div>
+        <div class="vocab-def">Late 20th century style built on static harmony, gradual process, repetition, and steady pulse. A reaction against high-modernist complexity. Key composers: Reich, Glass, Adams.</div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-term">Serialism</div>
+        <div class="vocab-def">A technique using a predetermined ordering of all 12 pitches (the tone row) as the basis for all melodic and harmonic material. Developed by Schoenberg.</div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-term">Pitch Collection</div>
+        <div class="vocab-def">The set of pitches a composer draws from in a passage: pentatonic, whole-tone, octatonic, chromatic, or a tone row. Identifying the collection is the first step in post-tonal analysis.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART 2: IMPRESSIONISM -->
+  <div class="section section-green">
+    <div class="section-eyebrow">Part 2</div>
+    <div class="section-heading">Impressionism</div>
+
+    <p class="body-text">Impressionism in music shares its name with the painting movement (Monet, Renoir) for good reason: both arts prioritized atmosphere and color over clear structure and argument. Impressionist composers replaced the driving functional progressions of tonal harmony with something more floating and ambiguous.</p>
+
+    <div class="sub-heading">Key Features</div>
+    <p class="body-text">Impressionist composers used several techniques to achieve that floating quality:</p>
+    <ul style="margin: 0 0 14px 18px; padding: 0; font-size: 16px; color: #1a2340; line-height: 1.7;">
+      <li><strong>Whole-tone and pentatonic scales</strong> instead of major/minor scales, removing the leading tone that creates the V&#8211;I pull.</li>
+      <li><strong>Parallel chords (planing)</strong>: moving a chord shape up or down without resolving it, treating chords as colors rather than functional steps.</li>
+      <li><strong>Avoidance of strong cadences</strong>: phrases often dissolve rather than land with finality.</li>
+      <li><strong>Rich orchestration and pedal effects</strong>: the piano sustain pedal blurs harmonies into a wash of sound.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Impressionism borrowed its name from painting.</strong> Just as Monet&#8217;s canvases captured light and atmosphere rather than sharp outlines, Debussy&#8217;s music captured mood and color rather than logical harmonic argument. The comparison was not entirely a compliment when first made, but both artists kept the name.
+    </div>
+
+    <div class="sub-heading">Composers and Public Domain Status</div>
+    <p class="body-text">Claude Debussy (1862&#8211;1918) and Maurice Ravel (1875&#8211;1937) are the central Impressionist composers. Because both died more than 70 years ago, all of their works are in the public domain, and their scores are freely available.</p>
+
+    <div style="background: #fff; border: 1px solid #C5DCC9; border-radius: 6px; padding: 14px 18px; margin: 14px 0; display: flex; align-items: center; gap: 14px;">
+      <div style="font-size: 22px; flex-shrink: 0;">&#127925;</div>
+      <div>
+        <div style="font-size: 15px; font-weight: 700; color: #1A6B3C; margin-bottom: 3px;">Score: Debussy, Clair de lune</div>
+        <div style="font-size: 16px; color: #1a2340; line-height: 1.5;">One of the most famous Impressionist piano pieces. Notice the whole-tone inflections, the use of the sustain pedal to blend harmonies, and the absence of a strong dominant&#8211;tonic cadence at phrase ends.</div>
+        <div style="margin-top: 8px;"><a href="https://imslp.org/wiki/Clair_de_lune_(Debussy%2C_Claude)" target="_blank" rel="noopener">View the score on IMSLP (public domain) &#8599;</a></div>
+      </div>
+    </div>
+
+    <p class="body-text">As you look at (or listen to) Clair de lune, ask: where does the piece feel like it is heading? Does it ever arrive decisively? What collection of pitches does the opening use?</p>
+  </div>
+
+  <!-- PART 3: EXPRESSIONISM AND SERIALISM -->
+  <div class="section section-green">
+    <div class="section-eyebrow">Part 3</div>
+    <div class="section-heading">Expressionism and Serialism</div>
+
+    <p class="body-text">Where Impressionism created a gentle blur, Expressionism pushed to the other extreme: maximum dissonance, maximum intensity, no harmonic home at all. The Second Viennese School (Schoenberg, Berg, and Webern) led this movement.</p>
+
+    <div class="sub-heading">Expressionism</div>
+    <p class="body-text">Expressionist music is characterized by:</p>
+    <ul style="margin: 0 0 14px 18px; padding: 0; font-size: 16px; color: #1a2340; line-height: 1.7;">
+      <li><strong>Atonality</strong>: no single pitch functions as a home base or tonic.</li>
+      <li><strong>Extreme dissonance</strong>: harsh intervals treated not as tensions to resolve but as the primary sound world.</li>
+      <li><strong>Fragmented, compressed forms</strong>: some Webern pieces last under a minute.</li>
+      <li><strong>Intense emotional expression</strong>: the music aimed to externalize inner psychological states directly.</li>
+    </ul>
+
+    <div class="sub-heading">Serialism: Organizing Atonality</div>
+    <p class="body-text">Atonality was dramatic but hard to organize systematically. Schoenberg&#8217;s solution was the 12-tone technique (serialism): arrange all 12 pitches of the chromatic scale in a fixed order, called the tone row. Every pitch must appear exactly once before any pitch repeats. This gives all 12 pitches equal status, with no one pitch dominating as a tonic.</p>
+
+    <!-- 12-TONE ROW SVG -->
+    <div class="svg-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 110" width="780" height="110" aria-label="Diagram of a 12-tone row concept" role="img">
+        <defs>
+          <linearGradient id="row-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#0E1C42"/>
+            <stop offset="100%" stop-color="#1A7A8A"/>
+          </linearGradient>
+        </defs>
+
+        <text x="390" y="18" font-family="Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#4A3570" text-anchor="middle" letter-spacing="1">THE TONE ROW: ALL 12 PITCHES IN FIXED ORDER</text>
+
+        <!-- 12 pitch boxes -->
+        <!-- Pitch names for a sample row (all 12 chromatic pitches) -->
+        <rect x="10" y="28" width="56" height="56" rx="6" fill="#0E1C42"/>
+        <text x="38" y="52" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#55C8E8" text-anchor="middle">C</text>
+        <text x="38" y="72" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" text-anchor="middle">1</text>
+
+        <rect x="74" y="28" width="56" height="56" rx="6" fill="#142454"/>
+        <text x="102" y="52" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#55C8E8" text-anchor="middle">C&#9839;</text>
+        <text x="102" y="72" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" text-anchor="middle">2</text>
+
+        <rect x="138" y="28" width="56" height="56" rx="6" fill="#1A3070"/>
+        <text x="166" y="52" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#55C8E8" text-anchor="middle">D</text>
+        <text x="166" y="72" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" text-anchor="middle">3</text>
+
+        <rect x="202" y="28" width="56" height="56" rx="6" fill="#1A3870"/>
+        <text x="230" y="52" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#55C8E8" text-anchor="middle">E&#9837;</text>
+        <text x="230" y="72" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" text-anchor="middle">4</text>
+
+        <rect x="266" y="28" width="56" height="56" rx="6" fill="#1A4080"/>
+        <text x="294" y="52" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#7DE0F5" text-anchor="middle">E</text>
+        <text x="294" y="72" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" text-anchor="middle">5</text>
+
+        <rect x="330" y="28" width="56" height="56" rx="6" fill="#1A4888"/>
+        <text x="358" y="52" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#7DE0F5" text-anchor="middle">F</text>
+        <text x="358" y="72" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" text-anchor="middle">6</text>
+
+        <rect x="394" y="28" width="56" height="56" rx="6" fill="#1A5295"/>
+        <text x="422" y="52" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#7DE0F5" text-anchor="middle">F&#9839;</text>
+        <text x="422" y="72" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" text-anchor="middle">7</text>
+
+        <rect x="458" y="28" width="56" height="56" rx="6" fill="#175890"/>
+        <text x="486" y="52" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#55C8E8" text-anchor="middle">G</text>
+        <text x="486" y="72" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" text-anchor="middle">8</text>
+
+        <rect x="522" y="28" width="56" height="56" rx="6" fill="#166090"/>
+        <text x="550" y="52" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#55C8E8" text-anchor="middle">A&#9837;</text>
+        <text x="550" y="72" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" text-anchor="middle">9</text>
+
+        <rect x="586" y="28" width="56" height="56" rx="6" fill="#146888"/>
+        <text x="614" y="52" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#55C8E8" text-anchor="middle">A</text>
+        <text x="614" y="72" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" text-anchor="middle">10</text>
+
+        <rect x="650" y="28" width="56" height="56" rx="6" fill="#127080"/>
+        <text x="678" y="52" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#55C8E8" text-anchor="middle">B&#9837;</text>
+        <text x="678" y="72" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" text-anchor="middle">11</text>
+
+        <rect x="714" y="28" width="56" height="56" rx="6" fill="#1A7A8A"/>
+        <text x="742" y="52" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">B</text>
+        <text x="742" y="72" font-family="Segoe UI,sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" text-anchor="middle">12</text>
+
+        <!-- Arrow after box 12 -->
+        <text x="390" y="100" font-family="Segoe UI,sans-serif" font-size="11" fill="#6B7A99" text-anchor="middle" font-style="italic">All 12 pitches appear in this fixed order before any can repeat. No pitch is privileged as a tonic.</text>
+      </svg>
+    </div>
+
+    <p class="body-text">The composer can use the row forward (original), backward (retrograde), upside-down (inversion), or both at once (retrograde inversion). This gives a pool of 48 related versions of the row to draw from, all derived from the same source material. The logic is systematic, not random, but the result sounds nothing like tonal music.</p>
+
+    <div class="callout">
+      <strong>Second Viennese School:</strong> Schoenberg, Berg, and Webern are grouped together as the Second Viennese School, distinguishing them from the First Viennese School of Haydn, Mozart, and Beethoven. All three worked in Vienna in the early 20th century and developed 12-tone and atonal techniques together.
+    </div>
+  </div>
+
+  <!-- PART 4: NEOCLASSICISM AND MINIMALISM -->
+  <div class="section section-green">
+    <div class="section-eyebrow">Part 4</div>
+    <div class="section-heading">Neoclassicism and Minimalism</div>
+
+    <div class="sub-heading">Neoclassicism</div>
+    <p class="body-text">While the Second Viennese School was pushing into atonality, another group of composers reacted against Romantic excess in a different direction: back toward the clarity and formal logic of the Classical era, but with a modern harmonic vocabulary. This was Neoclassicism.</p>
+
+    <p class="body-text">Neoclassical music uses:</p>
+    <ul style="margin: 0 0 14px 18px; padding: 0; font-size: 16px; color: #1a2340; line-height: 1.7;">
+      <li><strong>Classical and Baroque forms</strong>: sonata form, concerto, fugue, passacaglia.</li>
+      <li><strong>Cleaner textures</strong>: fewer instruments, leaner counterpoint, no post-Romantic orchestral sprawl.</li>
+      <li><strong>Polytonal or modal harmony</strong>: tonal-sounding but with clashing key centers or modal scales instead of traditional major/minor.</li>
+    </ul>
+
+    <p class="body-text">Igor Stravinsky&#8217;s Pulcinella Suite (1920) is a landmark example. Stravinsky took music attributed to the Baroque composer Pergolesi and rewrote it with his own sharper, more dissonant harmonic language, keeping the form and energy of the original while making it unmistakably modern.</p>
+
+    <div class="sub-heading">Minimalism</div>
+    <p class="body-text">By the 1960s, composers like Steve Reich, Philip Glass, and John Adams felt that music had become so complex (dense serial scores, extended techniques, elaborate notation) that it had lost its audience entirely. Minimalism stripped music down to almost nothing.</p>
+
+    <p class="body-text">Minimalist characteristics:</p>
+    <ul style="margin: 0 0 14px 18px; padding: 0; font-size: 16px; color: #1a2340; line-height: 1.7;">
+      <li><strong>Very few pitches and chords</strong>: a piece might use only a handful of notes for its entire duration.</li>
+      <li><strong>Gradual process</strong>: change happens slowly, often so slowly that listeners catch it only in retrospect.</li>
+      <li><strong>Steady pulse</strong>: a clear, regular beat (a deliberate contrast to the irregular, complex rhythms of serialism).</li>
+      <li><strong>Phasing (Steve Reich)</strong>: two identical patterns start in unison, then one gradually moves ahead of the other, creating shifting layers.</li>
+    </ul>
+
+    <div class="callout-purple">
+      <strong>Minimalism&#8217;s reach:</strong> Minimalism has deeply influenced film scores (think of Philip Glass&#8217;s work for <em>Koyaanisqatsi</em>), electronic music, ambient music, and much of what is now called &#8220;indie classical.&#8221; Composers like Max Richter and Johann Johannsson work directly in its legacy.
+    </div>
+  </div>
+
+  <!-- PART 5: ANALYZING WITH COLLECTIONS -->
+  <div class="section section-green">
+    <div class="section-eyebrow">Part 5 &middot; OMT p. 689</div>
+    <div class="section-heading">Analyzing with Collections</div>
+
+    <p class="body-text">OMT page 689 gives a framework for analyzing post-tonal music. Because you cannot assume a tonal center, you start somewhere different than Roman numeral analysis.</p>
+
+    <ol class="steps-list">
+      <li>
+        <div class="step-num">1</div>
+        <div><strong>Identify the pitch collection.</strong> What pitches does the passage actually use? Count them. Do they form a pentatonic scale (5 notes, no semitones)? A whole-tone scale (6 notes, all whole steps)? An octatonic scale (8 notes, alternating half and whole steps)? The full chromatic (all 12)? A tone row?</div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div><strong>Look for patterns and repetition.</strong> Does a melodic fragment repeat exactly, transposed, inverted, or in different voices? Repetition is the structural glue when harmonic function is absent.</div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div><strong>Describe the organization without assuming a tonal center.</strong> Instead of "the piece is in G major," say "the piece uses a pentatonic collection centered around G" or "the passage is based on a whole-tone collection."</div>
+      </li>
+    </ol>
+
+    <!-- COLLECTION IDENTIFICATION CHART SVG -->
+    <div style="margin: 20px 0 8px; font-size: 15px; font-weight: 700; color: #1A6B3C; letter-spacing: 0.3px;">WHICH PITCH COLLECTION IS IT?</div>
+    <div class="svg-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 228" width="760" height="228" aria-label="Pitch collection identification chart" role="img">
+
+        <!-- Row 1: Whole-tone -->
+        <rect x="0" y="4" width="760" height="50" rx="6" fill="#E8F5EE"/>
+        <rect x="0" y="4" width="6" height="50" rx="3" fill="#1A6B3C"/>
+        <text x="22" y="26" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#1A6B3C">Whole-tone scale</text>
+        <text x="22" y="43" font-family="Segoe UI,sans-serif" font-size="12" fill="#1a2340">All whole steps, 6 notes, no leading tone, no semitones</text>
+        <rect x="590" y="10" width="164" height="38" rx="5" fill="#1A6B3C"/>
+        <text x="672" y="24" font-family="Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">Collection label:</text>
+        <text x="672" y="40" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#A8F0C0" text-anchor="middle">Whole-tone</text>
+
+        <!-- Row 2: Octatonic -->
+        <rect x="0" y="60" width="760" height="50" rx="6" fill="#EEF6F0"/>
+        <rect x="0" y="60" width="6" height="50" rx="3" fill="#2A8A50"/>
+        <text x="22" y="82" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#1A6B3C">Octatonic scale</text>
+        <text x="22" y="99" font-family="Segoe UI,sans-serif" font-size="12" fill="#1a2340">Half-whole alternating pattern, 8 notes, highly symmetrical</text>
+        <rect x="590" y="66" width="164" height="38" rx="5" fill="#2A8A50"/>
+        <text x="672" y="80" font-family="Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">Collection label:</text>
+        <text x="672" y="96" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#A8F0C0" text-anchor="middle">Octatonic</text>
+
+        <!-- Row 3: Pentatonic -->
+        <rect x="0" y="116" width="760" height="50" rx="6" fill="#E8F5EE"/>
+        <rect x="0" y="116" width="6" height="50" rx="3" fill="#1A6B3C"/>
+        <text x="22" y="138" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#1A6B3C">Pentatonic scale</text>
+        <text x="22" y="155" font-family="Segoe UI,sans-serif" font-size="12" fill="#1a2340">5 notes, no semitones, floating, ambiguous, no leading tone</text>
+        <rect x="590" y="122" width="164" height="38" rx="5" fill="#1A6B3C"/>
+        <text x="672" y="136" font-family="Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">Collection label:</text>
+        <text x="672" y="152" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#A8F0C0" text-anchor="middle">Pentatonic</text>
+
+        <!-- Row 4: Chromatic/Serial -->
+        <rect x="0" y="172" width="760" height="50" rx="6" fill="#EEF0FA"/>
+        <rect x="0" y="172" width="6" height="50" rx="3" fill="#4A3570"/>
+        <text x="22" y="194" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#4A3570">All 12 pitches, no tonal center</text>
+        <text x="22" y="211" font-family="Segoe UI,sans-serif" font-size="12" fill="#1a2340">Chromatic saturation, check for a tone row if the passage is serial</text>
+        <rect x="590" y="178" width="164" height="38" rx="5" fill="#4A3570"/>
+        <text x="672" y="192" font-family="Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">Collection label:</text>
+        <text x="672" y="208" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#D4BEFC" text-anchor="middle">Chromatic / Serial</text>
+      </svg>
+    </div>
+
+    <div style="background: #fff; border: 1px solid #C5DCC9; border-radius: 6px; padding: 14px 18px; margin: 14px 0; display: flex; align-items: center; gap: 14px;">
+      <div style="font-size: 22px; flex-shrink: 0;">&#127925;</div>
+      <div>
+        <div style="font-size: 15px; font-weight: 700; color: #1A6B3C; margin-bottom: 3px;">Score: Bart&#243;k, Mikrokosmos (public domain)</div>
+        <div style="font-size: 16px; color: #1a2340; line-height: 1.5;">Mikrokosmos is a six-volume collection of piano pieces by B&#233;la Bart&#243;k that progresses from simple to very advanced. Many pieces use modal, pentatonic, and octatonic collections instead of traditional major/minor. Excellent for practicing the identification method above.</div>
+        <div style="margin-top: 8px;"><a href="https://imslp.org/wiki/Mikrokosmos%2C_Sz.107_(Bart%C3%B3k%2C_B%C3%A9la)" target="_blank" rel="noopener">View Mikrokosmos on IMSLP (public domain) &#8599;</a></div>
+      </div>
+    </div>
+
+    <p class="body-text">Try applying the three-step method to any piece from Mikrokosmos Book 4 or 5: identify the collection first, then look for repeated patterns, then describe the organization in your own words without naming a key.</p>
+  </div>
+
+  <!-- WIDGET: OW-REFLECT -->
+  <div class="section section-purple">
+    <div class="section-eyebrow">Activity</div>
+    <div class="section-heading">Which movement interests you most?</div>
+
+    <div class="optima-widget ow-reflect">
+      <div class="widget-kicker">REFLECT &#183; Choose one</div>
+      <div class="widget-question">Which 20th-century movement interests you most? Tap your choice to read more.</div>
+      <div class="widget-options">
+        <button data-response="Impressionism created music that felt like watercolor: blurry edges, atmosphere over argument. Debussy achieved this partly by replacing functional chord progressions with whole-tone and pentatonic collections, so the music floats rather than drives.">Impressionism</button>
+        <button data-response="Expressionism pushed dissonance to the extreme, trying to match the intensity of modern psychological experience. Serialism then gave composers a systematic way to organize music without tonal gravity: every pitch had an equal role.">Expressionism / Serialism</button>
+        <button data-response="Minimalism stripped music to almost nothing: a few notes, a steady pulse, and gradual change. Composers like Steve Reich found that small differences between repeated patterns could produce a hypnotic, complex effect over time.">Minimalism</button>
+      </div>
+      <div class="widget-feedback"></div>
+      <button class="widget-reset">Reset</button>
+    </div>
+  </div>
+
+  <!-- WIDGET: OW-SELECT -->
+  <div class="section section-purple">
+    <div class="section-eyebrow">Check Your Understanding</div>
+    <div class="section-heading">Four questions, try each one before looking at the feedback.</div>
+
+    <div class="optima-widget ow-select">
+      <div class="widget-kicker">PRACTICE &#183; Select the best answer for each question</div>
+
+      <!-- Q1 -->
+      <div class="widget-row" data-correct="3">
+        <div class="widget-row-prompt">Which movement used tone rows and the systematic equality of all 12 pitches?</div>
+        <div class="widget-options">
+          <button data-choice="0" data-fb="Minimalism used very few pitches and gradual change, not tone rows. Try again.">Minimalism</button>
+          <button data-choice="1" data-fb="Neoclassicism returned to classical forms with modern harmonies, but did not use tone rows. Try again.">Neoclassicism</button>
+          <button data-choice="2" data-fb="Impressionism used whole-tone and pentatonic collections, not 12-tone rows. Try again.">Impressionism</button>
+          <button data-choice="3" data-fb="Correct. Serialism (developed by Schoenberg) used tone rows where all 12 pitches appear in fixed order, giving each pitch equal status.">Serialism</button>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="widget-row" data-correct="1">
+        <div class="widget-row-prompt">Neoclassicism is best described as:</div>
+        <div class="widget-options">
+          <button data-choice="0" data-fb="That describes Expressionism and atonality, not Neoclassicism. Try again.">Rejecting all structure and tonality</button>
+          <button data-choice="1" data-fb="Correct. Neoclassicists like Stravinsky returned to older forms like the sonata and concerto, but with modern polytonal or modal harmonies.">Returning to Classical-era forms with modern harmonic language</button>
+          <button data-choice="2" data-fb="Using very few pitches with gradual change describes Minimalism, not Neoclassicism. Try again.">Using very few pitches with gradual change</button>
+          <button data-choice="3" data-fb="Creating coloristic atmosphere with whole-tone scales describes Impressionism. Try again.">Creating coloristic atmosphere with whole-tone scales</button>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="widget-row" data-correct="1">
+        <div class="widget-row-prompt">Minimalism reacted against:</div>
+        <div class="widget-options">
+          <button data-choice="0" data-fb="Classical-era structure was actually something Neoclassicists embraced, not what Minimalism reacted against. Try again.">Classical-era structure</button>
+          <button data-choice="1" data-fb="Correct. Minimalism was a reaction against the complexity of high modernism, returning to simple, repeating patterns and a clear pulse.">The complexity of high modernism</button>
+          <button data-choice="2" data-fb="Impressionist color was not the primary target of Minimalism. Try again.">Impressionist color</button>
+          <button data-choice="3" data-fb="Baroque counterpoint was not the specific target. Minimalism reacted against the complexity of mid-20th-century modernism. Try again.">Baroque counterpoint</button>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="widget-row" data-correct="2">
+        <div class="widget-row-prompt">According to OMT p. 689, the first step in analyzing post-tonal music is:</div>
+        <div class="widget-options">
+          <button data-choice="0" data-fb="The leading tone is a tonal concept that may not apply in post-tonal music. That is not where OMT says to start. Try again.">Find the leading tone</button>
+          <button data-choice="1" data-fb="A key signature may be absent or misleading in post-tonal music. OMT directs you to look at the actual pitches used. Try again.">Identify the key signature</button>
+          <button data-choice="2" data-fb="Correct. OMT directs you to identify the pitch collection first: pentatonic? Whole-tone? Octatonic? Chromatic? That reveals the organization.">Identify the pitch collection being used</button>
+          <button data-choice="3" data-fb="Roman numerals assume functional tonal harmony, which post-tonal music does not use. Try again.">Label the Roman numerals</button>
+        </div>
+      </div>
+
+      <button class="widget-reset">Reset</button>
+    </div>
+  </div>
+
+  <!-- AI AWARENESS CALLOUT -->
+  <div style="background: #FFFFFF; border-top: 3px solid #C7922C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+      <div style="font-size: 15px; color: #C7922C; margin-bottom: 12px;">&#129302; WORTH KNOWING &middot; AI COMPOSITION IN HISTORICAL CONTEXT</div>
+      <div style="font-size: 17px; color: #1a2340; line-height: 1.65;">This lesson's own reading traces how recording technology has repeatedly reshaped how music is made and heard, from the phonograph to magnetic tape to digital audio workstations. AI composition tools are simply the newest development in that same long history. Understanding why each technological shift mattered to composers and listeners is a reasoning skill this lesson asks you to build, not something an AI tool can do in your place.</div>
+  </div>
+
+  <!-- WHAT YOU'LL DO NEXT -->
+  <div class="section section-purple">
+    <div class="section-eyebrow">What You&#8217;ll Do Next</div>
+    <div class="section-heading">Coming up in Module 23</div>
+    <ul class="next-list">
+      <li>
+        <div class="next-icon">&#9998;</div>
+        <div><strong>Module 23 Quiz</strong> (Canvas, auto-graded): 20th-century movements, pitch collections, and analysis terminology. Complete after finishing all Module 23 lessons.</div>
+      </li>
+      <li>
+        <div class="next-icon">&#128172;</div>
+        <div><strong>Discussion: "Why did 20th-century composers abandon tonal harmony?"</strong> (Canvas discussion): Share your take in 150 or more words. Respond to at least one classmate with a substantive comment.</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- THE ONE THING TO REMEMBER -->
+  <div class="section section-green">
+    <div class="section-eyebrow">Summary</div>
+    <div class="section-heading">The One Thing to Remember</div>
+    <div class="one-thing">
+      <div class="one-thing-label">Key Takeaway</div>
+      <div class="one-thing-text">20th-century music organized itself through pitch collections (Impressionism used whole-tone and pentatonic; Expressionism went fully chromatic), serialism (12-tone rows gave every pitch equal status without a tonic), and gradual process (Minimalism built complexity from simple, repeating patterns). Traditional V&#8211;I progressions were not abolished everywhere at once: they were replaced in different ways by different movements at different times. Knowing which collection a piece draws from is the starting point for any post-tonal analysis.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="background: #0E1C42; border-top: 3px solid #55C8E8; padding: 18px 34px; text-align: center;">
+    <div style="font-size: 18px; color: #ffffff; margin-bottom: 6px;"><span style="color: #55c8e8;">Optima Academy Online</span> &middot; M/J MUSIC THEORY 2 &middot; Quarter 3 &middot; Student Lesson Page</div>
+    <div style="font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 4px;">Lesson 23.01 &middot; 20th-Century Movements and Pitch Collections</div>
+    <div style="font-size: 12px; color: rgba(255,255,255,0.4);">&copy; Optima Academy Online &middot; An Education Experience Company</div>
+  </div>
+
+</div><!-- /canvas-frame -->
+
+<!-- WIDGET RUNTIME (verbatim) -->
+<script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var reset = e.target.closest('.widget-reset');
+    if (reset) {
+      var w = reset.closest('.optima-widget');
+      w.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected', 'correct', 'incorrect'); });
+      w.querySelectorAll('.widget-feedback').forEach(function (f) { f.classList.remove('show'); f.textContent = ''; });
+      w.querySelectorAll('.row-feedback').forEach(function (f) { f.remove(); });
+      w.querySelectorAll('.ow-flip.flipped').forEach(function (c) { c.classList.remove('flipped'); });
+      return;
+    }
+    var rBtn = e.target.closest('.ow-reflect .widget-options button');
+    if (rBtn) {
+      var rw = rBtn.closest('.optima-widget');
+      rw.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected'); });
+      rBtn.classList.add('selected');
+      var fb = rw.querySelector('.widget-feedback');
+      fb.textContent = rBtn.dataset.response || '';
+      fb.classList.add('show');
+      return;
+    }
+    var sBtn = e.target.closest('.ow-select .widget-row .widget-options button');
+    if (sBtn) {
+      var row = sBtn.closest('.widget-row');
+      var correct = row.dataset.correct;
+      row.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected', 'correct', 'incorrect'); });
+      var right = sBtn.dataset.choice === correct;
+      sBtn.classList.add(right ? 'correct' : 'incorrect');
+      var text = right ? (sBtn.dataset.fb || row.dataset.fb || 'Right.') : (sBtn.dataset.fb || row.dataset.hint || 'Not quite. Try again.');
+      var rf = row.querySelector('.row-feedback') || row.appendChild(document.createElement('div'));
+      rf.className = 'row-feedback ' + (right ? 'correct' : 'incorrect');
+      rf.textContent = text;
+      return;
+    }
+    var flip = e.target.closest('.ow-flip');
+    if (flip) { flip.classList.toggle('flipped'); return; }
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>M/J Music Theory 2 &mdash; Module 31 Assignment: OMT Mode Analysis</title>
+<style>
+    body { margin: 0; padding: 0; font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f4f6fa; }
+    .canvas-frame { max-width: 1100px; margin: 0 auto; background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+    /* ===== ASSIGNMENT PAGE: big type, few words, space over boxes ===== */
+    .as-title { font-size: 34px; color: #0E1C42; line-height: 1.2; margin: 4px 0 12px 0; }
+    .as-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+    .as-pill { font-size: 17px; color: #0E1C42; background: #EEF1F8; border-radius: 999px; padding: 6px 16px; }
+    .as-pill.gold { background: #C7922C; color: #FFFFFF; }
+    .as-spot { background: #0E1C42; color: #FFFFFF; border-radius: 12px; padding: 22px 26px; font-size: 25px; line-height: 1.4; margin-bottom: 34px; }
+    .as-h { font-size: 24px; color: #0E1C42; margin: 34px 0 6px 0; }
+    .as-rule { width: 52px; height: 4px; background: #C7922C; border-radius: 2px; margin-bottom: 18px; }
+    .as-step { display: flex; gap: 18px; align-items: flex-start; margin-bottom: 18px; }
+    .as-num { font-size: 42px; line-height: 1; color: #C7922C; min-width: 34px; }
+    .as-step-text { font-size: 20px; color: #1a2340; line-height: 1.5; padding-top: 4px; }
+    .as-check { font-size: 20px; color: #1a2340; line-height: 1.5; margin-bottom: 12px; display: flex; gap: 12px; }
+    .as-check span { color: #C7922C; }
+    .gr { border-collapse: separate; border-spacing: 6px; }
+    .gr td { width: 52px; height: 44px; text-align: center; font-size: 17px; border-radius: 6px; }
+    .gr .lab { width: auto; text-align: right; padding-right: 10px; font-size: 18px; color: #0E1C42; }
+    .gr .cnt { background: transparent; color: #4a5775; }
+    .gr .cell { background: #EFEAF6; border: 2px solid #8A6FBF; }
+    .gr .bb { background: #E7F4EC; border: 2px solid #1A6B3C; }
+    .gr-key { display: flex; flex-wrap: wrap; gap: 18px; font-size: 17px; color: #1a2340; margin-top: 10px; }
+    .gr-sw { display: inline-block; width: 18px; height: 18px; border-radius: 4px; vertical-align: -3px; margin-right: 6px; }
+    .sy { display: flex; flex-wrap: wrap; gap: 12px; }
+    .sy div { font-size: 19px; color: #0E1C42; background: #EFEAF6; border-left: 5px solid #6B4C9A; border-radius: 8px; padding: 10px 16px; }
+    @media (max-width: 640px) { .as-title { font-size: 28px; } .as-spot { font-size: 21px; } .gr td { width: 30px; height: 34px; font-size: 16px; } }
+
+    .as-flow { display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch; margin-bottom: 8px; }
+    .as-box { font-size: 18px; color: #0E1C42; background: #E7F4EC; border: 2px solid #1A6B3C; border-radius: 8px; padding: 10px 16px; line-height: 1.35; }
+    .as-box.p { background: #EFEAF6; border-color: #8A6FBF; }
+    .as-box.n { background: #EEF1F8; border-color: #C9D2E6; }
+    .as-arrow { font-size: 26px; color: #C7922C; align-self: center; }
+    .as-tbl { border-collapse: separate; border-spacing: 6px; }
+    .as-tbl td, .as-tbl th { font-size: 17px; color: #0E1C42; border-radius: 6px; padding: 8px 12px; text-align: center; }
+    .as-tbl th { background: #0E1C42; color: #FFFFFF; font-weight: normal; }
+    .as-tbl td.k { text-align: left; background: #E7F4EC; border: 2px solid #1A6B3C; }
+    .as-tbl td.kp { text-align: left; background: #EFEAF6; border: 2px solid #8A6FBF; }
+    .as-tbl td.b { min-width: 90px; background: #FFFFFF; border: 2px dashed #8A6FBF; }
+    .as-bar { display: flex; border-radius: 8px; overflow: hidden; border: 2px solid #0E1C42; margin-bottom: 8px; }
+    .as-bar div { font-size: 17px; color: #0E1C42; padding: 12px 8px; text-align: center; border-right: 2px solid #0E1C42; }
+    .as-bar div:last-child { border-right: none; }
+    .as-bar .g { background: #E7F4EC; } .as-bar .p { background: #EFEAF6; } .as-bar .n { background: #EEF1F8; }
+    .as-cells { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .as-cells div { font-size: 17px; color: #0E1C42; min-width: 46px; text-align: center; padding: 8px 4px; border-radius: 6px; background: #EEF1F8; border: 2px solid #C9D2E6; }
+    .as-cells .g { background: #E7F4EC; border-color: #1A6B3C; } .as-cells .p { background: #EFEAF6; border-color: #8A6FBF; }
+    .as-cap { font-size: 17px; color: #4a5775; margin-top: 6px; }
+    .as-rub { border-collapse: collapse; width: 100%; margin-top: 10px; }
+    .as-rub th, .as-rub td { font-size: 16px; color: #1a2340; border: 1px solid #D0D9E8; padding: 8px 10px; text-align: left; vertical-align: top; line-height: 1.4; }
+    .as-rub th { background: #0E1C42; color: #FFFFFF; font-weight: normal; }
+    .as-rub td:first-child { background: #E7F4EC; color: #0E1C42; }
+    @media (max-width: 640px) { .as-arrow { display: none; } .as-rub th, .as-rub td { font-size: 16px; padding: 6px; } }
+</style>
+</head>
+<body>
+<div class="canvas-frame">
+
+<!-- ===== HEADER ===== -->
+<div style="background: #0E1C42; border-bottom: 5px solid #55C8E8; padding: 22px 34px;">
+    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
+        <div style="width: 52px; height: 52px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><img src="https://raw.githubusercontent.com/optimaondemand/optima-assets/eeb0b335630058906d52f478028361d352253a93/images/Optima%20Final%20Circle%20-%20Owl%20Only.png" alt="Optima Academy" style="width: 50px; height: 40px; object-fit: contain;" /></div>
+        <div>
+            <div style="font-size: 28px; color: #ffffff; line-height: 1.2;">Optima Academy Online</div>
+            <div style="font-size: 12px; color: #55c8e8;">An Education Experience Company</div>
+        </div>
+    </div>
+    <div style="font-size: 36px; color: #ffffff; margin-bottom: 6px;">M/J MUSIC THEORY 2</div>
+</div>
+
+<!-- ===== METADATA STRIP ===== -->
+<div style="background: #FFFFFF; border-bottom: 2px solid #D0D9E8; display: flex; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Quarter / Module</div>
+        <div style="font-size: 17px; color: #0e1c42;">Q4 &middot; Module 31</div>
+        <div style="font-size: 12px; color: #666;">Modes Review and Applied Analysis</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Page</div>
+        <div style="font-size: 17px; color: #0e1c42;">Assignment</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Graded</div>
+        <div style="font-size: 17px; color: #0e1c42;">Completion</div>
+    </div>
+</div>
+
+<!-- ===== BODY WRAPPER ===== -->
+<div style="padding: 24px 34px;">
+
+<!-- ═══ OPTIMA READ-ALOUD PLAYER ═══ -->
+<div id="optima-read-aloud">
+<style>
+    #optima-read-aloud { background: linear-gradient(135deg, #E8F6FB 0%, #F4F9FC 100%); border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 8px; padding: 14px 18px; margin: 0 0 20px 0; }
+    #optima-read-aloud .ora-kicker { font-size: 11px; color: #1B6A94; letter-spacing: 0.4px; margin-bottom: 10px; }
+    #optima-read-aloud .ora-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    #optima-read-aloud .ora-controls button { border-radius: 8px; padding: 8px 16px; font-size: 14px; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    #ora-play { background: #0E1C42; color: #FFFFFF; border: 1.5px solid #0E1C42; }
+    #ora-play:hover:enabled { background: #1B2D5E; }
+    #ora-play:disabled { background: #D0D9E8; border-color: #D0D9E8; color: #6b7a99; cursor: default; }
+    #ora-stop { background: #FFFFFF; color: #0E1C42; border: 1.5px solid #D0D9E8; }
+    #ora-stop:hover:enabled { background: #F4F6FA; border-color: #55C8E8; }
+    #ora-stop:disabled { color: #999; border-color: #E4E9F2; cursor: default; }
+    #optima-read-aloud .ora-speed { font-size: 12px; color: #6b7a99; display: flex; align-items: center; gap: 6px; }
+    #ora-rate { font-family: inherit; font-size: 13px; color: #0E1C42; border: 1.5px solid #D0D9E8; border-radius: 6px; padding: 5px 8px; background: #FFFFFF; }
+    #ora-status { font-size: 12px; color: #666; }
+    .ora-highlight { background: #FDF3E3 !important; box-shadow: inset 4px 0 0 #C7922C; border-radius: 4px; transition: background 0.2s; }
+</style>
+    <div class="ora-kicker">&#128266; READ ALOUD &mdash; LISTEN TO THIS PAGE</div>
+    <div class="ora-controls">
+        <button id="ora-play" type="button" aria-label="Listen to this page">&#9654;&#65039; Listen</button>
+        <button id="ora-stop" type="button" aria-label="Stop reading" disabled>&#9632; Stop</button>
+        <label class="ora-speed">Speed
+            <select id="ora-rate" aria-label="Reading speed">
+                <option value="0.8">Slower</option>
+                <option value="1" selected>Normal</option>
+                <option value="1.25">Faster</option>
+            </select>
+        </label>
+        <span id="ora-status" role="status" aria-live="polite"></span>
+    </div>
+<script>
+(function () {
+    "use strict";
+    var playBtn  = document.getElementById("ora-play");
+    var stopBtn  = document.getElementById("ora-stop");
+    var rateSel  = document.getElementById("ora-rate");
+    var statusEl = document.getElementById("ora-status");
+
+    if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
+        playBtn.disabled = true;
+        rateSel.disabled = true;
+        statusEl.textContent = "Read-aloud is not supported in this browser.";
+        return;
+    }
+
+    var LABEL_PLAY   = "▶️ Listen";
+    var LABEL_PAUSE  = "⏸️ Pause";
+    var LABEL_RESUME = "▶️ Resume";
+    var BLOCK_SEL = "p, li, h1, h2, h3, h4, h5, h6, blockquote, td, th, dt, dd, figcaption, div";
+    var SKIP_SEL  = "#optima-read-aloud, [data-ra-skip], button, script, style, select, noscript, iframe";
+
+    var queue = [];        // [{ el, text }] — one entry per sentence
+    var idx = 0;
+    var playing = false, paused = false, stopping = false;
+    var currentBlock = null;
+    var currentUtterance = null;  // held to dodge a Chrome garbage-collection bug
+
+    var voices = [];
+    function loadVoices() { voices = window.speechSynthesis.getVoices(); }
+    loadVoices();
+    if ("onvoiceschanged" in window.speechSynthesis) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+    function pickVoice() {
+        if (!voices.length) loadVoices();
+        var en = voices.filter(function (v) { return /^en/i.test(v.lang); });
+        return en.filter(function (v) { return /natural/i.test(v.name); })[0]
+            || en.filter(function (v) { return /google us english/i.test(v.name); })[0]
+            || en.filter(function (v) { return v.default; })[0]
+            || en[0] || null;
+    }
+
+    function isVisible(el) {
+        return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+    }
+
+    // Walk text nodes, attach each to its nearest block ancestor, split into sentences.
+    function collectQueue() {
+        var root = document.querySelector("[data-readaloud-root]")
+                || document.querySelector(".canvas-frame")
+                || document.body;
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        var items = [];   // [{ el, text }] — one entry per block, in reading order
+        var node;
+        while ((node = walker.nextNode())) {
+            if (!/\S/.test(node.textContent)) continue;
+            var el = node.parentElement;
+            if (!el || el.closest(SKIP_SEL)) continue;
+            if (!isVisible(el)) continue;
+            var block = el.closest(BLOCK_SEL) || root;
+            var last = items[items.length - 1];
+            if (last && last.el === block) last.text += " " + node.textContent;
+            else items.push({ el: block, text: node.textContent });
+        }
+        var q = [];
+        items.forEach(function (item) {
+            var clean = item.text.replace(/\s+/g, " ").trim();
+            if (!clean) return;
+            var sentences = clean.match(/[^.!?]+[.!?]+[”"')\]]*\s*|[^.!?]+$/g) || [clean];
+            sentences.forEach(function (s) {
+                s = s.trim();
+                if (s) q.push({ el: item.el, text: s });
+            });
+        });
+        return q;
+    }
+
+    function highlight(el) {
+        if (el === currentBlock) return;
+        clearHighlight();
+        currentBlock = el;
+        if (el && el !== document.body) {
+            el.classList.add("ora-highlight");
+            try { el.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (e) {}
+        }
+    }
+    function clearHighlight() {
+        if (currentBlock) currentBlock.classList.remove("ora-highlight");
+        currentBlock = null;
+    }
+
+    function speakNext() {
+        if (idx >= queue.length) { finish("Finished reading this page."); return; }
+        var item = queue[idx];
+        highlight(item.el);
+        var u = new SpeechSynthesisUtterance(item.text);
+        u.rate = parseFloat(rateSel.value) || 1;
+        var v = pickVoice();
+        if (v) u.voice = v;
+        u.onend = function () {
+            if (stopping) return;
+            idx++;
+            speakNext();
+        };
+        u.onerror = function (e) {
+            if (stopping || e.error === "canceled" || e.error === "interrupted") return;
+            idx++;
+            speakNext();
+        };
+        currentUtterance = u;
+        window.speechSynthesis.speak(u);
+        statusEl.textContent = "Reading… " + (idx + 1) + " / " + queue.length;
+    }
+
+    function finish(message) {
+        playing = false;
+        paused = false;
+        clearHighlight();
+        playBtn.textContent = LABEL_PLAY;
+        stopBtn.disabled = true;
+        statusEl.textContent = message || "";
+        currentUtterance = null;
+    }
+
+    playBtn.addEventListener("click", function () {
+        if (playing && !paused) {
+            window.speechSynthesis.pause();
+            paused = true;
+            playBtn.textContent = LABEL_RESUME;
+            statusEl.textContent = "Paused";
+            return;
+        }
+        if (playing && paused) {
+            window.speechSynthesis.resume();
+            paused = false;
+            playBtn.textContent = LABEL_PAUSE;
+            statusEl.textContent = "Reading… " + (idx + 1) + " / " + queue.length;
+            return;
+        }
+        queue = collectQueue();
+        if (!queue.length) { statusEl.textContent = "Nothing to read on this page."; return; }
+        idx = 0;
+        stopping = false;
+        playing = true;
+        paused = false;
+        window.speechSynthesis.cancel();
+        playBtn.textContent = LABEL_PAUSE;
+        stopBtn.disabled = false;
+        speakNext();
+    });
+
+    stopBtn.addEventListener("click", function () {
+        stopping = true;
+        window.speechSynthesis.cancel();
+        finish("");
+    });
+
+    // Changing speed mid-read restarts the current sentence at the new rate.
+    rateSel.addEventListener("change", function () {
+        if (!playing || paused) return;
+        stopping = true;
+        window.speechSynthesis.cancel();
+        setTimeout(function () { stopping = false; speakNext(); }, 60);
+    });
+
+    window.addEventListener("pagehide", function () { window.speechSynthesis.cancel(); });
+})();
+</script>
+</div>
+<!-- ═══ END OPTIMA READ-ALOUD PLAYER ═══ -->
+
+    <div class="as-title">OMT Mode Analysis</div>
+
+    <div class="as-pills">
+        <div class="as-pill gold">Completion credit</div>
+        <div class="as-pill">PDF or .docx</div>
+    </div>
+
+    <div class="as-spot">What tells your ear which note is home?</div>
+
+    <div class="as-h">Part 1: your mode chart</div>
+    <div class="as-rule"></div>
+    <div style="overflow-x: auto;"><table class="as-tbl"><tr><th>Mode</th><th>Scale on C</th><th>Characteristic note</th></tr><tr><td class="k">C Ionian</td><td class="b"></td><td class="b"></td></tr><tr><td class="k">C Dorian</td><td class="b"></td><td class="b"></td></tr><tr><td class="k">C Phrygian</td><td class="b"></td><td class="b"></td></tr><tr><td class="k">C Lydian</td><td class="b"></td><td class="b"></td></tr><tr><td class="k">C Mixolydian</td><td class="b"></td><td class="b"></td></tr><tr><td class="k">C Aeolian</td><td class="b"></td><td class="b"></td></tr><tr><td class="k">C Locrian</td><td class="b"></td><td class="b"></td></tr></table></div>
+
+    <div class="as-h">What to do</div>
+    <div class="as-rule"></div>
+    <div class="as-step"><div class="as-num">1</div><div class="as-step-text"><strong>Read.</strong> Open Music Theory v2 at viva.pressbooks.pub/openmusictheory. Read Diatonic Modes (p. 673) through Modes in Global Context (p. 678), and Modal Schemas (p. 626).</div></div>
+    <div class="as-step"><div class="as-num">2</div><div class="as-step-text"><strong>Seven modes.</strong> In MuseScore or Word, list the scale built on C for each mode in the chart. Label each mode's characteristic note.</div></div>
+    <div class="as-step"><div class="as-num">3</div><div class="as-step-text"><strong>Three schemas.</strong> For the Dorian loop, Mixolydian loop, and Aeolian progression, write the Roman numeral pattern and one example tonal center.</div></div>
+    <div class="as-step"><div class="as-num">4</div><div class="as-step-text"><strong>One example.</strong> Choose a folk or rock passage from the OMT reading. Write 3-5 sentences: its mode, its characteristic note or chord, and which analysis fits best (modal loop pattern or functional Roman numerals).</div></div>
+
+    <div class="as-h">Turn in</div>
+    <div class="as-rule"></div>
+    <div class="as-step-text">Submit your file in Canvas as a PDF or .docx.</div>
+    <div class="as-step-text" style="margin-top: 10px;"><strong>Completion credit:</strong> submit your finished file for full credit.</div>
+
+    <div class="as-h">Before you submit</div>
+    <div class="as-rule"></div>
+    <div class="as-check"><span>&#9744;</span>My chart has all seven modes with characteristic notes.</div>
+    <div class="as-check"><span>&#9744;</span>I wrote a pattern and tonal center for all three schemas.</div>
+    <div class="as-check"><span>&#9744;</span>My example paragraph is 3-5 sentences.</div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div style="background: #0E1C42; border-top: 3px solid #55C8E8; padding: 18px 34px; text-align: center;">
+    <div style="font-size: 18px; color: #ffffff; margin-bottom: 6px;"><span style="color: #55c8e8;">Optima Academy Online</span> &middot; M/J MUSIC THEORY 2 &middot; Quarter 4 &middot; Module 31</div>
+    <div style="font-size: 13px; color: rgba(255,255,255,0.65);">Module 31 Assignment &middot; OMT Mode Analysis</div>
+</div>
+
+</div>
+</body>
+</html>

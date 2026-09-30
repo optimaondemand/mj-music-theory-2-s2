@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>M/J Music Theory 2 - Lesson 34.01</title>
+<style>
+    body { margin: 0; padding: 0; font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f4f6fa; }
+    .canvas-frame { max-width: 1100px; margin: 0 auto; background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+    /* ===== WIDGET CSS (green/purple skin: purple frame, green correct) ===== */
+    .optima-widget { background: linear-gradient(135deg, #EFEAF6 0%, #F7F4FB 100%); border: 1px solid #D9CEEC; border-left: 5px solid #6B4C9A; border-radius: 8px; padding: 18px 22px; margin: 18px 0; }
+    .widget-kicker { font-size: 15px; color: #6B4C9A; margin-bottom: 10px; letter-spacing: 0.4px; }
+    .widget-question { font-size: 17px; color: #0E1C42; margin-bottom: 14px; line-height: 1.55; }
+    .widget-row { background: #FFFFFF; border: 1px solid #D9CEEC; border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; }
+    .widget-row-prompt { font-size: 16px; color: #0E1C42; margin-bottom: 8px; line-height: 1.5; font-style: italic; }
+    .widget-options { display: flex; flex-wrap: wrap; gap: 8px; }
+    .widget-options button { background: #FFFFFF; border: 1.5px solid #D9CEEC; border-radius: 8px; padding: 8px 14px; font-size: 16px; color: #0E1C42; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+    .widget-options button:hover { background: #F4F0FA; border-color: #8A6FBF; }
+    .widget-options button.selected { background: #0E1C42; color: #FFFFFF; border-color: #0E1C42; }
+    .widget-options button.correct { background: #D8F0DD; border-color: #2A9D5C; color: #1A6B3D; }
+    .widget-options button.incorrect { background: #FDECEC; border-color: #C0392B; color: #8A1F16; }
+    .widget-feedback { background: #FFFFFF; border-left: 3px solid #6B4C9A; padding: 10px 14px; font-size: 16px; color: #1a2340; line-height: 1.55; margin: 10px 0; display: none; border-radius: 4px; }
+    .widget-feedback.show { display: block; }
+    .row-feedback { padding: 8px 12px; margin-top: 8px; font-size: 16px; border-radius: 4px; line-height: 1.5; }
+    .row-feedback.correct { background: #D8F0DD; border-left: 3px solid #2A9D5C; color: #1A6B3D; }
+    .row-feedback.incorrect { background: #FDECEC; border-left: 3px solid #C0392B; color: #8A1F16; }
+    .widget-reset { background: transparent; border: 1px solid #6B4C9A; color: #6B4C9A; border-radius: 6px; padding: 6px 12px; font-size: 15px; cursor: pointer; font-family: inherit; margin-top: 6px; }
+    .widget-reset:hover { background: #F0EAF7; }
+    .ow-flip { background: #FFFFFF; border: 1px solid #D9CEEC; border-radius: 8px; padding: 18px 20px; cursor: pointer; text-align: center; }
+    .ow-flip .ow-flip-back { display: none; color: #1a2340; }
+    .ow-flip.flipped .ow-flip-front { display: none; }
+    .ow-flip.flipped .ow-flip-back { display: block; }
+    .flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 640px) { .flip-grid { grid-template-columns: 1fr; } }
+    /* music note label chips */
+    .note-chip { display:inline-block; min-width:22px; text-align:center; background:#1A6B3C; color:#fff; border-radius:5px; padding:2px 7px; font-size:16px; margin:0 2px; }
+</style>
+</head>
+<body>
+<div class="canvas-frame">
+
+<!-- ===== HEADER ===== -->
+<div style="background: #0E1C42; border-bottom: 5px solid #55C8E8; padding: 22px 34px;">
+    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
+        <div style="width: 52px; height: 52px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><img src="https://raw.githubusercontent.com/optimaondemand/optima-assets/eeb0b335630058906d52f478028361d352253a93/images/Optima%20Final%20Circle%20-%20Owl%20Only.png" alt="Optima Academy" style="width: 50px; height: 40px; object-fit: contain;" /></div>
+        <div>
+            <div style="font-size: 28px; color: #ffffff; line-height: 1.2;">Optima Academy Online</div>
+            <div style="font-size: 12px; color: #55c8e8;">An Education Experience Company</div>
+        </div>
+    </div>
+    <div style="font-size: 36px; color: #ffffff; margin-bottom: 6px;">M/J MUSIC THEORY 2</div>
+</div>
+
+<!-- ===== METADATA STRIP ===== -->
+<div style="background: #FFFFFF; border-bottom: 2px solid #D0D9E8; display: flex; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Quarter / Module</div>
+        <div style="font-size: 17px; color: #0e1c42;">Q4 &middot; Module 34</div>
+        <div style="font-size: 12px; color: #666;">Blues Composition and Performance</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Lesson</div>
+        <div style="font-size: 17px; color: #0e1c42;">Lesson 34.01</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Topic</div>
+        <div style="font-size: 17px; color: #0e1c42; font-style: italic;">Blues Form, Scale, and Composition</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Time</div>
+        <div style="font-size: 17px; color: #0e1c42;">About 40 min</div>
+    </div>
+</div>
+
+<!-- ===== BODY WRAPPER ===== -->
+<div style="padding: 24px 34px;">
+
+<!-- ═══ OPTIMA READ-ALOUD PLAYER ═══ -->
+<div id="optima-read-aloud">
+<style>
+    #optima-read-aloud { background: linear-gradient(135deg, #E8F6FB 0%, #F4F9FC 100%); border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 8px; padding: 14px 18px; margin: 0 0 20px 0; }
+    #optima-read-aloud .ora-kicker { font-size: 11px; color: #1B6A94; letter-spacing: 0.4px; margin-bottom: 10px; }
+    #optima-read-aloud .ora-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    #optima-read-aloud .ora-controls button { border-radius: 8px; padding: 8px 16px; font-size: 14px; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    #ora-play { background: #0E1C42; color: #FFFFFF; border: 1.5px solid #0E1C42; }
+    #ora-play:hover:enabled { background: #1B2D5E; }
+    #ora-play:disabled { background: #D0D9E8; border-color: #D0D9E8; color: #6b7a99; cursor: default; }
+    #ora-stop { background: #FFFFFF; color: #0E1C42; border: 1.5px solid #D0D9E8; }
+    #ora-stop:hover:enabled { background: #F4F6FA; border-color: #55C8E8; }
+    #ora-stop:disabled { color: #999; border-color: #E4E9F2; cursor: default; }
+    #optima-read-aloud .ora-speed { font-size: 12px; color: #6b7a99; display: flex; align-items: center; gap: 6px; }
+    #ora-rate { font-family: inherit; font-size: 13px; color: #0E1C42; border: 1.5px solid #D0D9E8; border-radius: 6px; padding: 5px 8px; background: #FFFFFF; }
+    #ora-status { font-size: 12px; color: #666; }
+    .ora-highlight { background: #FDF3E3 !important; box-shadow: inset 4px 0 0 #C7922C; border-radius: 4px; transition: background 0.2s; }
+</style>
+    <div class="ora-kicker">&#128266; READ ALOUD &mdash; LISTEN TO THIS PAGE</div>
+    <div class="ora-controls">
+        <button id="ora-play" type="button" aria-label="Listen to this page">&#9654;&#65039; Listen</button>
+        <button id="ora-stop" type="button" aria-label="Stop reading" disabled>&#9632; Stop</button>
+        <label class="ora-speed">Speed
+            <select id="ora-rate" aria-label="Reading speed">
+                <option value="0.8">Slower</option>
+                <option value="1" selected>Normal</option>
+                <option value="1.25">Faster</option>
+            </select>
+        </label>
+        <span id="ora-status" role="status" aria-live="polite"></span>
+    </div>
+<script>
+(function () {
+    "use strict";
+    var playBtn  = document.getElementById("ora-play");
+    var stopBtn  = document.getElementById("ora-stop");
+    var rateSel  = document.getElementById("ora-rate");
+    var statusEl = document.getElementById("ora-status");
+
+    if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
+        playBtn.disabled = true;
+        rateSel.disabled = true;
+        statusEl.textContent = "Read-aloud is not supported in this browser.";
+        return;
+    }
+
+    var LABEL_PLAY   = "▶️ Listen";
+    var LABEL_PAUSE  = "⏸️ Pause";
+    var LABEL_RESUME = "▶️ Resume";
+    var BLOCK_SEL = "p, li, h1, h2, h3, h4, h5, h6, blockquote, td, th, dt, dd, figcaption, div";
+    var SKIP_SEL  = "#optima-read-aloud, [data-ra-skip], button, script, style, select, noscript, iframe";
+
+    var queue = [];        // [{ el, text }] — one entry per sentence
+    var idx = 0;
+    var playing = false, paused = false, stopping = false;
+    var currentBlock = null;
+    var currentUtterance = null;  // held to dodge a Chrome garbage-collection bug
+
+    var voices = [];
+    function loadVoices() { voices = window.speechSynthesis.getVoices(); }
+    loadVoices();
+    if ("onvoiceschanged" in window.speechSynthesis) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+    function pickVoice() {
+        if (!voices.length) loadVoices();
+        var en = voices.filter(function (v) { return /^en/i.test(v.lang); });
+        return en.filter(function (v) { return /natural/i.test(v.name); })[0]
+            || en.filter(function (v) { return /google us english/i.test(v.name); })[0]
+            || en.filter(function (v) { return v.default; })[0]
+            || en[0] || null;
+    }
+
+    function isVisible(el) {
+        return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+    }
+
+    // Walk text nodes, attach each to its nearest block ancestor, split into sentences.
+    function collectQueue() {
+        var root = document.querySelector("[data-readaloud-root]")
+                || document.querySelector(".canvas-frame")
+                || document.body;
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        var items = [];   // [{ el, text }] — one entry per block, in reading order
+        var node;
+        while ((node = walker.nextNode())) {
+            if (!/\S/.test(node.textContent)) continue;
+            var el = node.parentElement;
+            if (!el || el.closest(SKIP_SEL)) continue;
+            if (!isVisible(el)) continue;
+            var block = el.closest(BLOCK_SEL) || root;
+            var last = items[items.length - 1];
+            if (last && last.el === block) last.text += " " + node.textContent;
+            else items.push({ el: block, text: node.textContent });
+        }
+        var q = [];
+        items.forEach(function (item) {
+            var clean = item.text.replace(/\s+/g, " ").trim();
+            if (!clean) return;
+            var sentences = clean.match(/[^.!?]+[.!?]+[”"')\]]*\s*|[^.!?]+$/g) || [clean];
+            sentences.forEach(function (s) {
+                s = s.trim();
+                if (s) q.push({ el: item.el, text: s });
+            });
+        });
+        return q;
+    }
+
+    function highlight(el) {
+        if (el === currentBlock) return;
+        clearHighlight();
+        currentBlock = el;
+        if (el && el !== document.body) {
+            el.classList.add("ora-highlight");
+            try { el.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (e) {}
+        }
+    }
+    function clearHighlight() {
+        if (currentBlock) currentBlock.classList.remove("ora-highlight");
+        currentBlock = null;
+    }
+
+    function speakNext() {
+        if (idx >= queue.length) { finish("Finished reading this page."); return; }
+        var item = queue[idx];
+        highlight(item.el);
+        var u = new SpeechSynthesisUtterance(item.text);
+        u.rate = parseFloat(rateSel.value) || 1;
+        var v = pickVoice();
+        if (v) u.voice = v;
+        u.onend = function () {
+            if (stopping) return;
+            idx++;
+            speakNext();
+        };
+        u.onerror = function (e) {
+            if (stopping || e.error === "canceled" || e.error === "interrupted") return;
+            idx++;
+            speakNext();
+        };
+        currentUtterance = u;
+        window.speechSynthesis.speak(u);
+        statusEl.textContent = "Reading… " + (idx + 1) + " / " + queue.length;
+    }
+
+    function finish(message) {
+        playing = false;
+        paused = false;
+        clearHighlight();
+        playBtn.textContent = LABEL_PLAY;
+        stopBtn.disabled = true;
+        statusEl.textContent = message || "";
+        currentUtterance = null;
+    }
+
+    playBtn.addEventListener("click", function () {
+        if (playing && !paused) {
+            window.speechSynthesis.pause();
+            paused = true;
+            playBtn.textContent = LABEL_RESUME;
+            statusEl.textContent = "Paused";
+            return;
+        }
+        if (playing && paused) {
+            window.speechSynthesis.resume();
+            paused = false;
+            playBtn.textContent = LABEL_PAUSE;
+            statusEl.textContent = "Reading… " + (idx + 1) + " / " + queue.length;
+            return;
+        }
+        queue = collectQueue();
+        if (!queue.length) { statusEl.textContent = "Nothing to read on this page."; return; }
+        idx = 0;
+        stopping = false;
+        playing = true;
+        paused = false;
+        window.speechSynthesis.cancel();
+        playBtn.textContent = LABEL_PAUSE;
+        stopBtn.disabled = false;
+        speakNext();
+    });
+
+    stopBtn.addEventListener("click", function () {
+        stopping = true;
+        window.speechSynthesis.cancel();
+        finish("");
+    });
+
+    // Changing speed mid-read restarts the current sentence at the new rate.
+    rateSel.addEventListener("change", function () {
+        if (!playing || paused) return;
+        stopping = true;
+        window.speechSynthesis.cancel();
+        setTimeout(function () { stopping = false; speakNext(); }, 60);
+    });
+
+    window.addEventListener("pagehide", function () { window.speechSynthesis.cancel(); });
+})();
+</script>
+</div>
+<!-- ═══ END OPTIMA READ-ALOUD PLAYER ═══ -->
+
+    <!-- title strip -->
+    <div style="background: #EEF1F8; border-left: 5px solid #0E1C42; border-radius: 7px; padding: 18px 22px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #0e1c42; margin-bottom: 6px;">LESSON 34.01</div>
+        <div style="font-size: 22px; color: #0e1c42; margin-bottom: 4px;">Blues Composition and Performance</div>
+        <div style="font-size: 16px; color: #666;">Lesson</div>
+    </div>
+
+    <!-- Today's Focus -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 12px;">&#127925; TODAY'S FOCUS</div>
+        <div style="font-size: 20px; color: #0e1c42; font-style: italic; margin-bottom: 10px;">How do blues composers build something that feels both structured and deeply expressive?</div>
+        <div style="font-size: 18px; color: #1a2340; line-height: 1.65;">You have analyzed blues harmony and the blues scale. Today you put those tools to work as a composer. You will map the 12-bar form, study the AAB melody shape, understand the blue notes, and then build your own original 12-bar blues melody.</div>
+    </div>
+
+    <!-- Objectives -->
+    <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#127919; BY THE END OF THIS LESSON YOU WILL BE ABLE TO&hellip;</div>
+        <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+            <div style="min-width: 26px; height: 26px; border-radius: 50%; background: #2A9D5C; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.65;"><strong>I will be able to</strong> map the 12-bar blues form showing I7, IV7, and V7 in their correct bar positions.</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+            <div style="min-width: 26px; height: 26px; border-radius: 50%; background: #2A9D5C; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.65;"><strong>I will be able to</strong> explain the AAB melody shape (call, variation, response) and place it over the 12-bar form.</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+            <div style="min-width: 26px; height: 26px; border-radius: 50%; background: #2A9D5C; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</div>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.65;"><strong>I will be able to</strong> identify the blues scale and the three blue notes (&#9837;3, &#9837;5, &#9837;7) and describe their expressive function.</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div style="min-width: 26px; height: 26px; border-radius: 50%; background: #2A9D5C; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">4</div>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.65;"><strong>I will be able to</strong> compose an original 12-bar blues melody and write a composer statement describing your choices.</div>
+        </div>
+    </div>
+
+    <!-- Materials -->
+    <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#128203; WHAT YOU NEED FOR THIS LESSON</div>
+        <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; border-left: 3px solid #BFE3CC; padding-left: 14px;"><span style="color: #1A6B3C; font-size: 18px; flex-shrink: 0;">&#9654;</span>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.6;">Open Music Theory v2, free at viva.pressbooks.pub/openmusictheory: Blues Harmony (p. 568) and Blues Melodies and the Blues Scale (p. 573).</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; border-left: 3px solid #BFE3CC; padding-left: 14px;"><span style="color: #1A6B3C; font-size: 18px; flex-shrink: 0;">&#9654;</span>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.6;">MuseScore (free) or staff paper for composing your 12-bar blues melody. If you prefer, you may sing or play by ear and record directly.</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 10px; border-left: 3px solid #BFE3CC; padding-left: 14px;"><span style="color: #1A6B3C; font-size: 18px; flex-shrink: 0;">&#9654;</span>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.6;">Headphones. Search YouTube for "12-bar blues in G" or "BB King slow blues" to hear the form in action before you compose. (Link out only; do not copy recordings.)</div>
+        </div>
+    </div>
+
+    <!-- ===================== PART 1: 12-BAR BLUES FORM ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#127926; PART 1 &middot; THE 12-BAR BLUES FORM</div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">The 12-bar blues is one of the most recognizable forms in Western music. Every bar carries a specific chord. Three dominant seventh chords do all the work: <strong>I7</strong> (home), <strong>IV7</strong> (subdominant), and <strong>V7</strong> (dominant). Dominant sevenths (major triad + minor seventh) give the blues its characteristic gritty tension even on the home chord.</p>
+
+        <!-- VISUAL 1: 12-bar blues form grid -->
+        <div style="background:#FCFCFD; border:1px solid #E2E7F0; border-radius:8px; padding:20px 16px; margin: 6px 0 18px;">
+          <div style="font-size: 16px; color: #0E1C42; font-weight: bold; margin-bottom: 14px; text-align: center;">The 12-Bar Blues Form Grid (example key: G)</div>
+          <div style="overflow-x: auto;">
+          <svg viewBox="0 0 700 240" width="100%" style="min-width:500px; max-width:700px;" role="img" aria-label="12-bar blues chord progression grid. Four rows of three bars each. Row 1: bars 1-4, all I7. Row 2: bars 5-6 IV7, bars 7-8 I7. Row 3: bar 9 V7, bar 10 IV7, bars 11-12 I7 and V7 turnaround.">
+
+            <!-- Row labels -->
+            <text x="4" y="44" font-size="11" fill="#6b7a99">bars 1-4</text>
+            <text x="4" y="104" font-size="11" fill="#6b7a99">bars 5-8</text>
+            <text x="4" y="164" font-size="11" fill="#6b7a99">bars 9-12</text>
+
+            <!-- Row 1: bars 1-4, I7 across -->
+            <!-- Bar 1 -->
+            <rect x="56" y="14" width="150" height="56" rx="6" fill="#1A6B3C" />
+            <text x="131" y="38" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="bold">I&#8311;</text>
+            <text x="131" y="56" font-size="12" fill="#D8F0DD" text-anchor="middle">Bar 1 &bull; G7</text>
+            <!-- Bar 2 -->
+            <rect x="214" y="14" width="150" height="56" rx="6" fill="#1A6B3C" />
+            <text x="289" y="38" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="bold">I&#8311;</text>
+            <text x="289" y="56" font-size="12" fill="#D8F0DD" text-anchor="middle">Bar 2 &bull; G7</text>
+            <!-- Bar 3 -->
+            <rect x="372" y="14" width="150" height="56" rx="6" fill="#1A6B3C" />
+            <text x="447" y="38" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="bold">I&#8311;</text>
+            <text x="447" y="56" font-size="12" fill="#D8F0DD" text-anchor="middle">Bar 3 &bull; G7</text>
+            <!-- Bar 4 -->
+            <rect x="530" y="14" width="150" height="56" rx="6" fill="#1A6B3C" />
+            <text x="605" y="38" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="bold">I&#8311;</text>
+            <text x="605" y="56" font-size="12" fill="#D8F0DD" text-anchor="middle">Bar 4 &bull; G7</text>
+
+            <!-- Row 2 -->
+            <!-- Bar 5: IV7 -->
+            <rect x="56" y="74" width="150" height="56" rx="6" fill="#2A9D5C" />
+            <text x="131" y="98" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="bold">IV&#8311;</text>
+            <text x="131" y="116" font-size="12" fill="#D8F0DD" text-anchor="middle">Bar 5 &bull; C7</text>
+            <!-- Bar 6: IV7 -->
+            <rect x="214" y="74" width="150" height="56" rx="6" fill="#2A9D5C" />
+            <text x="289" y="98" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="bold">IV&#8311;</text>
+            <text x="289" y="116" font-size="12" fill="#D8F0DD" text-anchor="middle">Bar 6 &bull; C7</text>
+            <!-- Bar 7: I7 -->
+            <rect x="372" y="74" width="150" height="56" rx="6" fill="#1A6B3C" />
+            <text x="447" y="98" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="bold">I&#8311;</text>
+            <text x="447" y="116" font-size="12" fill="#D8F0DD" text-anchor="middle">Bar 7 &bull; G7</text>
+            <!-- Bar 8: I7 -->
+            <rect x="530" y="74" width="150" height="56" rx="6" fill="#1A6B3C" />
+            <text x="605" y="98" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="bold">I&#8311;</text>
+            <text x="605" y="116" font-size="12" fill="#D8F0DD" text-anchor="middle">Bar 8 &bull; G7</text>
+
+            <!-- Row 3 -->
+            <!-- Bar 9: V7 -->
+            <rect x="56" y="134" width="150" height="56" rx="6" fill="#6B4C9A" />
+            <text x="131" y="158" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="bold">V&#8311;</text>
+            <text x="131" y="176" font-size="12" fill="#E9E0F8" text-anchor="middle">Bar 9 &bull; D7</text>
+            <!-- Bar 10: IV7 -->
+            <rect x="214" y="134" width="150" height="56" rx="6" fill="#2A9D5C" />
+            <text x="289" y="158" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="bold">IV&#8311;</text>
+            <text x="289" y="176" font-size="12" fill="#D8F0DD" text-anchor="middle">Bar 10 &bull; C7</text>
+            <!-- Bar 11: I7 -->
+            <rect x="372" y="134" width="150" height="56" rx="6" fill="#1A6B3C" />
+            <text x="447" y="158" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="bold">I&#8311;</text>
+            <text x="447" y="176" font-size="12" fill="#D8F0DD" text-anchor="middle">Bar 11 &bull; G7</text>
+            <!-- Bar 12: V7 turnaround -->
+            <rect x="530" y="134" width="150" height="56" rx="6" fill="#6B4C9A" />
+            <text x="605" y="153" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="bold">V&#8311;</text>
+            <text x="605" y="168" font-size="11" fill="#E9E0F8" text-anchor="middle">Bar 12 &bull; D7</text>
+            <text x="605" y="182" font-size="10" fill="#E9E0F8" text-anchor="middle">turnaround</text>
+
+            <!-- Legend row -->
+            <rect x="56" y="206" width="20" height="14" rx="3" fill="#1A6B3C"/>
+            <text x="82" y="218" font-size="11" fill="#1A6B3C">I7 (home)</text>
+            <rect x="180" y="206" width="20" height="14" rx="3" fill="#2A9D5C"/>
+            <text x="206" y="218" font-size="11" fill="#2A9D5C">IV7 (subdominant)</text>
+            <rect x="340" y="206" width="20" height="14" rx="3" fill="#6B4C9A"/>
+            <text x="366" y="218" font-size="11" fill="#6B4C9A">V7 (dominant / turnaround)</text>
+          </svg>
+          </div>
+          <div style="font-size:15px; color:#666; margin-top:8px; text-align:center;">Bars 1-4: I7. Bars 5-6: IV7. Bars 7-8: I7. Bar 9: V7. Bar 10: IV7. Bars 11-12: I7 then V7 (turnaround back to bar 1).</div>
+        </div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">The <strong>turnaround</strong> (bar 12, V7) pulls the ear back to the start. After the turnaround, bar 1 begins again. Blues can loop this form endlessly for improvisation or stop at any chorus for a composed ending.</p>
+
+        <div style="background: #E7F4EC; border-left: 5px solid #2A9D5C; border-radius: 6px; padding: 14px 20px; margin: 10px 0 0;">
+            <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 8px;">&#128161; KEY POINT</div>
+            <div style="font-size: 17px; color: #0E1C42; line-height: 1.6;">All three chords are <strong>dominant sevenths</strong> (major triad + minor 7th). In functional harmony, only V7 is supposed to be a dominant seventh. Blues uses I7 and IV7 as dominant sevenths too, which gives the entire form a characteristic restless tension even at rest on the tonic.</div>
+        </div>
+    </div>
+
+    <!-- ===================== PART 2: AAB MELODY SHAPE ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#127928; PART 2 &middot; THE AAB MELODY SHAPE</div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">Blues melodies almost always follow an <strong>AAB</strong> phrase pattern even when there are no lyrics. Phrase A (the <em>call</em>) states a musical idea over bars 1-4 (I7). Phrase A' (a <em>variation or repetition</em>) restates the idea over bars 5-8 as the harmony moves to IV7 and back. Phrase B (the <em>response</em>) answers over bars 9-12 as the V7-IV7-I7-V7 sequence closes the chorus.</p>
+
+        <!-- VISUAL 2: AAB phrase-shape diagram over 12 bars -->
+        <div style="background:#FCFCFD; border:1px solid #E2E7F0; border-radius:8px; padding:20px 16px; margin: 6px 0 18px;">
+          <div style="font-size: 16px; color: #0E1C42; font-weight: bold; margin-bottom: 12px; text-align: center;">AAB Phrase Shape Mapped Over the 12-Bar Form</div>
+          <div style="overflow-x: auto;">
+          <svg viewBox="0 0 680 200" width="100%" style="min-width:480px; max-width:680px;" role="img" aria-label="AAB phrase diagram. Top row shows bars 1-4 labeled Phrase A call, bars 5-8 labeled Phrase A-prime variation, bars 9-12 labeled Phrase B response. Below each, the matching chord is shown. A curved arc labeled 'call' spans bars 1-4, a similar arc labeled 'variation' spans bars 5-8, and a taller arc labeled 'response' spans bars 9-12.">
+
+            <!-- Timeline bar -->
+            <rect x="10" y="60" width="660" height="12" rx="4" fill="#D0D9E8"/>
+            <!-- Bar markers -->
+            <line x1="175" y1="55" x2="175" y2="78" stroke="#6b7a99" stroke-width="1"/>
+            <line x1="340" y1="55" x2="340" y2="78" stroke="#6b7a99" stroke-width="1"/>
+            <line x1="505" y1="55" x2="505" y2="78" stroke="#6b7a99" stroke-width="1"/>
+            <!-- Bar labels -->
+            <text x="90"  y="52" font-size="12" fill="#6b7a99" text-anchor="middle">Bars 1-4</text>
+            <text x="257" y="52" font-size="12" fill="#6b7a99" text-anchor="middle">Bars 5-8</text>
+            <text x="424" y="52" font-size="12" fill="#6b7a99" text-anchor="middle">Bars 9-10</text>
+            <text x="590" y="52" font-size="12" fill="#6b7a99" text-anchor="middle">Bars 11-12</text>
+
+            <!-- Phrase A arc -->
+            <path d="M 20,60 Q 90,20 175,60" fill="none" stroke="#2A9D5C" stroke-width="3"/>
+            <text x="90" y="16" font-size="14" fill="#1A6B3C" text-anchor="middle" font-weight="bold">A</text>
+            <text x="90" y="30" font-size="11" fill="#1A6B3C" text-anchor="middle">call</text>
+            <!-- chord under A -->
+            <text x="90" y="92" font-size="12" fill="#1A6B3C" text-anchor="middle">I7</text>
+
+            <!-- Phrase A' arc -->
+            <path d="M 175,60 Q 257,20 340,60" fill="none" stroke="#2A9D5C" stroke-width="3" stroke-dasharray="6,3"/>
+            <text x="257" y="16" font-size="14" fill="#1A6B3C" text-anchor="middle" font-weight="bold">A'</text>
+            <text x="257" y="30" font-size="11" fill="#1A6B3C" text-anchor="middle">variation</text>
+            <!-- chord under A' -->
+            <text x="213" y="92" font-size="12" fill="#2A9D5C" text-anchor="middle">IV7</text>
+            <text x="298" y="92" font-size="12" fill="#1A6B3C" text-anchor="middle">I7</text>
+
+            <!-- Phrase B arc (taller) -->
+            <path d="M 340,60 Q 505,8 670,60" fill="none" stroke="#6B4C9A" stroke-width="3"/>
+            <text x="505" y="6" font-size="14" fill="#6B4C9A" text-anchor="middle" font-weight="bold">B</text>
+            <text x="505" y="20" font-size="11" fill="#6B4C9A" text-anchor="middle">response</text>
+            <!-- chord under B -->
+            <text x="390" y="92" font-size="12" fill="#6B4C9A" text-anchor="middle">V7</text>
+            <text x="455" y="92" font-size="12" fill="#2A9D5C" text-anchor="middle">IV7</text>
+            <text x="548" y="92" font-size="12" fill="#1A6B3C" text-anchor="middle">I7</text>
+            <text x="622" y="92" font-size="12" fill="#6B4C9A" text-anchor="middle">V7&#x2197;</text>
+
+            <!-- Melody contour sketches (decorative arcs within each phrase) -->
+            <!-- A: rise and fall -->
+            <path d="M 22,62 C 60,35 120,35 173,62" fill="none" stroke="#2A9D5C" stroke-width="1.5" opacity="0.4"/>
+            <!-- A': similar rise and fall, slightly varied -->
+            <path d="M 177,62 C 215,38 295,30 338,62" fill="none" stroke="#2A9D5C" stroke-width="1.5" opacity="0.4"/>
+            <!-- B: higher arc, falls firmly to resolution -->
+            <path d="M 342,62 C 420,28 560,22 668,62" fill="none" stroke="#6B4C9A" stroke-width="1.5" opacity="0.4"/>
+
+            <!-- Phrase labels in lower half -->
+            <text x="90" y="130" font-size="13" fill="#1A6B3C" text-anchor="middle" font-weight="bold">Call</text>
+            <text x="90" y="146" font-size="12" fill="#1A6B3C" text-anchor="middle">states the idea</text>
+            <text x="257" y="130" font-size="13" fill="#1A6B3C" text-anchor="middle" font-weight="bold">Variation</text>
+            <text x="257" y="146" font-size="12" fill="#1A6B3C" text-anchor="middle">echoes over IV7</text>
+            <text x="505" y="130" font-size="13" fill="#6B4C9A" text-anchor="middle" font-weight="bold">Response</text>
+            <text x="505" y="146" font-size="12" fill="#6B4C9A" text-anchor="middle">answers &amp; resolves</text>
+
+            <!-- Arrow labels -->
+            <text x="670" y="92" font-size="10" fill="#6B4C9A">&#x2197; turnaround</text>
+
+            <text x="340" y="178" font-size="12" fill="#666" text-anchor="middle">AAB = the melodic architecture of one 12-bar chorus. Repeat the form for multiple choruses.</text>
+          </svg>
+          </div>
+        </div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 10px 0;">The <strong>A phrase</strong> lands on the tonic at the end of bar 4. The <strong>A' phrase</strong> shifts when the harmony moves to IV7 (bar 5), so the melody may need to adjust slightly even if the shape stays similar. The <strong>B phrase</strong> climbs higher in response (bars 9-10) and then falls to a firm close at bar 11, before the turnaround begins.</p>
+
+        <div style="background: #E7F4EC; border-left: 5px solid #2A9D5C; border-radius: 6px; padding: 14px 20px; margin: 10px 0 0;">
+            <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 8px;">&#128161; COMPOSER INSIGHT</div>
+            <div style="font-size: 17px; color: #0E1C42; line-height: 1.6;">A common blues melody strategy: the A phrase ends on a held note or rest (the &ldquo;call&rdquo; leaves space). The B response fills that space with a busier phrase that drives to the cadence. That balance of statement and answer is the engine of blues expressiveness.</div>
+        </div>
+    </div>
+
+    <!-- ===================== PART 3: THE BLUES SCALE ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#127929; PART 3 &middot; THE BLUES SCALE AND BLUE NOTES</div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">The blues scale is a six-note scale: it takes a minor pentatonic scale and adds one note, the <strong>&#9837;5</strong> (the &ldquo;blue note&rdquo;). Three scale degrees carry the blues color: <strong>&#9837;3</strong>, <strong>&#9837;5</strong>, and <strong>&#9837;7</strong>. These minor-inflected pitches played over major dominant harmonies create the blues sound.</p>
+
+        <!-- VISUAL 3: Blues scale with blue notes labeled -->
+        <div style="background:#FCFCFD; border:1px solid #E2E7F0; border-radius:8px; padding:20px 16px; margin: 6px 0 18px;">
+          <div style="font-size: 16px; color: #0E1C42; font-weight: bold; margin-bottom: 14px; text-align: center;">The Blues Scale in G, Six Notes, Three Blue Notes</div>
+          <div style="overflow-x: auto;">
+          <svg viewBox="0 0 640 180" width="100%" style="min-width:440px; max-width:640px;" role="img" aria-label="Blues scale in G. Six notes shown left to right: G (root), B-flat (blue note flat-3), C (4th), D-flat (blue note flat-5), D (5th), F (blue note flat-7), G (octave). The three blue notes B-flat, D-flat, and F are highlighted in purple.">
+
+            <!-- Note boxes: 7 positions (6 notes + octave root) -->
+            <!-- x positions: 20,110,200,290,380,470,560 width 80 -->
+
+            <!-- G root -->
+            <rect x="20" y="30" width="80" height="52" rx="7" fill="#1A6B3C"/>
+            <text x="60" y="52" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">G</text>
+            <text x="60" y="70" font-size="12" fill="#D8F0DD" text-anchor="middle">root</text>
+            <text x="60" y="100" font-size="12" fill="#1A6B3C" text-anchor="middle">1</text>
+
+            <!-- Bb: blue note -->
+            <rect x="110" y="30" width="80" height="52" rx="7" fill="#6B4C9A"/>
+            <text x="150" y="52" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">B&#9837;</text>
+            <text x="150" y="70" font-size="12" fill="#E9E0F8" text-anchor="middle">&#9837;3 &bull; BLUE</text>
+            <text x="150" y="100" font-size="12" fill="#6B4C9A" text-anchor="middle">&#9837;3</text>
+
+            <!-- C -->
+            <rect x="200" y="30" width="80" height="52" rx="7" fill="#1A6B3C"/>
+            <text x="240" y="52" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">C</text>
+            <text x="240" y="70" font-size="12" fill="#D8F0DD" text-anchor="middle">4th</text>
+            <text x="240" y="100" font-size="12" fill="#1A6B3C" text-anchor="middle">4</text>
+
+            <!-- Db: blue note (flat 5) -->
+            <rect x="290" y="30" width="80" height="52" rx="7" fill="#6B4C9A"/>
+            <text x="330" y="52" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">D&#9837;</text>
+            <text x="330" y="70" font-size="12" fill="#E9E0F8" text-anchor="middle">&#9837;5 &bull; BLUE</text>
+            <text x="330" y="100" font-size="12" fill="#6B4C9A" text-anchor="middle">&#9837;5</text>
+
+            <!-- D -->
+            <rect x="380" y="30" width="80" height="52" rx="7" fill="#1A6B3C"/>
+            <text x="420" y="52" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">D</text>
+            <text x="420" y="70" font-size="12" fill="#D8F0DD" text-anchor="middle">5th</text>
+            <text x="420" y="100" font-size="12" fill="#1A6B3C" text-anchor="middle">5</text>
+
+            <!-- F: blue note (flat 7) -->
+            <rect x="470" y="30" width="80" height="52" rx="7" fill="#6B4C9A"/>
+            <text x="510" y="52" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">F</text>
+            <text x="510" y="70" font-size="12" fill="#E9E0F8" text-anchor="middle">&#9837;7 &bull; BLUE</text>
+            <text x="510" y="100" font-size="12" fill="#6B4C9A" text-anchor="middle">&#9837;7</text>
+
+            <!-- G octave -->
+            <rect x="560" y="30" width="72" height="52" rx="7" fill="#1A6B3C"/>
+            <text x="596" y="52" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">G</text>
+            <text x="596" y="70" font-size="12" fill="#D8F0DD" text-anchor="middle">octave</text>
+            <text x="596" y="100" font-size="12" fill="#1A6B3C" text-anchor="middle">8</text>
+
+            <!-- Step intervals below -->
+            <text x="95" y="122" font-size="10" fill="#6b7a99" text-anchor="middle">m3</text>
+            <text x="185" y="122" font-size="10" fill="#6b7a99" text-anchor="middle">H</text>
+            <text x="275" y="122" font-size="10" fill="#6b7a99" text-anchor="middle">H</text>
+            <text x="365" y="122" font-size="10" fill="#6b7a99" text-anchor="middle">H</text>
+            <text x="455" y="122" font-size="10" fill="#6b7a99" text-anchor="middle">m3</text>
+            <text x="548" y="122" font-size="10" fill="#6b7a99" text-anchor="middle">W</text>
+
+            <!-- Legend -->
+            <rect x="20" y="140" width="16" height="12" rx="3" fill="#1A6B3C"/>
+            <text x="42" y="151" font-size="11" fill="#1A6B3C">Scale tones</text>
+            <rect x="160" y="140" width="16" height="12" rx="3" fill="#6B4C9A"/>
+            <text x="182" y="151" font-size="11" fill="#6B4C9A">Blue notes (&#9837;3, &#9837;5, &#9837;7), create the blues &ldquo;color&rdquo;</text>
+          </svg>
+          </div>
+          <div style="font-size:15px; color:#666; margin-top:8px; text-align:center;">The blues scale = minor pentatonic + &#9837;5. Blue notes played over major dominant chords generate the characteristic blues tension.</div>
+        </div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">Notice what makes blue notes special: they are <em>minor</em> intervals (&#9837;3, &#9837;5, &#9837;7) played over <em>major</em> dominant seventh chords. That clash between minor melody and major harmony is the sound of the blues. Blues performers often <strong>bend</strong> blue notes (sliding up from just below the target pitch) or use <strong>vibrato</strong> (oscillating the pitch quickly), effects that standard notation cannot capture.</p>
+
+        <div style="background: #EFEAF6; border-left: 5px solid #6B4C9A; border-radius: 6px; padding: 14px 20px; margin: 10px 0 0;">
+            <div style="font-size: 15px; color: #6B4C9A; margin-bottom: 8px;">&#127925; PERFORMANCE PRACTICE NOTE</div>
+            <div style="font-size: 17px; color: #0E1C42; line-height: 1.6;">You can compose your blues melody in MuseScore or on staff paper, but if you perform it, you are allowed (and encouraged) to add expressive nuances: bends, slides, vibrato. The notation is a map, not the whole territory. In your composer statement, describe the expressive effect you aimed for.</div>
+        </div>
+    </div>
+
+    <!-- ===================== PART 4: CONCEPT CHECK ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #6B4C9A; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #6B4C9A; margin-bottom: 14px;">&#9997;&#65039; PART 4 &middot; CHECK YOUR UNDERSTANDING</div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">Think through each question before you tap. Use the form grid and scale diagrams above.</p>
+
+        <!-- ow-select widget -->
+        <div class="optima-widget ow-select">
+          <div class="widget-kicker">&#9889; CHECK IT &middot; 12-BAR BLUES</div>
+          <div class="widget-question">Four questions on blues form, melody, and scale. Think before you tap.</div>
+
+          <div class="widget-row" data-correct="2" data-fb="Correct. Bar 9 carries the V7 chord (in G: D7). This is the highest harmonic tension point of the form, and it drives the B response phrase to its resolution." data-hint="Look at the form grid. Which chord appears at bar 9?">
+            <div class="widget-row-prompt">1. In the 12-bar blues, the V7 chord first appears at bar&hellip;</div>
+            <div class="widget-options">
+              <button data-choice="0">bar 5</button>
+              <button data-choice="1">bar 7</button>
+              <button data-choice="2">bar 9</button>
+              <button data-choice="3">bar 12</button>
+            </div>
+          </div>
+
+          <div class="widget-row" data-correct="1" data-fb="Correct. The AAB shape maps onto the 12-bar form: A (bars 1-4, call over I7), A' (bars 5-8, variation over IV7-I7), B (bars 9-12, response over V7-IV7-I7-V7)." data-hint="Which letter of the AAB pattern aligns with bars 5-8?">
+            <div class="widget-row-prompt">2. In the AAB blues melody shape, bars 5-8 carry the&hellip;</div>
+            <div class="widget-options">
+              <button data-choice="0">B response phrase</button>
+              <button data-choice="1">A' variation phrase (same idea, shifted for IV7)</button>
+              <button data-choice="2">A call phrase (exact repeat)</button>
+              <button data-choice="3">a wholly new theme</button>
+            </div>
+          </div>
+
+          <div class="widget-row" data-correct="3" data-fb="Correct. The blues scale adds the flat 5 (the tritone blue note) to the minor pentatonic. That gives the six-note blues scale: 1, flat-3, 4, flat-5, 5, flat-7." data-hint="Minor pentatonic has 5 notes. The blues scale has 6. Which note is added?">
+            <div class="widget-row-prompt">3. The blues scale differs from the minor pentatonic scale by adding&hellip;</div>
+            <div class="widget-options">
+              <button data-choice="0">the major 2nd</button>
+              <button data-choice="1">the major 6th</button>
+              <button data-choice="2">the major 7th</button>
+              <button data-choice="3">the &#9837;5 (the tritone blue note)</button>
+            </div>
+          </div>
+
+          <div class="widget-row" data-correct="0" data-fb="Correct. The harmonic tension of the blues comes from minor-inflected pitches (flat-3, flat-5, flat-7) played over major dominant seventh chords. That clash between minor melody and major harmony is the defining blues sound." data-hint="Blue notes are minor intervals. The chords underneath are dominant sevenths (major quality). What happens when they meet?">
+            <div class="widget-row-prompt">4. The blues sound comes from&hellip;</div>
+            <div class="widget-options">
+              <button data-choice="0">minor-inflected blue notes (&#9837;3, &#9837;5, &#9837;7) played over major dominant seventh chords</button>
+              <button data-choice="1">a purely minor scale played over minor chords</button>
+              <button data-choice="2">chromatic passing tones in an otherwise major scale</button>
+              <button data-choice="3">the use of diminished chords on beat 1 of each bar</button>
+            </div>
+          </div>
+
+          <button class="widget-reset">Reset</button>
+        </div>
+    </div>
+
+    <!-- ===================== COMPOSITION BRIEF ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #6B4C9A; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #6B4C9A; margin-bottom: 14px;">&#9997;&#65039; YOUR COMPOSITION TASK</div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">Now you compose. Your task is to write an <strong>original 12-bar blues melody</strong> in any key you like. You are not recreating an existing song. You are building something that has never existed before.</p>
+
+        <div style="background: #EEF1F8; border-left: 5px solid #0E1C42; border-radius: 6px; padding: 16px 20px; margin-bottom: 14px;">
+            <div style="font-size: 16px; color: #0e1c42; font-weight: bold; margin-bottom: 10px;">COMPOSITION REQUIREMENTS</div>
+            <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px;">
+                <div style="min-width: 22px; height: 22px; border-radius: 50%; background: #0E1C42; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+                <div style="font-size: 16px; color: #1a2340; line-height: 1.6;"><strong>12-bar form</strong> with the correct I7-IV7-V7 arrangement. Your melody must cover all 12 bars.</div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px;">
+                <div style="min-width: 22px; height: 22px; border-radius: 50%; background: #0E1C42; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+                <div style="font-size: 16px; color: #1a2340; line-height: 1.6;"><strong>AAB melody shape</strong>: an A phrase (call), an A' phrase (variation), and a B phrase (response).</div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px;">
+                <div style="min-width: 22px; height: 22px; border-radius: 50%; background: #0E1C42; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</div>
+                <div style="font-size: 16px; color: #1a2340; line-height: 1.6;"><strong>Blue notes used expressively</strong>: use at least two of the three blue notes (&#9837;3, &#9837;5, &#9837;7) somewhere in your melody.</div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <div style="min-width: 22px; height: 22px; border-radius: 50%; background: #0E1C42; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">4</div>
+                <div style="font-size: 16px; color: #1a2340; line-height: 1.6;"><strong>Composer statement</strong> (3-5 sentences): describe your call-and-response structure, where you placed blue notes and why, and the expressive quality you aimed for.</div>
+            </div>
+        </div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 10px 0;"><strong>Format:</strong> Submit your melody as a MuseScore file, a PDF of staff notation, or a recording (audio/video). Your composer statement goes in the text submission box. Both are required.</p>
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0;">A playback from notation software counts as a &ldquo;performance&rdquo; if you cannot record live. Sing, play, or use software. You decide.</p>
+    </div>
+
+    <!-- AI AWARENESS CALLOUT -->
+    <div style="background: #FFFFFF; border-top: 3px solid #C7922C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #C7922C; margin-bottom: 12px;">&#129302; WORTH KNOWING &middot; AI AND BLUES COMPOSITION</div>
+        <div style="font-size: 17px; color: #1a2340; line-height: 1.65;">An AI tool could generate a 12-bar blues in moments, complete with a plausible melody and blue notes in the right places. This assignment requires something more specific: the student's own composing within the AAB blues form, performing or exporting the audio, and writing a genuine self-critique. Producing a finished-sounding track is not the point; composing and reflecting on your own choices is.</div>
+    </div>
+
+    <!-- WHAT YOU'LL DO NEXT -->
+    <div style="background: #FFFFFF; border-top: 3px solid #6B4C9A; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #6B4C9A; margin-bottom: 16px;">&#10145;&#65039; WHAT YOU'LL DO NEXT</div>
+        <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px;">
+            <div style="min-width: 34px; height: 34px; border-radius: 50%; background: #6B4C9A; color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+            <div>
+                <div style="font-size: 18px; color: #0e1c42; margin-bottom: 4px;"><strong>Module 34 Blues Concept Check (Canvas quiz)</strong></div>
+                <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">Auto-graded short quiz on the 12-bar form, AAB melody shape, and the blues scale. Multiple attempts allowed.</div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px;">
+            <div style="min-width: 34px; height: 34px; border-radius: 50%; background: #6B4C9A; color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+            <div>
+                <div style="font-size: 18px; color: #0e1c42; margin-bottom: 4px;"><strong>Module 34 Original 12-Bar Blues Melody (Canvas assignment)</strong></div>
+                <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">Submit your melody notation or recording AND your composer statement. Completion-scored with brief feedback from your teacher.</div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 14px;">
+            <div style="min-width: 34px; height: 34px; border-radius: 50%; background: #6B4C9A; color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</div>
+            <div>
+                <div style="font-size: 18px; color: #0e1c42; margin-bottom: 4px;"><strong>Blues Expression Discussion</strong></div>
+                <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">Share one thing from your composer statement and respond to a classmate&rsquo;s approach. Completion-scored.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wrap-up -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 12px;">&#128170; THE ONE THING TO REMEMBER</div>
+        <p style="font-size: 18px; color: #1a2340; line-height: 1.65; margin: 0;">Blues composition is built on three interlocking structures: the <strong>12-bar I7-IV7-V7 form</strong>, the <strong>AAB call-and-response melody shape</strong>, and the <strong>blues scale</strong> (with its &#9837;3, &#9837;5, and &#9837;7 blue notes). The blues sound comes from the tension between minor-inflected melody and major dominant harmony. Your original melody is where those three structures become something personal.</p>
+    </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div style="background: #0E1C42; border-top: 3px solid #55C8E8; padding: 18px 34px; text-align: center;">
+    <div style="font-size: 18px; color: #ffffff; margin-bottom: 6px;"><span style="color: #55c8e8;">Optima Academy Online</span> &middot; M/J MUSIC THEORY 2 &middot; Quarter 4 &middot; Student Lesson Page</div>
+    <div style="font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 4px;">Lesson 34.01 &middot; Blues Composition and Performance</div>
+    <div style="font-size: 12px; color: rgba(255,255,255,0.4);">&copy; Optima Academy Online &middot; An Education Experience Company</div>
+</div>
+
+</div>
+
+<!-- ===== WIDGET RUNTIME ===== -->
+<script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var reset = e.target.closest('.widget-reset');
+    if (reset) {
+      var w = reset.closest('.optima-widget');
+      w.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected', 'correct', 'incorrect'); });
+      w.querySelectorAll('.widget-feedback').forEach(function (f) { f.classList.remove('show'); f.textContent = ''; });
+      w.querySelectorAll('.row-feedback').forEach(function (f) { f.remove(); });
+      w.querySelectorAll('.ow-flip.flipped').forEach(function (c) { c.classList.remove('flipped'); });
+      return;
+    }
+    var rBtn = e.target.closest('.ow-reflect .widget-options button');
+    if (rBtn) {
+      var rw = rBtn.closest('.optima-widget');
+      rw.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected'); });
+      rBtn.classList.add('selected');
+      var fb = rw.querySelector('.widget-feedback');
+      fb.textContent = rBtn.dataset.response || '';
+      fb.classList.add('show');
+      return;
+    }
+    var sBtn = e.target.closest('.ow-select .widget-row .widget-options button');
+    if (sBtn) {
+      var row = sBtn.closest('.widget-row');
+      var correct = row.dataset.correct;
+      row.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected', 'correct', 'incorrect'); });
+      var right = sBtn.dataset.choice === correct;
+      sBtn.classList.add(right ? 'correct' : 'incorrect');
+      var text = right ? (sBtn.dataset.fb || row.dataset.fb || 'Right.') : (sBtn.dataset.fb || row.dataset.hint || 'Not quite. Try again.');
+      var rf = row.querySelector('.row-feedback') || row.appendChild(document.createElement('div'));
+      rf.className = 'row-feedback ' + (right ? 'correct' : 'incorrect');
+      rf.textContent = text;
+      return;
+    }
+    var flip = e.target.closest('.ow-flip');
+    if (flip) { flip.classList.toggle('flipped'); return; }
+  });
+})();
+</script>
+
+</body>
+</html>

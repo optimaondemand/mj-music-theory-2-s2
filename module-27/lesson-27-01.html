@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>M/J Music Theory 2 - Lesson 27.01</title>
+<style>
+    body { margin: 0; padding: 0; font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f4f6fa; }
+    .canvas-frame { max-width: 1100px; margin: 0 auto; background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+    /* ===== WIDGET CSS (green/purple skin) ===== */
+    .optima-widget { background: linear-gradient(135deg, #EFEAF6 0%, #F7F4FB 100%); border: 1px solid #D9CEEC; border-left: 5px solid #6B4C9A; border-radius: 8px; padding: 18px 22px; margin: 18px 0; }
+    .widget-kicker { font-size: 15px; color: #6B4C9A; margin-bottom: 10px; letter-spacing: 0.4px; }
+    .widget-question { font-size: 17px; color: #0E1C42; margin-bottom: 14px; line-height: 1.55; }
+    .widget-row { background: #FFFFFF; border: 1px solid #D9CEEC; border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; }
+    .widget-row-prompt { font-size: 16px; color: #0E1C42; margin-bottom: 8px; line-height: 1.5; font-style: italic; }
+    .widget-options { display: flex; flex-wrap: wrap; gap: 8px; }
+    .widget-options button { background: #FFFFFF; border: 1.5px solid #D9CEEC; border-radius: 8px; padding: 8px 14px; font-size: 16px; color: #0E1C42; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+    .widget-options button:hover { background: #F4F0FA; border-color: #8A6FBF; }
+    .widget-options button.selected { background: #0E1C42; color: #FFFFFF; border-color: #0E1C42; }
+    .widget-options button.correct { background: #D8F0DD; border-color: #2A9D5C; color: #1A6B3D; }
+    .widget-options button.incorrect { background: #FDECEC; border-color: #C0392B; color: #8A1F16; }
+    .widget-feedback { background: #FFFFFF; border-left: 3px solid #6B4C9A; padding: 10px 14px; font-size: 16px; color: #1a2340; line-height: 1.55; margin: 10px 0; display: none; border-radius: 4px; }
+    .widget-feedback.show { display: block; }
+    .row-feedback { padding: 8px 12px; margin-top: 8px; font-size: 16px; border-radius: 4px; line-height: 1.5; }
+    .row-feedback.correct { background: #D8F0DD; border-left: 3px solid #2A9D5C; color: #1A6B3D; }
+    .row-feedback.incorrect { background: #FDECEC; border-left: 3px solid #C0392B; color: #8A1F16; }
+    .widget-reset { background: transparent; border: 1px solid #6B4C9A; color: #6B4C9A; border-radius: 6px; padding: 6px 12px; font-size: 15px; cursor: pointer; font-family: inherit; margin-top: 6px; }
+    .widget-reset:hover { background: #F0EAF7; }
+    .ow-flip { background: #FFFFFF; border: 1px solid #D9CEEC; border-radius: 8px; padding: 18px 20px; cursor: pointer; text-align: center; }
+    .ow-flip .ow-flip-back { display: none; color: #1a2340; }
+    .ow-flip.flipped .ow-flip-front { display: none; }
+    .ow-flip.flipped .ow-flip-back { display: block; }
+    .flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 640px) { .flip-grid { grid-template-columns: 1fr; } }
+    .rn-chip { display:inline-block; min-width:32px; text-align:center; background:#0E1C42; color:#fff; border-radius:5px; padding:2px 10px; font-size:16px; margin:0 3px; font-weight:bold; font-style:italic; }
+</style>
+</head>
+<body>
+<div class="canvas-frame">
+
+<!-- ===== HEADER ===== -->
+<div style="background: #0E1C42; border-bottom: 5px solid #55C8E8; padding: 22px 34px;">
+    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
+        <div style="width: 52px; height: 52px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><img src="https://raw.githubusercontent.com/optimaondemand/optima-assets/eeb0b335630058906d52f478028361d352253a93/images/Optima%20Final%20Circle%20-%20Owl%20Only.png" alt="Optima Academy" style="width: 50px; height: 40px; object-fit: contain;" /></div>
+        <div>
+            <div style="font-size: 28px; color: #ffffff; line-height: 1.2;">Optima Academy Online</div>
+            <div style="font-size: 12px; color: #55c8e8;">An Education Experience Company</div>
+        </div>
+    </div>
+    <div style="font-size: 36px; color: #ffffff; margin-bottom: 6px;">M/J MUSIC THEORY 2</div>
+</div>
+
+<!-- ===== METADATA STRIP ===== -->
+<div style="background: #FFFFFF; border-bottom: 2px solid #D0D9E8; display: flex; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Quarter / Module</div>
+        <div style="font-size: 17px; color: #0e1c42;">Q4 &middot; Module 27</div>
+        <div style="font-size: 12px; color: #666;">Advanced Analysis and Composition</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Lesson</div>
+        <div style="font-size: 17px; color: #0e1c42;">Lesson 27.01</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px; border-right: 1px solid #D0D9E8;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Topic</div>
+        <div style="font-size: 17px; color: #0e1c42; font-style: italic;">Modulation</div>
+    </div>
+    <div style="flex: 1; min-width: 140px; padding: 12px 16px;">
+        <div style="font-size: 11px; color: #6b7a99; margin-bottom: 4px;">Time</div>
+        <div style="font-size: 17px; color: #0e1c42;">About 40 min</div>
+    </div>
+</div>
+
+<!-- ===== BODY WRAPPER ===== -->
+<div style="padding: 24px 34px;">
+
+<!-- ═══ OPTIMA READ-ALOUD PLAYER ═══ -->
+<div id="optima-read-aloud">
+<style>
+    #optima-read-aloud { background: linear-gradient(135deg, #E8F6FB 0%, #F4F9FC 100%); border: 1px solid #C5DCE5; border-left: 5px solid #2196D0; border-radius: 8px; padding: 14px 18px; margin: 0 0 20px 0; }
+    #optima-read-aloud .ora-kicker { font-size: 11px; color: #1B6A94; letter-spacing: 0.4px; margin-bottom: 10px; }
+    #optima-read-aloud .ora-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    #optima-read-aloud .ora-controls button { border-radius: 8px; padding: 8px 16px; font-size: 14px; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    #ora-play { background: #0E1C42; color: #FFFFFF; border: 1.5px solid #0E1C42; }
+    #ora-play:hover:enabled { background: #1B2D5E; }
+    #ora-play:disabled { background: #D0D9E8; border-color: #D0D9E8; color: #6b7a99; cursor: default; }
+    #ora-stop { background: #FFFFFF; color: #0E1C42; border: 1.5px solid #D0D9E8; }
+    #ora-stop:hover:enabled { background: #F4F6FA; border-color: #55C8E8; }
+    #ora-stop:disabled { color: #999; border-color: #E4E9F2; cursor: default; }
+    #optima-read-aloud .ora-speed { font-size: 12px; color: #6b7a99; display: flex; align-items: center; gap: 6px; }
+    #ora-rate { font-family: inherit; font-size: 13px; color: #0E1C42; border: 1.5px solid #D0D9E8; border-radius: 6px; padding: 5px 8px; background: #FFFFFF; }
+    #ora-status { font-size: 12px; color: #666; }
+    .ora-highlight { background: #FDF3E3 !important; box-shadow: inset 4px 0 0 #C7922C; border-radius: 4px; transition: background 0.2s; }
+</style>
+    <div class="ora-kicker">&#128266; READ ALOUD &mdash; LISTEN TO THIS PAGE</div>
+    <div class="ora-controls">
+        <button id="ora-play" type="button" aria-label="Listen to this page">&#9654;&#65039; Listen</button>
+        <button id="ora-stop" type="button" aria-label="Stop reading" disabled>&#9632; Stop</button>
+        <label class="ora-speed">Speed
+            <select id="ora-rate" aria-label="Reading speed">
+                <option value="0.8">Slower</option>
+                <option value="1" selected>Normal</option>
+                <option value="1.25">Faster</option>
+            </select>
+        </label>
+        <span id="ora-status" role="status" aria-live="polite"></span>
+    </div>
+<script>
+(function () {
+    "use strict";
+    var playBtn  = document.getElementById("ora-play");
+    var stopBtn  = document.getElementById("ora-stop");
+    var rateSel  = document.getElementById("ora-rate");
+    var statusEl = document.getElementById("ora-status");
+
+    if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
+        playBtn.disabled = true;
+        rateSel.disabled = true;
+        statusEl.textContent = "Read-aloud is not supported in this browser.";
+        return;
+    }
+
+    var LABEL_PLAY   = "▶️ Listen";
+    var LABEL_PAUSE  = "⏸️ Pause";
+    var LABEL_RESUME = "▶️ Resume";
+    var BLOCK_SEL = "p, li, h1, h2, h3, h4, h5, h6, blockquote, td, th, dt, dd, figcaption, div";
+    var SKIP_SEL  = "#optima-read-aloud, [data-ra-skip], button, script, style, select, noscript, iframe";
+
+    var queue = [];        // [{ el, text }] — one entry per sentence
+    var idx = 0;
+    var playing = false, paused = false, stopping = false;
+    var currentBlock = null;
+    var currentUtterance = null;  // held to dodge a Chrome garbage-collection bug
+
+    var voices = [];
+    function loadVoices() { voices = window.speechSynthesis.getVoices(); }
+    loadVoices();
+    if ("onvoiceschanged" in window.speechSynthesis) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+    function pickVoice() {
+        if (!voices.length) loadVoices();
+        var en = voices.filter(function (v) { return /^en/i.test(v.lang); });
+        return en.filter(function (v) { return /natural/i.test(v.name); })[0]
+            || en.filter(function (v) { return /google us english/i.test(v.name); })[0]
+            || en.filter(function (v) { return v.default; })[0]
+            || en[0] || null;
+    }
+
+    function isVisible(el) {
+        return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+    }
+
+    // Walk text nodes, attach each to its nearest block ancestor, split into sentences.
+    function collectQueue() {
+        var root = document.querySelector("[data-readaloud-root]")
+                || document.querySelector(".canvas-frame")
+                || document.body;
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        var items = [];   // [{ el, text }] — one entry per block, in reading order
+        var node;
+        while ((node = walker.nextNode())) {
+            if (!/\S/.test(node.textContent)) continue;
+            var el = node.parentElement;
+            if (!el || el.closest(SKIP_SEL)) continue;
+            if (!isVisible(el)) continue;
+            var block = el.closest(BLOCK_SEL) || root;
+            var last = items[items.length - 1];
+            if (last && last.el === block) last.text += " " + node.textContent;
+            else items.push({ el: block, text: node.textContent });
+        }
+        var q = [];
+        items.forEach(function (item) {
+            var clean = item.text.replace(/\s+/g, " ").trim();
+            if (!clean) return;
+            var sentences = clean.match(/[^.!?]+[.!?]+[”"')\]]*\s*|[^.!?]+$/g) || [clean];
+            sentences.forEach(function (s) {
+                s = s.trim();
+                if (s) q.push({ el: item.el, text: s });
+            });
+        });
+        return q;
+    }
+
+    function highlight(el) {
+        if (el === currentBlock) return;
+        clearHighlight();
+        currentBlock = el;
+        if (el && el !== document.body) {
+            el.classList.add("ora-highlight");
+            try { el.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (e) {}
+        }
+    }
+    function clearHighlight() {
+        if (currentBlock) currentBlock.classList.remove("ora-highlight");
+        currentBlock = null;
+    }
+
+    function speakNext() {
+        if (idx >= queue.length) { finish("Finished reading this page."); return; }
+        var item = queue[idx];
+        highlight(item.el);
+        var u = new SpeechSynthesisUtterance(item.text);
+        u.rate = parseFloat(rateSel.value) || 1;
+        var v = pickVoice();
+        if (v) u.voice = v;
+        u.onend = function () {
+            if (stopping) return;
+            idx++;
+            speakNext();
+        };
+        u.onerror = function (e) {
+            if (stopping || e.error === "canceled" || e.error === "interrupted") return;
+            idx++;
+            speakNext();
+        };
+        currentUtterance = u;
+        window.speechSynthesis.speak(u);
+        statusEl.textContent = "Reading… " + (idx + 1) + " / " + queue.length;
+    }
+
+    function finish(message) {
+        playing = false;
+        paused = false;
+        clearHighlight();
+        playBtn.textContent = LABEL_PLAY;
+        stopBtn.disabled = true;
+        statusEl.textContent = message || "";
+        currentUtterance = null;
+    }
+
+    playBtn.addEventListener("click", function () {
+        if (playing && !paused) {
+            window.speechSynthesis.pause();
+            paused = true;
+            playBtn.textContent = LABEL_RESUME;
+            statusEl.textContent = "Paused";
+            return;
+        }
+        if (playing && paused) {
+            window.speechSynthesis.resume();
+            paused = false;
+            playBtn.textContent = LABEL_PAUSE;
+            statusEl.textContent = "Reading… " + (idx + 1) + " / " + queue.length;
+            return;
+        }
+        queue = collectQueue();
+        if (!queue.length) { statusEl.textContent = "Nothing to read on this page."; return; }
+        idx = 0;
+        stopping = false;
+        playing = true;
+        paused = false;
+        window.speechSynthesis.cancel();
+        playBtn.textContent = LABEL_PAUSE;
+        stopBtn.disabled = false;
+        speakNext();
+    });
+
+    stopBtn.addEventListener("click", function () {
+        stopping = true;
+        window.speechSynthesis.cancel();
+        finish("");
+    });
+
+    // Changing speed mid-read restarts the current sentence at the new rate.
+    rateSel.addEventListener("change", function () {
+        if (!playing || paused) return;
+        stopping = true;
+        window.speechSynthesis.cancel();
+        setTimeout(function () { stopping = false; speakNext(); }, 60);
+    });
+
+    window.addEventListener("pagehide", function () { window.speechSynthesis.cancel(); });
+})();
+</script>
+</div>
+<!-- ═══ END OPTIMA READ-ALOUD PLAYER ═══ -->
+
+    <!-- title strip -->
+    <div style="background: #EEF1F8; border-left: 5px solid #0E1C42; border-radius: 7px; padding: 18px 22px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #0e1c42; margin-bottom: 6px;">LESSON 27.01</div>
+        <div style="font-size: 22px; color: #0e1c42; margin-bottom: 4px;">Modulation: Moving Between Keys</div>
+        <div style="font-size: 16px; color: #666;">Lesson</div>
+    </div>
+
+    <!-- Today's Focus -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 12px;">&#127925; TODAY'S FOCUS</div>
+        <div style="font-size: 20px; color: #0e1c42; font-style: italic; margin-bottom: 10px;">When music changes key, how do composers get from one tonal center to another? And how do analysts tell the difference between a brief visit and a full relocation?</div>
+        <div style="font-size: 18px; color: #1a2340; line-height: 1.65;">Tonicization is a brief visit to another chord's neighborhood: one or two secondary dominants, then back home. Modulation is a full move: the music commits to a new key center, establishes it with a cadence, and stays long enough that the listener forgets where home was. This lesson covers three ways composers accomplish that move: the smooth pivot chord, the dream-like common-tone, and the abrupt direct modulation you hear in pop songs.</div>
+    </div>
+
+    <!-- Objectives -->
+    <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#127919; BY THE END OF THIS LESSON YOU WILL BE ABLE TO&hellip;</div>
+        <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+            <div style="min-width: 26px; height: 26px; border-radius: 50%; background: #2A9D5C; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.65;"><strong>I will be able to</strong> distinguish tonicization from modulation using the criteria of duration and cadential commitment.</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+            <div style="min-width: 26px; height: 26px; border-radius: 50%; background: #2A9D5C; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.65;"><strong>I will be able to</strong> analyze a pivot chord modulation and label the pivot chord with dual Roman numerals (function in both keys).</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div style="min-width: 26px; height: 26px; border-radius: 50%; background: #2A9D5C; color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</div>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.65;"><strong>I will be able to</strong> identify a direct (chromatic) modulation by the sudden change of key center and explain its expressive effect.</div>
+        </div>
+    </div>
+
+    <!-- Materials -->
+    <div style="background: #FFFFFF; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#128203; WHAT YOU NEED FOR THIS LESSON</div>
+        <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; border-left: 3px solid #BFE3CC; padding-left: 14px;"><span style="color: #1A6B3C; font-size: 18px; flex-shrink: 0;">&#9654;</span>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.6;">Open Music Theory v2 at viva.pressbooks.pub/openmusictheory: read <em>Extended Tonicization and Modulation</em> (p. 449) and <em>Chromatic Modulation</em> (p. 485).</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; border-left: 3px solid #BFE3CC; padding-left: 14px;"><span style="color: #1A6B3C; font-size: 18px; flex-shrink: 0;">&#9654;</span>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.6;">Your Music Theory notebook and staff paper (or MuseScore) for the pivot chord labeling exercise.</div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 10px; border-left: 3px solid #BFE3CC; padding-left: 14px;"><span style="color: #1A6B3C; font-size: 18px; flex-shrink: 0;">&#9654;</span>
+            <div style="font-size: 18px; color: #1a2340; line-height: 1.6;">Headphones. Posted recordings of pivot and direct modulations are linked in the practice assignment. Listen before you analyze.</div>
+        </div>
+    </div>
+
+    <!-- ===================== PART 1: TONICIZATION vs MODULATION ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#127926; PART 1 &middot; TONICIZATION VS. MODULATION</div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">Both tonicization and modulation involve chords that point toward a pitch other than the main tonic. The difference is <strong>duration and commitment</strong>. A secondary dominant that resolves and moves on is tonicization. A passage that establishes a new key with a cadence and stays there long enough to feel settled is a modulation.</p>
+
+        <!-- VISUAL 1: Tonicization vs Modulation comparison diagram -->
+        <div style="background:#FCFCFD; border:1px solid #E2E7F0; border-radius:8px; padding:20px 16px; text-align:center; margin: 6px 0 18px; overflow-x:auto;">
+          <svg viewBox="0 0 680 260" width="100%" style="min-width:420px; max-width:680px;" role="img" aria-label="Side-by-side comparison of tonicization and modulation. Left side: tonicization visits G then returns to C. Right side: modulation leaves C and stays in G.">
+
+            <!-- Dividing line -->
+            <line x1="340" y1="10" x2="340" y2="250" stroke="#D0D9E8" stroke-width="1.5" stroke-dasharray="6,4" />
+
+            <!-- Left header: Tonicization -->
+            <rect x="10" y="10" width="320" height="36" rx="6" fill="#E7F4EC" />
+            <text x="170" y="33" font-size="14" fill="#1A6B3C" text-anchor="middle" font-weight="bold">TONICIZATION (brief visit)</text>
+
+            <!-- Right header: Modulation -->
+            <rect x="350" y="10" width="320" height="36" rx="6" fill="#EFEAF6" />
+            <text x="510" y="33" font-size="14" fill="#6B4C9A" text-anchor="middle" font-weight="bold">MODULATION (full move)</text>
+
+            <!-- Left: chord flow boxes -->
+            <!-- C (I) -->
+            <rect x="20" y="60" width="60" height="34" rx="5" fill="#0E1C42" />
+            <text x="50" y="82" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">I (C)</text>
+            <!-- arrow -->
+            <text x="92" y="82" font-size="16" fill="#1A6B3C" text-anchor="middle">&#8594;</text>
+            <!-- V/V (secondary dom) -->
+            <rect x="108" y="60" width="70" height="34" rx="5" fill="#2A9D5C" />
+            <text x="143" y="78" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">V/V</text>
+            <text x="143" y="90" font-size="11" fill="#fff" text-anchor="middle">(D7)</text>
+            <!-- arrow -->
+            <text x="189" y="82" font-size="16" fill="#1A6B3C" text-anchor="middle">&#8594;</text>
+            <!-- V (G) -->
+            <rect x="200" y="60" width="50" height="34" rx="5" fill="#2A9D5C" />
+            <text x="225" y="82" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">V (G)</text>
+            <!-- arrow -->
+            <text x="262" y="82" font-size="16" fill="#C0392B" text-anchor="middle">&#8594;</text>
+            <!-- back to I -->
+            <rect x="274" y="60" width="46" height="34" rx="5" fill="#0E1C42" />
+            <text x="297" y="82" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">I (C)</text>
+
+            <!-- Left caption -->
+            <text x="170" y="114" font-size="12" fill="#1A6B3C" text-anchor="middle">V/V points toward G, but</text>
+            <text x="170" y="130" font-size="12" fill="#1A6B3C" text-anchor="middle">music returns to C immediately.</text>
+            <text x="170" y="146" font-size="12" fill="#666" text-anchor="middle">= Tonicization: no new key established.</text>
+
+            <rect x="20" y="158" width="300" height="80" rx="6" fill="#E7F4EC" stroke="#2A9D5C" stroke-width="1" />
+            <text x="170" y="178" font-size="12" fill="#1A6B3C" text-anchor="middle" font-weight="bold">Duration test: short</text>
+            <text x="170" y="195" font-size="12" fill="#1a2340" text-anchor="middle">1 secondary dominant, then back.</text>
+            <text x="170" y="212" font-size="12" fill="#1a2340" text-anchor="middle">No cadence in the new "key."</text>
+            <text x="170" y="229" font-size="12" fill="#1a2340" text-anchor="middle">Old tonic never abandoned.</text>
+
+            <!-- Right: chord flow -->
+            <!-- C (I) -->
+            <rect x="358" y="60" width="52" height="34" rx="5" fill="#0E1C42" />
+            <text x="384" y="82" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">I (C)</text>
+            <!-- arrow -->
+            <text x="421" y="82" font-size="16" fill="#6B4C9A" text-anchor="middle">&#8594;</text>
+            <!-- pivot -->
+            <rect x="434" y="52" width="74" height="50" rx="5" fill="#6B4C9A" />
+            <text x="471" y="71" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">PIVOT</text>
+            <text x="471" y="84" font-size="11" fill="#fff" text-anchor="middle">IV in C</text>
+            <text x="471" y="97" font-size="11" fill="#fff" text-anchor="middle">= I in G</text>
+            <!-- arrow -->
+            <text x="519" y="82" font-size="16" fill="#6B4C9A" text-anchor="middle">&#8594;</text>
+            <!-- V in G -->
+            <rect x="530" y="60" width="60" height="34" rx="5" fill="#8A6FBF" />
+            <text x="560" y="78" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">V (D)</text>
+            <text x="560" y="90" font-size="11" fill="#fff" text-anchor="middle">in G</text>
+            <!-- arrow -->
+            <text x="601" y="82" font-size="16" fill="#6B4C9A" text-anchor="middle">&#8594;</text>
+            <!-- I in G -->
+            <rect x="612" y="60" width="54" height="34" rx="5" fill="#0E1C42" />
+            <text x="639" y="78" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">I (G)</text>
+            <text x="639" y="90" font-size="11" fill="#fff" text-anchor="middle">NEW</text>
+
+            <!-- Right caption -->
+            <text x="510" y="114" font-size="12" fill="#6B4C9A" text-anchor="middle">Music pivots to G and cadences there.</text>
+            <text x="510" y="130" font-size="12" fill="#6B4C9A" text-anchor="middle">G is now the new tonic.</text>
+            <text x="510" y="146" font-size="12" fill="#666" text-anchor="middle">= Modulation: new key established.</text>
+
+            <rect x="358" y="158" width="300" height="80" rx="6" fill="#EFEAF6" stroke="#6B4C9A" stroke-width="1" />
+            <text x="510" y="178" font-size="12" fill="#6B4C9A" text-anchor="middle" font-weight="bold">Duration test: extended</text>
+            <text x="510" y="195" font-size="12" fill="#1a2340" text-anchor="middle">Multiple phrases in the new key.</text>
+            <text x="510" y="212" font-size="12" fill="#1a2340" text-anchor="middle">Cadence in the new key.</text>
+            <text x="510" y="229" font-size="12" fill="#1a2340" text-anchor="middle">Old tonic recedes from memory.</text>
+          </svg>
+        </div>
+
+        <div style="background: #E7F4EC; border-left: 5px solid #2A9D5C; border-radius: 6px; padding: 14px 20px; margin: 10px 0 0;">
+            <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 8px;">&#128161; THE RULE</div>
+            <div style="font-size: 17px; color: #0E1C42; line-height: 1.6;">If the new key is established with a cadence and multiple phrases, it is a modulation. If a secondary dominant resolves and the original key continues uninterrupted, it is tonicization only. When in doubt, ask: does the music feel like it has moved home, or just visited?</div>
+        </div>
+    </div>
+
+    <!-- ===================== PART 2: PIVOT CHORD MODULATION ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#127928; PART 2 &middot; PIVOT CHORD MODULATION</div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">The smoothest way to change keys is to find a chord that belongs to <em>both</em> the old key and the new key. That chord is the <strong>pivot chord</strong>. The listener hears it as part of the original key; the music then uses the new key's harmonic logic to cadence in the new key. The pivot is labeled with <strong>dual Roman numerals</strong>: its function in the old key on top, its function in the new key below.</p>
+
+        <!-- VISUAL 2: Pivot chord dual Roman numeral diagram -->
+        <div style="background:#FCFCFD; border:1px solid #E2E7F0; border-radius:8px; padding:20px 16px; text-align:center; margin: 6px 0 18px; overflow-x:auto;">
+          <svg viewBox="0 0 680 300" width="100%" style="min-width:420px; max-width:680px;" role="img" aria-label="Pivot chord modulation from C major to G major. The chord F-A-C is IV in C major and I in F major; the pivot chord F-A-C is shown with dual labels. Below, a modulation from C major to G major shows the chord C-E-G as I in C and IV in G.">
+
+            <!-- Title -->
+            <text x="340" y="22" font-size="14" fill="#0E1C42" text-anchor="middle" font-weight="bold">Pivot Chord: Dual Roman Numeral Labeling</text>
+
+            <!-- Example 1: C major to F major -->
+            <!-- Label area -->
+            <rect x="10" y="34" width="320" height="24" rx="4" fill="#E7F4EC" />
+            <text x="170" y="51" font-size="12" fill="#1A6B3C" text-anchor="middle" font-weight="bold">Modulation: C major &rarr; F major</text>
+
+            <!-- Chord boxes: I (C) -> pivot -> V (C in F) -> I (F) -->
+            <rect x="14" y="68" width="56" height="36" rx="5" fill="#0E1C42" />
+            <text x="42" y="91" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">I</text>
+            <text x="42" y="104" font-size="10" fill="#aaa" text-anchor="middle">C</text>
+
+            <text x="82" y="91" font-size="18" fill="#1A6B3C" text-anchor="middle">&#8594;</text>
+
+            <!-- Pivot box (F-A-C) -->
+            <rect x="95" y="58" width="80" height="60" rx="5" fill="#6B4C9A" stroke="#0E1C42" stroke-width="2" />
+            <text x="135" y="74" font-size="10" fill="#55C8E8" text-anchor="middle">old key:</text>
+            <text x="135" y="87" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">IV in C</text>
+            <text x="135" y="99" font-size="10" fill="#55C8E8" text-anchor="middle">new key:</text>
+            <text x="135" y="112" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">I in F</text>
+
+            <text x="186" y="91" font-size="18" fill="#6B4C9A" text-anchor="middle">&#8594;</text>
+
+            <rect x="196" y="68" width="56" height="36" rx="5" fill="#8A6FBF" />
+            <text x="224" y="85" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">V</text>
+            <text x="224" y="98" font-size="10" fill="#fff" text-anchor="middle">in F</text>
+
+            <text x="263" y="91" font-size="18" fill="#6B4C9A" text-anchor="middle">&#8594;</text>
+
+            <rect x="272" y="68" width="54" height="36" rx="5" fill="#0E1C42" />
+            <text x="299" y="85" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">I</text>
+            <text x="299" y="98" font-size="10" fill="#55C8E8" text-anchor="middle">NEW: F</text>
+
+            <!-- Annotation -->
+            <text x="135" y="132" font-size="11" fill="#6B4C9A" text-anchor="middle">The chord F-A-C is IV in C and I in F.</text>
+            <text x="135" y="146" font-size="11" fill="#666" text-anchor="middle">The pivot moment is where the key shifts.</text>
+
+            <!-- Divider -->
+            <line x1="10" y1="156" x2="330" y2="156" stroke="#D0D9E8" stroke-width="1" />
+
+            <!-- Example 2: C major to G major -->
+            <rect x="10" y="164" width="320" height="24" rx="4" fill="#EFEAF6" />
+            <text x="170" y="181" font-size="12" fill="#6B4C9A" text-anchor="middle" font-weight="bold">Modulation: C major &rarr; G major</text>
+
+            <!-- I (C) -> pivot (C-E-G = I in C = IV in G) -> V (D in G) -> I (G) -->
+            <rect x="14" y="198" width="56" height="36" rx="5" fill="#0E1C42" />
+            <text x="42" y="221" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">I</text>
+            <text x="42" y="234" font-size="10" fill="#aaa" text-anchor="middle">C</text>
+
+            <text x="82" y="221" font-size="18" fill="#1A6B3C" text-anchor="middle">&#8594;</text>
+
+            <rect x="95" y="188" width="80" height="60" rx="5" fill="#6B4C9A" stroke="#0E1C42" stroke-width="2" />
+            <text x="135" y="204" font-size="10" fill="#55C8E8" text-anchor="middle">old key:</text>
+            <text x="135" y="217" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">I in C</text>
+            <text x="135" y="229" font-size="10" fill="#55C8E8" text-anchor="middle">new key:</text>
+            <text x="135" y="242" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">IV in G</text>
+
+            <text x="186" y="221" font-size="18" fill="#6B4C9A" text-anchor="middle">&#8594;</text>
+
+            <rect x="196" y="198" width="56" height="36" rx="5" fill="#8A6FBF" />
+            <text x="224" y="215" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">V</text>
+            <text x="224" y="228" font-size="10" fill="#fff" text-anchor="middle">in G</text>
+
+            <text x="263" y="221" font-size="18" fill="#6B4C9A" text-anchor="middle">&#8594;</text>
+
+            <rect x="272" y="198" width="54" height="36" rx="5" fill="#0E1C42" />
+            <text x="299" y="215" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">I</text>
+            <text x="299" y="228" font-size="10" fill="#55C8E8" text-anchor="middle">NEW: G</text>
+
+            <text x="135" y="264" font-size="11" fill="#6B4C9A" text-anchor="middle">C-E-G is I in C and IV in G.</text>
+            <text x="135" y="278" font-size="11" fill="#666" text-anchor="middle">Closest related keys share the most chords.</text>
+
+            <!-- Right side: Keys commonly modulated to -->
+            <rect x="350" y="34" width="320" height="254" rx="8" fill="#FCFCFD" stroke="#D0D9E8" />
+            <text x="510" y="56" font-size="13" fill="#0E1C42" text-anchor="middle" font-weight="bold">Common Modulation Targets</text>
+            <text x="510" y="76" font-size="12" fill="#1A6B3C" text-anchor="middle" font-weight="bold">From a MAJOR key:</text>
+            <text x="510" y="94" font-size="12" fill="#1a2340" text-anchor="middle">Dominant (V) -- 1 sharp added</text>
+            <text x="510" y="110" font-size="12" fill="#1a2340" text-anchor="middle">Relative minor (vi) -- same key sig</text>
+            <text x="510" y="126" font-size="12" fill="#1a2340" text-anchor="middle">Subdominant (IV) -- 1 flat added</text>
+            <line x1="370" y1="140" x2="660" y2="140" stroke="#D0D9E8" stroke-width="1" />
+            <text x="510" y="158" font-size="12" fill="#6B4C9A" text-anchor="middle" font-weight="bold">From a MINOR key:</text>
+            <text x="510" y="176" font-size="12" fill="#1a2340" text-anchor="middle">Relative major (III) -- same key sig</text>
+            <text x="510" y="192" font-size="12" fill="#1a2340" text-anchor="middle">Dominant minor (v) -- 1 sharp added</text>
+            <text x="510" y="208" font-size="12" fill="#1a2340" text-anchor="middle">Subtonic (VII) -- 1 flat added</text>
+            <line x1="370" y1="222" x2="660" y2="222" stroke="#D0D9E8" stroke-width="1" />
+            <text x="510" y="242" font-size="11" fill="#666" text-anchor="middle">Closely related keys differ by only</text>
+            <text x="510" y="258" font-size="11" fill="#666" text-anchor="middle">one sharp or flat -- the smoothest pivots.</text>
+            <text x="510" y="274" font-size="11" fill="#666" text-anchor="middle">More distant keys require more preparation.</text>
+          </svg>
+        </div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 12px 0;"><strong>How to find the pivot chord:</strong> (1) Identify where the new key begins (look for the first cadence in the new key or the first chord that only makes sense in the new key). (2) Look just before that point for the last chord that works in both the old and new key. (3) Label it with dual Roman numerals, old key on top and new key below. (4) Continue analysis in the new key from that chord forward.</p>
+
+        <div style="background: #EFEAF6; border-left: 5px solid #6B4C9A; border-radius: 6px; padding: 14px 20px; margin: 10px 0 0;">
+            <div style="font-size: 15px; color: #6B4C9A; margin-bottom: 8px;">&#9889; COMMON-TONE MODULATION</div>
+            <div style="font-size: 17px; color: #0E1C42; line-height: 1.6;">A related technique (OMT p. 452): a single pitch is sustained while the harmony around it changes to the new key. The retained pitch provides a thread of continuity while the tonal center shifts. Common-tone modulations create a dream-like or floating effect. Listen for a held or repeated note while the chord underneath suddenly changes character.</div>
+        </div>
+    </div>
+
+    <!-- ===================== PART 3: DIRECT MODULATION ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 14px;">&#127926; PART 3 &middot; DIRECT (CHROMATIC) MODULATION</div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">A <strong>direct modulation</strong> (also called chromatic modulation) does not use a pivot chord. The key simply changes: one phrase ends in the old key, the next begins in the new key without preparation. The effect is abrupt, often energizing or dramatic. It is the most common modulation technique in pop and Romantic music.</p>
+
+        <!-- VISUAL 3: Truck-driver modulation diagram -->
+        <div style="background:#FCFCFD; border:1px solid #E2E7F0; border-radius:8px; padding:18px 16px; margin: 6px 0 18px; overflow-x:auto;">
+          <svg viewBox="0 0 680 200" width="100%" style="min-width:420px; max-width:680px;" role="img" aria-label="Truck-driver direct modulation: chorus in A-flat, then final chorus in B-flat, a whole step up. No pivot chord. Abrupt key change.">
+            <text x="340" y="22" font-size="14" fill="#0E1C42" text-anchor="middle" font-weight="bold">Direct Modulation: The "Truck-Driver" Up-a-Step</text>
+            <text x="340" y="40" font-size="12" fill="#666" text-anchor="middle">(Common in pop and Romantic music; named "truck-driver" for its blunt, unmistakable effect)</text>
+
+            <!-- Verse block -->
+            <rect x="20" y="54" width="180" height="52" rx="8" fill="#0E1C42" />
+            <text x="110" y="76" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">Chorus in A&#9837; major</text>
+            <text x="110" y="93" font-size="12" fill="#aaa" text-anchor="middle">I -- IV -- V -- I</text>
+            <text x="110" y="107" font-size="11" fill="#55C8E8" text-anchor="middle">(familiar key)</text>
+
+            <!-- Arrow with "NO PIVOT" label -->
+            <text x="280" y="80" font-size="22" fill="#C0392B" text-anchor="middle">&#8658;</text>
+            <rect x="228" y="87" width="104" height="24" rx="5" fill="#C0392B" />
+            <text x="280" y="103" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">NO PIVOT</text>
+            <text x="280" y="118" font-size="11" fill="#C0392B" text-anchor="middle">abrupt shift</text>
+
+            <!-- Final chorus block -->
+            <rect x="360" y="54" width="200" height="52" rx="8" fill="#6B4C9A" />
+            <text x="460" y="76" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">Final Chorus in B&#9837; major</text>
+            <text x="460" y="93" font-size="12" fill="#EFEAF6" text-anchor="middle">I -- IV -- V -- I</text>
+            <text x="460" y="107" font-size="11" fill="#55C8E8" text-anchor="middle">(one whole step higher)</text>
+
+            <!-- Energy arrow -->
+            <text x="590" y="82" font-size="22" fill="#2A9D5C" text-anchor="middle">&#8679;</text>
+            <text x="630" y="72" font-size="12" fill="#2A9D5C" text-anchor="middle">Energy</text>
+            <text x="630" y="86" font-size="12" fill="#2A9D5C" text-anchor="middle">surge</text>
+            <text x="630" y="100" font-size="12" fill="#2A9D5C" text-anchor="middle">+1 step</text>
+
+            <!-- Bottom notes -->
+            <rect x="20" y="118" width="640" height="70" rx="6" fill="#EEF1F8" />
+            <text x="340" y="140" font-size="13" fill="#0E1C42" text-anchor="middle" font-weight="bold">Why it works:</text>
+            <text x="340" y="157" font-size="12" fill="#1a2340" text-anchor="middle">The listener's ear expects repetition. The sudden shift upward breaks that expectation -- the music feels</text>
+            <text x="340" y="172" font-size="12" fill="#1a2340" text-anchor="middle">more intense, more urgent. The key rising a half step or whole step for the final chorus is called the</text>
+            <text x="340" y="187" font-size="12" fill="#6B4C9A" text-anchor="middle" font-weight="bold">"truck-driver modulation" (or climax modulation). Very common in pop ballads.</text>
+          </svg>
+        </div>
+
+        <div style="background: #FDECEC; border-left: 5px solid #C0392B; border-radius: 6px; padding: 14px 20px; margin: 4px 0 14px;">
+            <div style="font-size: 15px; color: #8A1F16; margin-bottom: 8px;">&#9888; HOW TO IDENTIFY IT</div>
+            <div style="font-size: 17px; color: #0E1C42; line-height: 1.6;">If you see a sudden key change (new key signature or a cluster of accidentals pointing to a new center) <em>without</em> a preceding pivot chord, you have a direct modulation. Look for: (1) a clear cadence in the old key; (2) an immediate start in the new key on the next downbeat; (3) no chord that can be labeled in both keys. Often the new key is just a half step or whole step higher than the old one.</div>
+        </div>
+    </div>
+
+    <!-- ===================== PART 4: INTERACTIVE CHECK ===================== -->
+    <div style="background: #FFFFFF; border-top: 3px solid #6B4C9A; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #6B4C9A; margin-bottom: 14px;">&#9889; PART 4 &middot; CHECK YOUR UNDERSTANDING</div>
+
+        <p style="font-size: 17px; color: #1a2340; line-height: 1.65; margin: 0 0 14px 0;">Think through each question using the diagrams above before you tap. Write your answer in your notebook, then check it here.</p>
+
+        <!-- Flip cards: modulation types -->
+        <div style="font-size: 16px; color: #6B4C9A; margin: 10px 0 8px;">&#128161; TAP EACH CARD to review the three modulation types:</div>
+        <div class="flip-grid">
+          <div class="optima-widget" style="margin:0;">
+            <div class="ow-flip" tabindex="0">
+              <div class="ow-flip-front" style="font-size:17px;color:#0E1C42;">Pivot chord modulation<br><span style="font-size:16px;color:#666;">(tap to review)</span></div>
+              <div class="ow-flip-back" style="font-size:16px;line-height:1.55;">Smooth. A chord that functions in both the old and new key is reinterpreted as the listener's attention shifts to the new key. Label with dual Roman numerals: old key on top, new key below. Example: <span class="rn-chip">IV</span> in C = <span class="rn-chip">I</span> in F. Most common in Classical-era music.</div>
+            </div>
+            <button class="widget-reset">Reset</button>
+          </div>
+          <div class="optima-widget" style="margin:0;">
+            <div class="ow-flip" tabindex="0">
+              <div class="ow-flip-front" style="font-size:17px;color:#0E1C42;">Common-tone modulation<br><span style="font-size:16px;color:#666;">(tap to review)</span></div>
+              <div class="ow-flip-back" style="font-size:16px;line-height:1.55;">Dream-like. A single pitch is held or repeated while the surrounding harmony changes to the new key. The retained note is the thread of continuity. The listener hears a floating shift as the old tonic dissolves under the held pitch.</div>
+            </div>
+            <button class="widget-reset">Reset</button>
+          </div>
+        </div>
+        <div class="optima-widget" style="margin-top:12px;">
+            <div class="ow-flip" tabindex="0">
+              <div class="ow-flip-front" style="font-size:17px;color:#0E1C42;">Direct (chromatic) modulation<br><span style="font-size:16px;color:#666;">(tap to review)</span></div>
+              <div class="ow-flip-back" style="font-size:16px;line-height:1.55;">Abrupt. No pivot. The old key cadences, and the new key simply begins. Creates a jolt of energy. Common in pop ("truck-driver" up a step for the final chorus) and Romantic music. Identify by: sudden new accidentals or key signature with no preparation in the preceding measure.</div>
+            </div>
+            <button class="widget-reset">Reset</button>
+        </div>
+
+        <!-- ow-select quiz -->
+        <div class="optima-widget ow-select" style="margin-top:18px;">
+          <div class="widget-kicker">&#9889; CHECK IT &middot; MODULATION</div>
+          <div class="widget-question">Four questions on modulation. Think before you tap.</div>
+
+          <div class="widget-row" data-correct="3" data-fb="Correct. Modulation requires the new key to be established with a cadence and sustained long enough for the listener to accept it as home. A single secondary dominant that resolves back is tonicization." data-hint="What is the difference between tonicization and modulation? Think about duration and commitment.">
+            <div class="widget-row-prompt">1. Which statement best distinguishes modulation from tonicization?</div>
+            <div class="widget-options">
+              <button data-choice="0">Modulation uses secondary dominants; tonicization uses pivot chords.</button>
+              <button data-choice="1">Tonicization always uses a key signature change; modulation does not.</button>
+              <button data-choice="2">Modulation is only possible from major to minor.</button>
+              <button data-choice="3">Modulation establishes a new key with a cadence and extended stay; tonicization is a brief secondary-dominant visit.</button>
+            </div>
+          </div>
+
+          <div class="widget-row" data-correct="1" data-fb="Correct. In a modulation from C major to G major, the chord C-E-G functions as I in C major and as IV in G major. Label it with both Roman numerals." data-hint="What chord belongs to both C major and G major? Think about which diatonic triads are shared.">
+            <div class="widget-row-prompt">2. In a pivot chord modulation from C major to G major, the chord C-E-G (the tonic chord of C) can also be labeled as what in G major?</div>
+            <div class="widget-options">
+              <button data-choice="0">V in G major</button>
+              <button data-choice="1">IV in G major</button>
+              <button data-choice="2">ii in G major</button>
+              <button data-choice="3">VII in G major</button>
+            </div>
+          </div>
+
+          <div class="widget-row" data-correct="0" data-fb="Correct. A direct modulation has no pivot chord; the key simply changes at the phrase boundary. The 'truck-driver' modulation (key rises a step for the final chorus) is the classic pop example." data-hint="Which type of modulation is abrupt, with no pivot chord?">
+            <div class="widget-row-prompt">3. A pop song ends each chorus in A-flat major, then for the final chorus the music suddenly shifts to B-flat major with no preparation. This is a&hellip;</div>
+            <div class="widget-options">
+              <button data-choice="0">direct (chromatic) modulation</button>
+              <button data-choice="1">pivot chord modulation</button>
+              <button data-choice="2">common-tone modulation</button>
+              <button data-choice="3">tonicization only</button>
+            </div>
+          </div>
+
+          <div class="widget-row" data-correct="2" data-fb="Correct. Closely related keys share many chords (they differ by only one sharp or flat), making it easy to find a pivot chord that belongs to both. Distantly related keys share fewer chords and require more preparation." data-hint="Why are some keys easier to modulate between than others?">
+            <div class="widget-row-prompt">4. Modulations between closely related keys (those differing by only one sharp or flat) are smoothest because&hellip;</div>
+            <div class="widget-options">
+              <button data-choice="0">they use direct modulation exclusively</button>
+              <button data-choice="1">the listener cannot hear the key change</button>
+              <button data-choice="2">they share many common chords, making it easy to find a pivot</button>
+              <button data-choice="3">they always begin on the same tonic pitch</button>
+            </div>
+          </div>
+
+          <button class="widget-reset">Reset</button>
+        </div>
+    </div>
+
+    <!-- AI AWARENESS CALLOUT -->
+    <div style="background: #FFFFFF; border-top: 3px solid #C7922C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #C7922C; margin-bottom: 12px;">&#129302; WORTH KNOWING &middot; AI REHARMONIZATION AND ANALYTICAL JUDGMENT</div>
+        <div style="font-size: 17px; color: #1a2340; line-height: 1.65;">An AI reharmonization tool can insert what looks like a modulation into a chord progression the moment you ask for one. Deciding whether a real passage in a piece of music is a true modulation or only a brief tonicization is an analytical judgment call, weighing duration, cadence, and whether the ear accepts a new home. That judgment is exactly what this lesson teaches, and no tool can settle it for you.</div>
+    </div>
+
+    <!-- WHAT YOU'LL DO NEXT -->
+    <div style="background: #FFFFFF; border-top: 3px solid #6B4C9A; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #6B4C9A; margin-bottom: 16px;">&#10145;&#65039; WHAT YOU'LL DO NEXT</div>
+        <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px;">
+            <div style="min-width: 34px; height: 34px; border-radius: 50%; background: #6B4C9A; color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+            <div>
+                <div style="font-size: 18px; color: #0e1c42; margin-bottom: 4px;"><strong>Pivot Chord Analysis (Canvas assignment)</strong></div>
+                <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">Listen to posted recordings and label pivot chords in provided score excerpts using dual Roman numerals. Complete all parts in a Word document and submit to Canvas.</div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px;">
+            <div style="min-width: 34px; height: 34px; border-radius: 50%; background: #6B4C9A; color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+            <div>
+                <div style="font-size: 18px; color: #0e1c42; margin-bottom: 4px;"><strong>Module 27 Modulation Check (Canvas quiz)</strong></div>
+                <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">Auto-graded quiz on tonicization vs. modulation, pivot chord labeling, and direct modulation identification. Multiple attempts allowed.</div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 14px;">
+            <div style="min-width: 34px; height: 34px; border-radius: 50%; background: #C0392B; color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</div>
+            <div>
+                <div style="font-size: 18px; color: #0e1c42; margin-bottom: 4px;"><strong>Q3 Cross-Genre Analysis and Composition</strong></div>
+                <div style="font-size: 16px; color: #1a2340; line-height: 1.55;">Teacher-graded assessment covering Q3 material. Full details in the Canvas assignment below. Estimated time: 45-60 minutes. Submit to Canvas when complete.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wrap-up -->
+    <div style="background: #FFFFFF; border-top: 3px solid #2A9D5C; border: 1px solid #D0D9E8; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="font-size: 15px; color: #1A6B3C; margin-bottom: 12px;">&#128170; THE ONE THING TO REMEMBER</div>
+        <p style="font-size: 18px; color: #1a2340; line-height: 1.65; margin: 0;">Modulation = a sustained key change confirmed by a cadence. The three tools are: the <strong>pivot chord</strong> (smooth, dual Roman numeral label), the <strong>common-tone</strong> (dream-like, single held pitch), and the <strong>direct modulation</strong> (abrupt, no preparation, dramatic energy). When you analyze a score, ask first: has the key actually moved, or is this just a secondary dominant visiting?</p>
+    </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div style="background: #0E1C42; border-top: 3px solid #55C8E8; padding: 18px 34px; text-align: center;">
+    <div style="font-size: 18px; color: #ffffff; margin-bottom: 6px;"><span style="color: #55c8e8;">Optima Academy Online</span> &middot; M/J MUSIC THEORY 2 &middot; Quarter 4 &middot; Student Lesson Page</div>
+    <div style="font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 4px;">Lesson 27.01 &middot; Modulation</div>
+    <div style="font-size: 12px; color: rgba(255,255,255,0.4);">&copy; Optima Academy Online &middot; An Education Experience Company</div>
+</div>
+
+</div>
+
+<!-- ===== WIDGET RUNTIME ===== -->
+<script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var reset = e.target.closest('.widget-reset');
+    if (reset) {
+      var w = reset.closest('.optima-widget');
+      w.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected', 'correct', 'incorrect'); });
+      w.querySelectorAll('.widget-feedback').forEach(function (f) { f.classList.remove('show'); f.textContent = ''; });
+      w.querySelectorAll('.row-feedback').forEach(function (f) { f.remove(); });
+      w.querySelectorAll('.ow-flip.flipped').forEach(function (c) { c.classList.remove('flipped'); });
+      return;
+    }
+    var rBtn = e.target.closest('.ow-reflect .widget-options button');
+    if (rBtn) {
+      var rw = rBtn.closest('.optima-widget');
+      rw.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected'); });
+      rBtn.classList.add('selected');
+      var fb = rw.querySelector('.widget-feedback');
+      fb.textContent = rBtn.dataset.response || '';
+      fb.classList.add('show');
+      return;
+    }
+    var sBtn = e.target.closest('.ow-select .widget-row .widget-options button');
+    if (sBtn) {
+      var row = sBtn.closest('.widget-row');
+      var correct = row.dataset.correct;
+      row.querySelectorAll('.widget-options button').forEach(function (b) { b.classList.remove('selected', 'correct', 'incorrect'); });
+      var right = sBtn.dataset.choice === correct;
+      sBtn.classList.add(right ? 'correct' : 'incorrect');
+      var text = right ? (sBtn.dataset.fb || row.dataset.fb || 'Right.') : (sBtn.dataset.fb || row.dataset.hint || 'Not quite. Try again.');
+      var rf = row.querySelector('.row-feedback') || row.appendChild(document.createElement('div'));
+      rf.className = 'row-feedback ' + (right ? 'correct' : 'incorrect');
+      rf.textContent = text;
+      return;
+    }
+    var flip = e.target.closest('.ow-flip');
+    if (flip) { flip.classList.toggle('flipped'); return; }
+  });
+})();
+</script>
+
+</body>
+</html>
